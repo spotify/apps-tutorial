@@ -19,13 +19,13 @@
 		{
 			"arguments": "tab_1",
 			"title": {
-				"en": "Tab 1"
+				"en": "Home"
 			}
 		},
 		{
 			"arguments": "tab_2",
 			"title": {
-				"en": "Tab 2"
+				"en": "Using Tabs"
 			}
         }
 	],
