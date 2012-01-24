@@ -3,7 +3,7 @@
     <head>
         <style>
             @import url('sp://import/css/eve.css');
-            h1 {color:#363636;}
+            @import url('sp://test/css/main.css');
         </style>
         <script src="js/jquery.min.js"></script>
         <script>
@@ -11,22 +11,24 @@
                 sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
                 console.log(models);
+                models.application.observe(models.EVENT.ACTIVATE, function() {
+                    console.log("Application activated!");
+                });
             });
         </script>
     </head>
     <body>
-        <div id="tab_1" class="section">
+        <div id="wrapper">
             <h1>Spotify Apps API Tutorials</h1>
             <ul>
+                <li><a href="sp://test/Library.html">Accessing the user's library</a></li>
+                <!--
                 <li><a href="sp://test/User.html">The User object</a></li>
                 <li><a href="sp://test/Playlist.html">The Playlist object</a></li>
                 <li><a href="sp://test/Track.html">Get the currently playing track</a></li>
                 <li><a href="sp://test/Search.html">Search the Spotify catalog</a></li>
-                <li><a href="sp://test/Library.html">Mess around with the user's Library</a></li>
+                -->
             </ul>
-        </div>
-        <div id="tab_2" class="section">
-            <h1>Hi!</h1>
-        </div>
+        </div><!-- /wrapper -->
     </body>
 </html>

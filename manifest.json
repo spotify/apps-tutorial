@@ -4,32 +4,31 @@
 		"album",
 		"artist",
 		"track",
-		"playlist"
+		"playlist",
+		"user"
 	],
 	"AppIcon": {
 		"36x18": "tutorial.png"
 	},
 	"AppName": {
-		"en": "Test"
+		"en": "Spotify Sandbox"
 	},
 	"SupportedLanguages": [
 		"en"
 	],
 	"DefaultTabs": [
 		{
-			"arguments": "tab_1",
+			"arguments": "home_tab",
 			"title": {
 				"en": "Home"
 			}
 		},
 		{
-			"arguments": "tab_2",
+			"arguments": "library_tab",
 			"title": {
-				"en": "Using Tabs"
+				"en": "Library"
 			}
         }
 	],
-	"RequiredPermissions": [
-		"https://googleapis.com"
-	]
+	"RequiredPermissions": []
 }
