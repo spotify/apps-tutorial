@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @import url('sp://import/css/adam.css');
+            body {font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;}
+            h1 {color:#fff;}
+        </style>
+        <script src="js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+                var library = models.library;
+                for(var i=0;i<library.albums.length;i++) {
+                    $('#library').append('<li>'+ library.albums[i].data.name  +'</li>');
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <ul class="breadcrumb"><li><a href="sp://test/index.html">&laquo; Back to main page</a></li></ul>
+        <h1>Accessing a user's library</h1>
+        <ul id="library"></ul>
+    </body>
+</html>

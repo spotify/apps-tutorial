@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @import url('sp://import/css/adam.css')
+            body {background:#fff;}
+            h1 {color:#fe6;}
+        </style>
+        <script>
+            sp = getSpotifyApi(1);
+            var models = sp.require('sp://import/scripts/api/models');
+            var currentTrack = models.player.track;
+            console.log(currentTrack);
+        </script>
+    </head>
+    <body>
+        <h1>Get the currently playing track</h1>
+    </body>
+</html>

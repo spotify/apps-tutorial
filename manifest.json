@@ -1,0 +1,35 @@
+{
+	"BundleType": "Application",
+	"AcceptedLinkTypes":[
+		"album",
+		"artist",
+		"track",
+		"playlist"
+	],
+	"AppIcon": {
+		"36x18": "tutorial.png"
+	},
+	"AppName": {
+		"en": "Test"
+	},
+	"SupportedLanguages": [
+		"en"
+	],
+	"DefaultTabs": [
+		{
+			"arguments": "tab_1",
+			"title": {
+				"en": "Tab 1"
+			}
+		},
+		{
+			"arguments": "tab_2",
+			"title": {
+				"en": "Tab 2"
+			}
+        }
+	],
+	"RequiredPermissions": [
+		"https://googleapis.com"
+	]
+}
