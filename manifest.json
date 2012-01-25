@@ -30,5 +30,7 @@
 			}
         }
 	],
-	"RequiredPermissions": []
+	"RequiredPermissions": [
+	    "http://api.twitter.com"
+	]
 }
