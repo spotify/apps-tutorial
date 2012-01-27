@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <script type="text/javascript" src="js/prettify.js"></script>
+        <link href="css/prettify.css" type="text/css" rel="stylesheet" />
+        <link href="css/desert.css" type="text/css" rel="stylesheet" />
+
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://import/css/list.css');
             @import url('sp://import/css/player.css');
             @import url('sp://test/css/main.css');
         </style>
+
         <script src="js/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
                 sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
                 var views = sp.require("sp://import/scripts/api/views");
-                var library = models.library,
-                    tracks = library.tracks;
+
+                var tracks = models.library.tracks;
                 var tempPlaylist = new models.Playlist();
                 for(var i=0;i<20;i++) {
                     tempPlaylist.add(models.Track.fromURI(tracks[i].data.uri));
                 }
-                var playlistArt = new views.Player();
-                playlistArt.track = tempPlaylist.get(0);
-                playlistArt.context = tempPlaylist;
-                $('#player').append(playlistArt.node);
-                var playlistList = new views.List(tempPlaylist);
-                $('#player').append(playlistList.node);
+
+                var player = new views.Player();
+                player.track = tempPlaylist.get(0);
+                player.context = tempPlaylist;
+                $('#player').append(player.node);
+                var playlist = new views.List(tempPlaylist);
+                $('#player').append(playlist.node);
+
+                prettyPrint();
             });
         </script>
     </head>
@@ -35,7 +44,18 @@
             </ul>
 
             <h1>Accessing a user's library</h1>
-            <ul id="library"></ul>
+            <p class="description">This snippet of code retrieves the user's 20 latest songs added to their Library.</p>
+            <h3>The CSS</h3>
+<pre class="prettyprint lang-css">
+&lt;style&gt;                                                                   
+  @import url(&#39;sp://import/css/eve.css&#39;);                               
+  @import url(&#39;sp://import/css/list.css&#39;);                              
+  @import url(&#39;sp://import/css/player.css&#39;);                            
+
+  #player .sp-player {float:left;margin-right:10px;}
+  #player .sp-list {width:inherit;max-height:inherit;}
+&lt;/style&gt;</pre>
+            <h3>Live Example</h3>
             <div id="player"></div>
         </div><!-- /wrapper -->
     </body>
