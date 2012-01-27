@@ -3,6 +3,8 @@
     <head>
         <style>
             @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/list.css');
+            @import url('sp://import/css/player.css');
             @import url('sp://test/css/main.css');
         </style>
         <script src="js/jquery.min.js"></script>
@@ -10,10 +12,19 @@
             $(document).ready(function() {
                 sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
-                var library = models.library;
+                var views = sp.require("sp://import/scripts/api/views");
+                var library = models.library,
+                    tracks = library.tracks;
+                var tempPlaylist = new models.Playlist();
                 for(var i=0;i<20;i++) {
-                    $('#library').append('<li>'+ library.albums[i].data.name  +'</li>');
+                    tempPlaylist.add(models.Track.fromURI(tracks[i].data.uri));
                 }
+                var playlistArt = new views.Player();
+                playlistArt.track = tempPlaylist.get(0);
+                playlistArt.context = tempPlaylist;
+                $('#player').append(playlistArt.node);
+                var playlistList = new views.List(tempPlaylist);
+                $('#player').append(playlistList.node);
             });
         </script>
     </head>
@@ -25,6 +36,7 @@
 
             <h1>Accessing a user's library</h1>
             <ul id="library"></ul>
+            <div id="player"></div>
         </div><!-- /wrapper -->
     </body>
 </html>

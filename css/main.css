@@ -7,3 +7,8 @@ section {position: relative;overflow: hidden;margin: 0 0 40px;}
 
 /* Text */
 h1 {font-size:2em;}
+
+
+/* Player */
+#player .sp-player {float:left;margin-right:10px;}
+#player .sp-list {width:inherit;max-height:inherit;}
