@@ -26,13 +26,13 @@
   .typ { color: #404; font-weight: bold }
   .lit { color: #044 }
   .pun, .opn, .clo { color: #440 }
-  .tag { color: #006; font-weight: bold }
+  .tag { color: #006; }
   .atn { color: #404 }
   .atv { color: #060 }
 }
 
 /* Put a border around prettyprinted code snippets. */
-pre.prettyprint { padding: 20px; border: 1px solid #888; -webkit-border-radius: 10px;font-size:16px;}
+pre.prettyprint { padding: 20px; border: 1px solid #888; -webkit-border-radius: 10px;font-size:16px; font-weight:thin !important;font-family: Menlo, Monaco, "Courier New", monospace;}
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */

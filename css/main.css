@@ -8,7 +8,7 @@ html pre {text-shadow:none;}
 
 /* Text */
 h1 {font-size:2em;}
-.description {font-size:1.5em;font-style:italic;font-family:Georgia;padding:0 0 20px;}
+.description {font-size:1.5em;font-style:italic;font-family:Georgia;padding:0 0 25px;line-height:20px;}
 
 
 /* Player */

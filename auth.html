@@ -16,8 +16,17 @@
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
-                var models = sp.require("sp://import/scripts/api/models");
-                var views = sp.require("sp://import/scripts/api/views");
+                var auth = sp.require('sp://import/scripts/api/auth');
+
+                auth.authenticateWithFacebook('MY_APP_ID', ['user_about_me', 'user_checkins'], {
+                    onSuccess : function(accessToken, ttl) {
+                        console.log("Success! Here's the access token: " + accessToken);
+                    },
+                    onFailure : function(error) {
+                        console.log("Authentication failed with error: " + error);
+                    },
+                    onComplete : function() { }
+                });
 
                 prettyPrint();
             });
@@ -29,8 +38,8 @@
                 <li><a href="sp://test/index.html">&laquo; Back to main page</a></li>
             </ul>
 
-            <h1>Title of tutorial</h1>
-            <p class="description">Description of tutorial</p>
+            <h1>Authenticate a user with Facebook</h1>
+            <p class="description">Here, we'll attempt to authenticate a user from Facebook.</p>
 
             <h3>The Javascript</h3>
 <pre class="prettyprint lang-js">

@@ -7,6 +7,7 @@
         <link href="css/desert.css" type="text/css" rel="stylesheet" />
 
         <style>
+            @import url("sp://import/css/api.css");
             @import url('sp://import/css/eve.css');
             @import url('sp://import/css/list.css');
             @import url('sp://import/css/player.css');
@@ -17,7 +18,7 @@
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
-                sp = getSpotifyApi(1);
+                var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
                 var views = sp.require("sp://import/scripts/api/views");
 
@@ -65,7 +66,7 @@
 &lt;script&gt;
     $(document).ready(function() {
         /* Instantiate the global sp object; include models &amp; views */
-        sp = getSpotifyApi(1);
+        var sp = getSpotifyApi(1);
         var models = sp.require(&quot;sp://import/scripts/api/models&quot;);
         var views = sp.require(&quot;sp://import/scripts/api/views&quot;);
 
