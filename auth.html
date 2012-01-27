@@ -18,9 +18,11 @@
                 var sp = getSpotifyApi(1);
                 var auth = sp.require('sp://import/scripts/api/auth');
 
-                auth.authenticateWithFacebook('MY_APP_ID', ['user_about_me', 'user_checkins'], {
+                auth.authenticateWithFacebook('126891607432106', ['user_about_me', 'user_checkins'], {
                     onSuccess : function(accessToken, ttl) {
-                        console.log("Success! Here's the access token: " + accessToken);
+                        $('#status > p').append("<p>" + accessToken + "</p>");
+                        console.log(accessToken);
+
                     },
                     onFailure : function(error) {
                         console.log("Authentication failed with error: " + error);
@@ -48,17 +50,25 @@
     $(document).ready(function() {
         /* Instantiate the global sp object; include models &amp; views */
         sp = getSpotifyApi(1);
-        var models = sp.require(&quot;sp://import/scripts/api/models&quot;);
-        var views = sp.require(&quot;sp://import/scripts/api/views&quot;);
-        
-        // More JS!
+        var auth = sp.require(&quot;sp://import/scripts/api/auth&quot;);
 
+         auth.authenticateWithFacebook(&#39;YOUR_APP_ID&#39;, [&#39;user_about_me&#39;], {
+            onSuccess : function(accessToken, ttl) {
+                $(&#39;#status &gt; p&#39;).append(&quot;&lt;p&gt;&quot; + accessToken + &quot;&lt;/p&gt;&quot;);
+            }, onFailure : function(error) {
+                console.log(&quot;Failed with error: &quot; + error);
+            }, onComplete : function() { 
+                // More JS!
+            }
+        });                
     });
 &lt;/script&gt;</pre>
 
             <h3>The HTML</h3>
 <pre class="prettyprint lang-html">
-&lt;body&gt;                                                                   
+&lt;body&gt;
+    &lt;div id=&quot;status&quot;&gt;&lt;p&gt;If you&#39;ve successfully authenticated with
+    Facebook, this should be your access token:&lt;/p&gt;&lt;/div&gt;
 &lt;/body&gt;</pre>
 
             <h3>The CSS</h3>
@@ -67,7 +77,7 @@
   @import url(&#39;sp://import/css/eve.css&#39;);                               
 &lt;/style&gt;</pre>
             <h3>Live Example</h3>
-            <div id="player"></div>
+            <div id="status"><p>If you've successfully authenticated with Facebook, this should be your access token:</p></div>
         </div><!-- /wrapper -->
     </body>
 </html>
