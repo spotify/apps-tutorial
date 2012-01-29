@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <script type="text/javascript" src="js/prettify.js"></script>
+        <link href="css/prettify.css" type="text/css" rel="stylesheet" />
+        <link href="css/desert.css" type="text/css" rel="stylesheet" />
+
+        <style>
+            @import url("sp://import/css/api.css");
+            @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/player.css');
+            @import url('sp://test/css/main.css');
+        </style>
+
+        <script src="js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+                var views = sp.require("sp://import/scripts/api/views");
+                var player = models.player;
+
+                /* Create an array of tracks from the user's library */
+                player.track = models.Track.fromURI('spotify:track:7DJI0fg4dzBJk31sEmn6Zk');
+                console.log(player.track);
+
+                /* */
+                //var player = new views.Player();
+                var playerView= new views.Player();
+                playerView.track = player.track;
+                playerView.context = player.track;
+                console.log(playerView);
+
+                /* Pass the player HTML code to the #player <div /> */
+                $('#player').append(playerView.node);
+
+                prettyPrint();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://test/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Play a single song</h1>
+            <p class="description">This snippet of code plays a hardcoded Spotify URI.</p>
+
+            <h3>The Javascript</h3>
+<pre class="prettyprint lang-js">
+&lt;script src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(document).ready(function() {
+        /* Instantiate the global sp object; include models &amp; views */
+        var sp = getSpotifyApi(1);
+        var models = sp.require(&quot;sp://import/scripts/api/models&quot;);
+        var views = sp.require(&quot;sp://import/scripts/api/views&quot;);
+
+        // Update this when the code actually works
+    });
+&lt;/script&gt;</pre>
+
+            <h3>The HTML</h3>
+<pre class="prettyprint lang-html">
+&lt;body&gt;                                                                   
+  &lt;div id="player"&gt;&lt;/div&gt;
+&lt;/body&gt;</pre>
+
+            <h3>The CSS</h3>
+<pre class="prettyprint lang-css">
+&lt;style&gt;                                                                   
+  @import url(&#39;sp://import/css/eve.css&#39;);                               
+  @import url(&#39;sp://import/css/player.css&#39;);                            
+&lt;/style&gt;</pre>
+            <h3>Live Example</h3>
+            <div id="player"></div>
+        </div><!-- /wrapper -->
+    </body>
+</html>
