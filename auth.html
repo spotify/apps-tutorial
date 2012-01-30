@@ -12,6 +12,7 @@
         </style>
 
         <script src="js/jquery.min.js"></script>
+        <script src="http://connect.facebook.net/en_US/all.js"></script>
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -23,6 +24,9 @@
                         $('#status > p').append("<p>" + accessToken + "</p>");
                         console.log(accessToken);
 
+                        var url = 'http://graph.facebook.com/mager';
+                        var me = $.getJSON(url);
+                        console.log(me);
                     },
                     onFailure : function(error) {
                         console.log("Authentication failed with error: " + error);

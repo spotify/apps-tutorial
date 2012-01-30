@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <script type="text/javascript" src="js/prettify.js"></script>
+        <link href="css/prettify.css" type="text/css" rel="stylesheet" />
+        <link href="css/desert.css" type="text/css" rel="stylesheet" />
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://test/css/main.css');
+        </style>
+
+        <script src="js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+
+                // get the track that is currently playing
+                var currentTrack = models.player.track;
+    
+                // if nothing currently playing
+                if (currentTrack == null) {
+                    console.log("No track currently playing");
+                } else {
+                    var track = currentTrack;
+                    var artist = track.artists[0].name;
+                    console.log(track, artist);
+                }
+
+                prettyPrint();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://test/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Get the currently-playing track</h1>
+            <p class="description">Description of tutorial</p>
+
+            <h3>The Javascript</h3>
+<pre class="prettyprint lang-js">
+&lt;script src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(document).ready(function() {
+        /* Instantiate the global sp object; include models &amp; views */
+        sp = getSpotifyApi(1);
+        var models = sp.require(&quot;sp://import/scripts/api/models&quot;);
+        var views = sp.require(&quot;sp://import/scripts/api/views&quot;);
+        
+        // More JS!
+
+    });
+&lt;/script&gt;</pre>
+
+            <h3>The HTML</h3>
+<pre class="prettyprint lang-html">
+&lt;body&gt;                                                                   
+&lt;/body&gt;</pre>
+
+            <h3>The CSS</h3>
+<pre class="prettyprint lang-css">
+&lt;style&gt;                                                                   
+  @import url(&#39;sp://import/css/eve.css&#39;);                               
+&lt;/style&gt;</pre>
+            <h3>Live Example</h3>
+            <div id="player"></div>
+        </div><!-- /wrapper -->
+    </body>
+</html>
