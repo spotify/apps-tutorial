@@ -20,17 +20,18 @@
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
                 var views = sp.require("sp://import/scripts/api/views");
-                var player = models.player;
 
                 /* Create an array of tracks from the user's library */
-                player.track = models.Track.fromURI('spotify:track:7DJI0fg4dzBJk31sEmn6Zk');
-                console.log(player.track);
+                var track = models.Track.fromURI('spotify:track:7DJI0fg4dzBJk31sEmn6Zk');
+                console.log(track);
 
                 /* */
-                //var player = new views.Player();
+                var playlist = new models.Playlist();
+                playlist.add(track);
+                console.log(playlist);
                 var playerView= new views.Player();
-                playerView.track = player.track;
-                playerView.context = player.track;
+                playerView.track = null;
+                playerView.context = playlist;
                 console.log(playerView);
 
                 /* Pass the player HTML code to the #player <div /> */
