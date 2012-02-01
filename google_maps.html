@@ -9,31 +9,18 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://test/css/main.css');
-            #playme {width:600px;height:200px;border:1px solid #333;}
+            #map {width:400px;height:400px;border:1px solid #333;}
         </style>
 
-        <script src="js/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                /* Instantiate the global sp object; include models & views */
-                var sp = getSpotifyApi(1);
-                var models = sp.require("sp://import/scripts/api/models");
-
-                var player = models.player;
-                var track = models.Track.fromURI('spotify:track:749SJvmRHD43wFUnBtUJ36');
-                var image = new Image();
-                //image.source = track.album.data.cover;
-                console.log(image);
-
-                $('#playme').click(function(){
-                    player.playing = !(player.playing);
-                });
-
-                prettyPrint();
-            });
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC_u7G-WCRtxPtppBaJQeRBC1KcItqLG1k&sensor=false"></script>
+        <script type="text/javascript">
+            function initialize() {
+                var opts = {center: new google.maps.LatLng(-34.397, 150.644),zoom: 8,mapTypeId: google.maps.MapTypeId.ROADMAP};
+                var map = new google.maps.Map(document.getElementById("map"), opts);
+            }
         </script>
     </head>
-    <body>
+    <body onload="initialize()">
         <div id="wrapper">
             <ul class="breadcrumb">
                 <li><a href="sp://test/index.html">&laquo; Back to main page</a></li>
@@ -68,7 +55,7 @@
   @import url(&#39;sp://import/css/eve.css&#39;);                               
 &lt;/style&gt;</pre>
             <h3>Live Example</h3>
-            <div id="playme"></div>
+            <div id="map"></div>
         </div><!-- /wrapper -->
     </body>
 </html>
