@@ -33,6 +33,11 @@
 	"RequiredPermissions": [
 	    "http://api.twitter.com",
 	    "http://o.scdn.co",
-	    "http://maps.googleapis.com"
+	    "http://maps.googleapis.com",
+	    "https://raw.github.com",
+	    "http://tile.cloudmade.com",
+	    "http://a.tile.cloudmade.com",
+	    "http://b.tile.cloudmade.com",
+	    "http://c.tile.cloudmade.com"
 	]
 }
