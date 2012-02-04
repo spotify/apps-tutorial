@@ -26,7 +26,6 @@
                         jQuery.getJSON(url, function(data) {
                             var listens = data.data;
                             for(var i=0;i<listens.length;i++) {
-                                console.log(listens[i]);
                                 var tracklink = listens[i].data.song.url;
                                 var trackname = listens[i].data.song.title;
                                 $('#listens').append('<li><a href="' + tracklink + '">' + trackname + '</a></li>');
