@@ -38,6 +38,7 @@
 	    "http://tile.cloudmade.com",
 	    "http://a.tile.cloudmade.com",
 	    "http://b.tile.cloudmade.com",
-	    "http://c.tile.cloudmade.com"
+	    "http://c.tile.cloudmade.com",
+	    "https://graph.facebook.com"
 	]
 }

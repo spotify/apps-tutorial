@@ -19,14 +19,10 @@
                 var sp = getSpotifyApi(1);
                 var auth = sp.require('sp://import/scripts/api/auth');
 
-                auth.authenticateWithFacebook('126891607432106', ['user_about_me', 'user_checkins'], {
+                var permissions = ['user_about_me'];
+                auth.authenticateWithFacebook('126891607432106', permissions, {
                     onSuccess : function(accessToken, ttl) {
                         $('#status > p').append("<p>" + accessToken + "</p>");
-                        console.log(accessToken);
-
-                        var url = 'http://graph.facebook.com/mager';
-                        var me = $.getJSON(url);
-                        console.log(me);
                     },
                     onFailure : function(error) {
                         console.log("Authentication failed with error: " + error);
