@@ -39,6 +39,7 @@
 	    "http://a.tile.cloudmade.com",
 	    "http://b.tile.cloudmade.com",
 	    "http://c.tile.cloudmade.com",
-	    "https://graph.facebook.com"
+	    "https://graph.facebook.com",
+	    "https://gist.github.com/"
 	]
 }
