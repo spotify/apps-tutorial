@@ -2,17 +2,12 @@
 <html>
     <head>
 
-        <script type="text/javascript" src="js/prettify.js"></script>
-        <link href="css/prettify.css" type="text/css" rel="stylesheet" />
-        <link href="css/desert.css" type="text/css" rel="stylesheet" />
-
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-sandbox/css/main.css');
         </style>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="http://connect.facebook.net/en_US/all.js"></script>
+        <script src="sp://spotify-apps-sandbox/js/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -20,10 +15,12 @@
                 var auth = sp.require('sp://import/scripts/api/auth');
 
                 var permissions = ['user_actions.music'];
-                auth.authenticateWithFacebook('126891607432106', permissions, {
+                var app_id = '126891607432106';
+                var request_url = 'https://graph.facebook.com/me/music.listens';
+                auth.authenticateWithFacebook(app_id, permissions, {
                     onSuccess : function(accessToken, ttl) {
-                        var url = 'https://graph.facebook.com/me/music.listens?access_token=' + accessToken;
-                        jQuery.getJSON(url, function(data) {
+                        var url = request_url + '?access_token=' + accessToken;
+                        $.getJSON(url, function(data) {
                             var listens = data.data;
                             for(var i=0;i<listens.length;i++) {
                                 var tracklink = listens[i].data.song.url;
@@ -37,56 +34,26 @@
                     },
                     onComplete : function() { }
                 });
-
-                prettyPrint();
             });
         </script>
     </head>
     <body>
         <div id="wrapper">
             <ul class="breadcrumb">
-                <li><a href="sp://spotify-apps-sandbox/tutorials/index.html">&laquo; Back to main page</a></li>
+                <li><a href="sp://spotify-apps-sandbox/index.html">&laquo; Back to main page</a></li>
             </ul>
 
             <h1>Get a user's listening history from Facebook</h1>
             <p class="description">Here, we'll attempt to authenticate a user from Facebook using the <code>user_actions.music</code> permission.</p>
 
             <h3>The Javascript</h3>
-<pre class="prettyprint lang-js">
-&lt;script src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-    $(document).ready(function() {
-        /* Instantiate the global sp object; include models &amp; views */
-        sp = getSpotifyApi(1);
-        var auth = sp.require(&quot;sp://import/scripts/api/auth&quot;);
-
-         auth.authenticateWithFacebook(&#39;YOUR_APP_ID&#39;, [&#39;user_about_me&#39;], {
-            onSuccess : function(accessToken, ttl) {
-                $(&#39;#status &gt; p&#39;).append(&quot;&lt;p&gt;&quot; + accessToken + &quot;&lt;/p&gt;&quot;);
-            }, onFailure : function(error) {
-                console.log(&quot;Failed with error: &quot; + error);
-            }, onComplete : function() { 
-                // More JS!
-            }
-        });                
-    });
-&lt;/script&gt;</pre>
+            <script src="https://gist.github.com/1792366.js?file=spotify-apps-sandbox-Facebook_get_listening_history.js"></script>
 
             <h3>The HTML</h3>
-<pre class="prettyprint lang-html">
-&lt;body&gt;
-    &lt;div id=&quot;status&quot;&gt;&lt;p&gt;If you&#39;ve successfully authenticated with
-    Facebook, this should be your access token:&lt;/p&gt;&lt;/div&gt;
-&lt;/body&gt;</pre>
+            <script src="https://gist.github.com/1792374.js?file=spotify-apps-sandbox-Facebook_get_listening_history.html"></script>
 
-            <h3>The CSS</h3>
-<pre class="prettyprint lang-css">
-&lt;style&gt;                                                                   
-  @import url(&#39;sp://import/css/eve.css&#39;);                               
-&lt;/style&gt;</pre>
             <h3>Live Example</h3>
             <ul id="listens"></ul>
-            <script src="https://gist.github.com/1707627.js?file=click-to-play.js"></script>
         </div><!-- /wrapper -->
     </body>
 </html>

@@ -2,8 +2,7 @@
 body {min-height: 100%;padding: 10px 0 20px;box-sizing: border-box;}
 #wrapper {position: relative;z-index: 2;max-width: 800px;min-height: 100%;margin: 0 auto;padding: 20px;}
 section {position: relative;overflow: hidden;margin: 0 0 40px;}
-.breadcrumb {margin: 0 0 20px;}
-html pre {text-shadow:none;}
+.breadcrumb, .gist {margin: 0 0 20px;}
 
 
 /* Text */

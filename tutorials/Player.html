@@ -2,10 +2,6 @@
 <html>
     <head>
 
-        <script type="text/javascript" src="js/prettify.js"></script>
-        <link href="css/prettify.css" type="text/css" rel="stylesheet" />
-        <link href="css/desert.css" type="text/css" rel="stylesheet" />
-
         <style>
             @import url("sp://import/css/api.css");
             @import url('sp://import/css/eve.css');
@@ -13,7 +9,7 @@
             @import url('sp://spotify-apps-sandbox/css/main.css');
         </style>
 
-        <script src="js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-sandbox/js/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -27,63 +23,33 @@
                 /* Create a temporary playlist for the song */
                 var playlist = new models.Playlist();
                 playlist.add(track);
-                var playerView= new views.Player();
+                var playerView = new views.Player();
                 playerView.track = null; // Don't play the track right away
                 playerView.context = playlist;
 
                 /* Pass the player HTML code to the #player <div /> */
                 $('#player').append(playerView.node);
-
-                prettyPrint();
             });
         </script>
     </head>
     <body>
         <div id="wrapper">
             <ul class="breadcrumb">
-                <li><a href="sp://spotify-apps-sandbox/tutorials/tutorials/index.html">&laquo; Back to main page</a></li>
+                <li><a href="sp://spotify-apps-sandbox/index.html">&laquo; Back to main page</a></li>
             </ul>
 
             <h1>Play a single song</h1>
             <p class="description">This snippet of code plays a hardcoded Spotify URI.</p>
 
             <h3>The Javascript</h3>
-<pre class="prettyprint lang-js">
-&lt;script src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-    $(document).ready(function() {
-        /* Instantiate the global sp object; include models &amp; views */
-        var sp = getSpotifyApi(1);
-        var models = sp.require(&quot;sp://import/scripts/api/models&quot;);
-        var views = sp.require(&quot;sp://import/scripts/api/views&quot;);
-
-        /* Create an array of tracks from the user&#39;s library */
-        var track = models.Track.fromURI(&#39;spotify:track:7DJI0fg4dzBJk31sEmn6Zk&#39;);
-
-        /* Create a temporary playlist for the song */
-        var playlist = new models.Playlist();
-        playlist.add(track);
-        var playerView= new views.Player();
-        playerView.track = null; // Don&#39;t play the track right away
-        playerView.context = playlist;
-
-        /* Pass the player HTML code to the #player &lt;div /&gt; */
-        $(&#39;#player&#39;).append(playerView.node);
-    });
-&lt;/script&gt;</pre>
+            <script src="https://gist.github.com/1791222.js?file=spotify-apps-sandbox-player.js"></script>
 
             <h3>The HTML</h3>
-<pre class="prettyprint lang-html">
-&lt;body&gt;                                                                   
-  &lt;div id="player"&gt;&lt;/div&gt;
-&lt;/body&gt;</pre>
+            <script src="https://gist.github.com/1791250.js?file=spotify-apps-sandbox-player.html"></script>
 
             <h3>The CSS</h3>
-<pre class="prettyprint lang-css">
-&lt;style&gt;                                                                   
-  @import url(&#39;sp://import/css/eve.css&#39;);                               
-  @import url(&#39;sp://import/css/player.css&#39;);                            
-&lt;/style&gt;</pre>
+            <script src="https://gist.github.com/1791256.js?file=spotify-apps-sandbox-player.css"></script>
+
             <h3>Live Example</h3>
             <div id="player"></div>
         </div><!-- /wrapper -->
