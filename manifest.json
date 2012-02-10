@@ -13,15 +13,15 @@
 	"BundleVersion": "0.1",
 	"DefaultTabs": [
 		{
-			"arguments": "home_tab",
+			"arguments": "index",
 			"title": {
 				"en": "Home"
 			}
 		},
 		{
-			"arguments": "secondary_tab",
+			"arguments": "tabs",
 			"title": {
-				"en": "Secondary Tab"
+				"en": "How to use tabs"
 			}
         }
 	],
