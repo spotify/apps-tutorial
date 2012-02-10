@@ -1,21 +1,16 @@
 {
-	"BundleType": "Application",
-	"AcceptedLinkTypes":[
-		"album",
-		"artist",
-		"track",
-		"playlist",
-		"user"
-	],
+	"AppDescription": {
+		"en": "A tutorial app for Spotify Apps API"
+	},
 	"AppIcon": {
 		"36x18": "tutorial.png"
 	},
 	"AppName": {
 		"en": "Spotify Sandbox"
 	},
-	"SupportedLanguages": [
-		"en"
-	],
+	"BundleIdentifier": "spotify-apps-sandbox",
+	"BundleType": "Application",
+	"BundleVersion": "0.1",
 	"DefaultTabs": [
 		{
 			"arguments": "home_tab",
@@ -24,12 +19,13 @@
 			}
 		},
 		{
-			"arguments": "library_tab",
+			"arguments": "secondary_tab",
 			"title": {
-				"en": "Library"
+				"en": "Secondary Tab"
 			}
         }
 	],
+	"RequiredInterface": 1,
 	"RequiredPermissions": [
 	    "http://api.twitter.com",
 	    "http://o.scdn.co",
@@ -41,5 +37,9 @@
 	    "http://c.tile.cloudmade.com",
 	    "https://graph.facebook.com",
 	    "https://gist.github.com/"
-	]
+	],
+	"SupportedLanguages": [
+		"en"
+	],
+	"VendorIdentifier": "co.mager"
 }
