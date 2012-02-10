@@ -1,0 +1,48 @@
+# Spotify Apps API Tutorial
+
+This is a Spotify App that explains how to make a Spotify App.
+
+## Topics covered
+
+#### Getting started
+
+ * Creating your manifest file
+ * Handing arguments
+ * Creating navigation tabs
+
+#### Playing music
+
+ * Play a single song
+ * Play a list of songs
+ * Get the currently-playing track
+ * Create a play/pause button with an HTML element
+ * Skip to the next track
+ * Get a user's top tracks
+
+#### Playlists
+
+ * Create a temporary playlist
+ * Subscribe to a playlist
+
+#### Interacting with Facebook
+
+ * Authenticate a user with Facebook
+ * Get a user's listening history from Facebook
+ * Show "Share" popup
+
+#### Experimental
+
+ * Display a Polymaps object
+ * Use HTML5's local storage
+ * Display a Google Maps object
+
+
+## Installation
+
+ 1. Open Terminal, `mkdir ~/Spotify`
+ 2. `cd ~/Spotify`
+ 3. `git clone git@github.com:mager/spotify-apps-sandbox.git`
+ 4. Download the [latest preview version of Spotify](http://developer.spotify.com/en/spotify-apps-api/preview/)
+ 5. Open Spotify and type "spotify:app:spotify-app-sandbox" in the search bar
+
+Your feedback is welcome! Please email mager@spotify.com.
