@@ -6,9 +6,9 @@
 		"36x18": "tutorial.png"
 	},
 	"AppName": {
-		"en": "Spotify Sandbox"
+		"en": "Spotify Apps API Tutorial"
 	},
-	"BundleIdentifier": "spotify-apps-sandbox",
+	"BundleIdentifier": "spotify-apps-tutorial",
 	"BundleType": "Application",
 	"BundleVersion": "0.1",
 	"DefaultTabs": [

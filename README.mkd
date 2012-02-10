@@ -41,8 +41,8 @@ This is a Spotify App that explains how to make a Spotify App.
 
  1. Open Terminal, `mkdir ~/Spotify`
  2. `cd ~/Spotify`
- 3. `git clone git@github.com:mager/spotify-apps-sandbox.git`
+ 3. `git clone git@github.com:mager/spotify-apps-tutorial.git`
  4. Download the [latest preview version of Spotify](http://developer.spotify.com/en/spotify-apps-api/preview/)
- 5. Open Spotify and type "spotify:app:spotify-app-sandbox" in the search bar
+ 5. Open Spotify and type "spotify:app:spotify-app-tutorial" in the search bar
 
 Your feedback is welcome! Please email mager@spotify.com.
