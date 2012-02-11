@@ -7,22 +7,21 @@
             h1, ul {margin:0 0 30px;}
             a:hover {color:#83be20;}
         </style>
-        <script src="js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
                 sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
-                var links = models.application.links;
 
+                tabs();
                 models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
 
-                function tabs(){
+                function tabs() {
                     var args = models.application.arguments;
+                    console.log(args[0]);
                     $('.section').hide();
                     $('#'+args[0]).show();
-                    console.log(args[0]);
                 }
-
             });
         </script>
     </head>
@@ -35,7 +34,7 @@
             <h4>Getting started</h4>
             <ul>
                 <li><a href="sp://spotify-apps-tutorial/tutorials/manifest.html">Creating your manifest file</a></li>
-                <li><a href="spotify:app:spotify-apps-tutorial:tabs">Handing arguments and tabs</a></li>
+                <li><a href="spotify:app:spotify-apps-tutorial:tabs">Handling arguments and creating navigational tabs</a></li>
                 <li>Using UI elements</li>
             </ul>
             <h4>Playing music</h4>
@@ -71,7 +70,22 @@
         </div><!-- /index -->
 
         <div id="tabs" class="section">
-            <p>TABS!!</p>
+            <ul class="breadcrumb">
+                <li><a href="spotify:app:spotify-apps-tutorial:index">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Handling arguments and creating navigational tabs</h1>
+            <p class="description">In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that corespond to nagivational tab names. In the <code>Application</code> class, when tabs are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
+
+            <h3>The manifest.json snippet</h3>
+            <script src="https://gist.github.com/1804158.js?file=spotify-apps-sandbox-creating_tabs.json"></script>
+
+            <h3>The Javascript</h3>
+            <script src="https://gist.github.com/1804049.js?file=spotify-apps-sandbox-creating_tabs.js"></script>
+
+            <h3>The HTML</h3>
+            <script src="https://gist.github.com/1804166.js?file=spotify-apps-sandbox-creating_tabs.html"></script>
+
         </div><!-- /tabs -->
 
 
