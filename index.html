@@ -9,25 +9,34 @@
         </style>
         <script src="js/jquery.min.js"></script>
         <script>
-            $(function(){
+            $(document).ready(function() {
                 sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
-                console.log(models);
-                models.application.observe(models.EVENT.ACTIVATE, function() {
-                    console.log("Application activated!");
-                });
+                var links = models.application.links;
+
+                models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
+
+                function tabs(){
+                    var args = models.application.arguments;
+                    $('.section').hide();
+                    $('#'+args[0]).show();
+                    console.log(args[0]);
+                }
+
             });
         </script>
     </head>
     <body>
         <div id="wrapper">
 
+        <div id="index" class="section">
+
             <h1>Spotify Apps API Tutorials</h1>
             <h4>Getting started</h4>
             <ul>
                 <li><a href="sp://spotify-apps-tutorial/tutorials/manifest.html">Creating your manifest file</a></li>
-                <li><a href="spotify:app:spotify-apps-tutorial:secondary_tab">Handing arguments</a></li>
-                <li>Creating navigation tabs</li>
+                <li><a href="spotify:app:spotify-apps-tutorial:tabs">Handing arguments and tabs</a></li>
+                <li>Using UI elements</li>
             </ul>
             <h4>Playing music</h4>
             <ul>
@@ -58,6 +67,14 @@
                 <li>Use HTML5's local storage</li>
                 <li>Display a Google Maps object</li>
             </ul>
+
+        </div><!-- /index -->
+
+        <div id="tabs" class="section">
+            <p>TABS!!</p>
+        </div><!-- /tabs -->
+
+
         </div><!-- /wrapper -->
     </body>
 </html>

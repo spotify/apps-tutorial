@@ -14,11 +14,14 @@
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
+                var views = sp.require("sp://import/scripts/api/views");
 
                 var player = models.player;
                 var track = models.Track.fromURI('spotify:track:749SJvmRHD43wFUnBtUJ36');
-                var image = new Image();
-                //image.source = track.album.data.cover;
+                var image = new views.Image(track.album.data.cover);
+                $(image.node).css('width', '300px');
+                $(image.node).css('height', '300px');
+                $('body').append(image.node);
 
                 $('#play-me').click(function(){
                     player.playing = !(player.playing);
