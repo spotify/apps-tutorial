@@ -12,6 +12,8 @@
             $(document).ready(function() {
                 sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
+                var gtrack = sp.require("sp://import/scripts/googletracker");
+                var tracker = new gtrack.GoogleTracker('UA–xxxxxxx–1');
 
                 tabs();
                 models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
@@ -31,6 +33,7 @@
         <div id="index" class="section">
 
             <h1>Spotify Apps API Tutorials</h1>
+            <img src="sp://spotify-apps-tutorial/img/spotify-character.png" class="right" />
             <h4>Getting started</h4>
             <ul>
                 <li><a href="sp://spotify-apps-tutorial/tutorials/manifest.html">Creating your manifest file</a></li>
@@ -57,7 +60,7 @@
             <ul>
                 <li><a href="sp://spotify-apps-tutorial/tutorials/Facebook_auth.html">Authenticate a user with Facebook</a></li>
                 <li><a href="sp://spotify-apps-tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a></li>
-                <li>Show "Share" popup</li>
+                <li><a href="sp://spotify-apps-tutorial/tutorials/share.html">Show "Share" popup</a></li>
             </ul>
 
             <h4>Experimental</h4>
