@@ -2,7 +2,7 @@
 
 This is a Spotify App that explains how to make a Spotify App. All examples use the latest version of jQuery.
 
-![Spotify Apps Tutorial home screen](img/spotify-apps-tutorial-v1.jpg)
+![Spotify Apps Tutorial home screen](https://github.com/mager/spotify-apps-tutorial/raw/master/img/spotify-apps-tutorial-v1.jpg)
 
 ## Topics covered
 
