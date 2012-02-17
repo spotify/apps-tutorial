@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://spotify-apps-tutorial/css/main.css');
+        </style>
+
+        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+                var views = sp.require("sp://import/scripts/api/views");
+
+                var tracks = models.library.tracks;
+                for (i=0;i<tracks.length;i++) {
+                    var name = tracks[i].data.name;
+                    var uri = tracks[i].data.uri;
+                    localStorage.setItem('name', name);
+                    localStorage.setItem('uri', uri);
+                }
+
+                var storage = window['localStorage'];
+                console.log(storage.getItem('name'));
+
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Title of tutorial</h1>
+            <p class="description">Description of tutorial</p>
+
+            <h3>The Javascript</h3>
+
+            <h3>The HTML</h3>
+
+            <h3>The CSS</h3>
+            
+            <h3>Live Example</h3>
+            <!-- Cool stuff goes here -->
+        </div><!-- /wrapper -->
+    </body>
+</html>

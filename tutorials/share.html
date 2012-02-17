@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://spotify-apps-tutorial/css/main.css');
+            body {padding:0 0 320px;}
+        </style>
+
+        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+
+                /* The <div /> that will contain the popup */
+                var element = $('#share');
+
+                /* The Spotify URI of the content you want to share */
+                var content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
+
+                /* Display the popup */
+                models.application.showSharePopup(element[0], content);
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Show "Share" popup</h1>
+            <p class="description">One of the greatest features of Spotify is the ability to share music with your social graph. With a few lines of code, we can interact with the "Share" popup dialog.</p>
+
+            <h3>The Javascript</h3>
+            <script src="https://gist.github.com/1804852.js?file=spotify-apps-sandbox-share.js"></script>
+
+            <h3>The HTML</h3>
+            <script src="https://gist.github.com/1804855.js?file=spotify-apps-sandbox-share.html"></script>
+
+            <h3>Live Example</h3>
+            <div id="share"></div>
+        </div><!-- /wrapper -->
+    </body>
+</html>
