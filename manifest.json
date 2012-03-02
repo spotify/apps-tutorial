@@ -34,8 +34,7 @@
 	    "http://tile.cloudmade.com",
 	    "http://*.tile.cloudmade.com",
 	    "https://graph.facebook.com",
-	    "https://gist.github.com/",
-	    "*"
+	    "https://gist.github.com/"
 	],
 	"SupportedLanguages": [
 		"en"
