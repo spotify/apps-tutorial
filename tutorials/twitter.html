@@ -42,8 +42,10 @@
             	    		if (!track.name) continue;
                 			a.innerHTML = track.name.decodeForHTML();
                 			a.href = track.uri;
-                
-                			document.body.appendChild(a);
+
+                            var li = document.createElement('li');
+                            li.appendChild(a);
+                			$('#tweets').append(li);
 	                	}
                 	}
                 }
@@ -69,6 +71,7 @@
             <h3>The CSS</h3>
             
             <h3>Live Example</h3>
+            <ul id="tweets"></ul>
             <!-- Cool stuff goes here -->
         </div><!-- /wrapper -->
     </body>
