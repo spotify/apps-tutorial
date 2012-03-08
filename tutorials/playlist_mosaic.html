@@ -15,12 +15,17 @@
                 var models = sp.require("sp://import/scripts/api/models");
                 var views = sp.require("sp://import/scripts/api/views");
 
+                var playlistURL = 'spotify:user:magerleagues:playlist:5CZ3KO3EExplZOzHDMzgym';
 
-                var pl = models.Playlist.fromURI('spotify:user:grimesofficial:playlist:3Iw969miyHc6Gq9YDq5dAv', function(playlist) {
-                    console.log("Playlist loaded", playlist.name);
-                    console.log(playlist.image);
+                var playlist = models.Playlist.fromURI(playlistURL);
+                playlist.observe(models.EVENT.CHANGE, function() {
+
                     var mosaic = new views.Image(playlist.image);
+                    mosaic.node.style.width = '300px';
+                    mosaic.node.style.height = '300px';
                     console.log(mosaic.node);
+                    $('#image').append(mosaic.node);
+
                 });
 
             });
