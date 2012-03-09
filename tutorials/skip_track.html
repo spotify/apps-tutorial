@@ -17,13 +17,13 @@
 
                 var player = models.player;
 
-                $('#play-me').click(function(){
-                    player.playing = !(player.playing);
-                    if (player.playing == true) {
-                        $('#play-me').val('Pause');
-                    } else {
-                        $('#play-me').val('Play');
-                    }
+                console.log(player);
+                $('#previous').click(function(){
+                    player.previous();
+                });
+
+                $('#next').click(function(){
+                    player.next();
                 });
             });
         </script>
@@ -34,20 +34,18 @@
                 <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
             </ul>
 
-            <h1>Create a play/pause button with an HTML element</h1>
-            <p class="description">This code snippet will let you control the Player object with a click event.</p>
+            <h1>Skip to the next or previous track</h1>
+            <p class="description">This code snippet will let you control the move along the queue of songs.</p>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1792009.js?file=spotify-apps-sandbox-click_to_play.js"></script>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/1792029.js?file=spotify-apps-sandbox-click_to_play.html"></script>
 
             <h3>The CSS</h3>
-            <script src="https://gist.github.com/1792021.js?file=spotify-apps-sandbox-click_to_play.css"></script>
 
             <h3>Live Example</h3>
-            <input type="button" id="play-me" value="Click me to pause" />
+            <input type="button" id="previous" value="&laquo Previous" />
+            <input type="button" id="next" value="Next &raquo;" />
         </div><!-- /wrapper -->
     </body>
 </html>
