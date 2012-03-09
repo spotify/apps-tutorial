@@ -5,7 +5,6 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
-            #play-me {width:600px;height:40px;border:1px solid #333;font:italic 2.5em Georgia, serif;text-align:center;color:#000;}
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
@@ -17,7 +16,8 @@
                 var views = sp.require("sp://import/scripts/api/views");
 
                 var player = models.player;
-                var track = models.Track.fromURI('spotify:track:749SJvmRHD43wFUnBtUJ36');
+                var track = player.track;
+                console.log(player.playing);
                 var image = new views.Image(track.album.data.cover);
                 $(image.node).css('width', '300px');
                 $(image.node).css('height', '300px');
@@ -26,9 +26,9 @@
                 $('#play-me').click(function(){
                     player.playing = !(player.playing);
                     if (player.playing == true) {
-                        $('#play-me').empty().append('Playing!');
+                        $('#play-me').val('Pause');
                     } else {
-                        $('#play-me').empty().append('Paused');
+                        $('#play-me').val('Play');
                     }
                 });
             });
@@ -41,7 +41,7 @@
             </ul>
 
             <h1>Create a play/pause button with an HTML element</h1>
-            <p class="description">This code snippet will let you control the Player model with a click event.</p>
+            <p class="description">This code snippet will let you control the Player object with a click event.</p>
 
             <h3>The Javascript</h3>
             <script src="https://gist.github.com/1792009.js?file=spotify-apps-sandbox-click_to_play.js"></script>
@@ -53,7 +53,7 @@
             <script src="https://gist.github.com/1792021.js?file=spotify-apps-sandbox-click_to_play.css"></script>
 
             <h3>Live Example</h3>
-            <div id="play-me">Click me!</div>
+            <input type="button" id="play-me" value="Click me to pause" />
         </div><!-- /wrapper -->
     </body>
 </html>
