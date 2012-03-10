@@ -13,9 +13,10 @@
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
+                var player = models.player;
 
                 // Get the track that is currently playing
-                var currentTrack = models.player.track;
+                var currentTrack = player.track;
     
                 // if nothing currently playing
                 if (currentTrack == null) {
@@ -24,6 +25,7 @@
                     var track = currentTrack;
                     $('#now-playing').append('Now playing: ' + track);
                 }
+
             });
         </script>
     </head>

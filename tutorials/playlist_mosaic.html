@@ -23,7 +23,7 @@
                     var mosaic = new views.Image(playlist.image);
                     mosaic.node.style.width = '300px';
                     mosaic.node.style.height = '300px';
-                    console.log(mosaic.node);
+                    mosaic.node.style.backgroundSize = 'cover';
                     $('#image').append(mosaic.node);
 
                 });
@@ -37,15 +37,15 @@
                 <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
             </ul>
 
-            <h1>Title of tutorial</h1>
-            <p class="description">Description of tutorial</p>
+            <h1>Showing a playlist mosiac image</h1>
+            <p class="description">Given a playlist URI, we can show the mosaic image.</p>
 
             <h3>The Javascript</h3>
+            <script src="https://gist.github.com/2012492.js?file=spotify-apps-tutorial-playlist_mosaic.js"></script>
 
             <h3>The HTML</h3>
+            <script src="https://gist.github.com/2012501.js?file=spotify-apps-tutorial-playlist_mosaic.html"></script>
 
-            <h3>The CSS</h3>
-            
             <h3>Live Example</h3>
             <div id="image"></div>
             <!-- Cool stuff goes here -->
