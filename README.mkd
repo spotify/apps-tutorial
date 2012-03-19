@@ -12,6 +12,9 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 
  * Creating your manifest file
  * Handling arguments and creating navigational tabs
+ * Using the pager element (coming soon)
+ * Dragging and dropping content into an app (coming soon)
+ * Show "Share" popup
 
 #### Playing music
 
@@ -19,25 +22,31 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
  * Play a list of songs
  * Get the currently-playing track
  * Create a play/pause button with an HTML element
- * Skip to the next track
+ * Skip to the next or previous track
  * Get a user's top tracks
+
+#### Searching
+
+ * Returning all tracks with a certain search query (coming soon)
+ * Get the top 5 most popular tracks from 5 artists
 
 #### Playlists
 
- * Create a temporary playlist
- * Subscribe to a playlist
+ * Create a temporary playlist (coming soon)
+ * Subscribe to a playlist (coming soon)
+ * Showing a playlist mosiac image
 
 #### Interacting with Facebook
 
  * Authenticate a user with Facebook
  * Get a user's listening history from Facebook
- * Show "Share" popup
 
 #### Experimental
 
+ * Talking to Twitter
  * Display a Polymaps object
  * Use HTML5's local storage
- * Display a Google Maps object
+ * Display a Google Maps object (coming soon)
 
 
 ## Installation
