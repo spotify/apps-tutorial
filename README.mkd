@@ -51,11 +51,11 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 
 ## Installation
 
- 1. Open Terminal, `mkdir ~/Spotify`
- 2. `cd ~/Spotify`
- 3. `git clone git@github.com:mager/spotify-apps-tutorial.git`
- 4. Download the [latest preview version of Spotify](http://developer.spotify.com/en/spotify-apps-api/preview/)
- 5. Open Spotify and type "spotify:app:spotify-apps-tutorial" in the search bar
- 6. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/).
+ 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/). It takes about 24 hours to get access, so email mager@spotify.com with your Spotify username for rush access.
+ 2. Open Terminal, `mkdir ~/Spotify`
+ 3. `cd ~/Spotify`
+ 4. `git clone git@github.com:mager/spotify-apps-tutorial.git`
+ 5. Download the [latest version of Spotify](http://spotify.com/download)
+ 6. Open Spotify and type "spotify:app:spotify-apps-tutorial" in the search bar
 
 Your feedback is welcome! Please email mager@spotify.com.
