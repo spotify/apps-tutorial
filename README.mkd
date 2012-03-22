@@ -32,7 +32,7 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 
 #### Playlists
 
- * Create a temporary playlist (coming soon)
+ * Get songs from a playlist URL
  * Subscribe to a playlist (coming soon)
  * Showing a playlist mosiac image
 
