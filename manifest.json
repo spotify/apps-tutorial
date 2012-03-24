@@ -35,7 +35,9 @@
 	    "http://*.tile.cloudmade.com",
 	    "https://graph.facebook.com",
 	    "https://gist.github.com/",
-	    "http://search.twitter.com/"
+	    "http://search.twitter.com/",
+	    "http://amsterdam.last.fm",
+	    "http://ws.audioscrobbler.com/"
 	],
 	"SupportedLanguages": [
 		"en"
