@@ -22,17 +22,17 @@
 
                 var songlist = $('#songlist');
 
+                $('#songlist a').live('click', function(e){
+                    e.preventDefault();
+                    models.player.play($(this).attr('href'));
+                });
+ 
                 function render(resource, url, count) {
                     $.get(url, function (response) {
                         var uri = response.spotify.track.externalids.spotify;
                         if (uri) {
                             resource = resource.artist.name+': '+resource.title;
                             songlist.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
-                            $('#songlist a').live('click', function(e){
-                                e.preventDefault();
-                                models.player.play($(this).attr('href'));
-                            });
- 
                         }
                     });
                 }
