@@ -22,6 +22,10 @@
 
                 var songlist = $('#songlist');
 
+                $('#songlist a').click(function(e){
+                      e.preventDefault();
+                });
+ 
                 function render(resource, url, count) {
                     $.get(url, function (response) {
                         var uri = response.spotify.track.externalids.spotify;
