@@ -20,14 +20,17 @@
 
                 var API_ROOT = 'http://ws.audioscrobbler.com/2.0/';
 
-                var top_elements = $('#topElements');
+                var list = $('#list');
+                $('#list a').click(function(e){
+                    e.preventDefault;
+                });
 
                 function render(resource, url, count) {
                     $.get(url, function (response) {
                         var uri = response.spotify.track.externalids.spotify;
                         if (uri) {
                             resource = resource.artist.name+': '+resource.title;
-                            top_elements.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
+                            list.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
                         }
                     });
                 }
@@ -35,11 +38,10 @@
 
                 /* Get sockety with Last.fm */
                 q2 = new lfmc_TopFeed('track')
-                    .setSize(5)
+                    .setSize(30)
                     .onData(function(list) {
                         var lastCount = 0;
                         var nextIncrement = 1;
-                        top_elements.empty();
                         for (i = 0, len = list.length; i < len; i++) {
                             element = list[i];
                             resource = element[0];
@@ -80,7 +82,7 @@
             <h3>The CSS</h3>
             
             <h3>Live Example</h3>
-            <ul id="topElements"></ul>
+            <ul id="list"></ul>
             <!-- Cool stuff goes here -->
         </div><!-- /wrapper -->
     </body>
