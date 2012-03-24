@@ -35,15 +35,29 @@
                     })
                     .run();
                 */
+                
+                var top_elements = $('#topElements');
+                function render(resource, url) {
+                    $.get(url, function (response) {
+                        var uri = response.spotify.track.externalids.spotify;
+                        if (uri) {
+                            console.log(uri);
+                            resource = resource.artist.name+': '+resource.title;
+                            top_elements.append('<li><a href="'+uri+'">'+resource+'</a></li>')
+                        }
+                    });
+                }
+                
+                
+                
+                
 
                 var q2 = new lfmc_TopFeed('track')
                     .setSize(5)
                     .onData(function(list) {
-                        var pos = 0;
                         var lastCount = 0;
                         var nextIncrement = 1;
-                        var e = $('#topElements');
-                        e.empty();
+                        top_elements.empty();
                         for (i = 0, len = list.length; i < len; i++) {
                             element = list[i];
                             resource = element[0];
@@ -59,22 +73,8 @@
                                 api_key: 'b25b959554ed76058ac220b7b2e0a026',
                                 format: 'json'
                             });
+                            render(resource, url);
 
-                            $.get(url, function (response) {
-                                var uri = response.spotify.track.externalids.spotify;
-                                console.log(uri);
-                            });
-
-                            resource = resource.artist.name+': '+resource.title;
-                            count = element[1];
-                            if (count != lastCount) {
-                                lastCount = count;
-                                pos += nextIncrement;
-                                nextIncrement = 1;
-                            } else {
-                                ++nextIncrement;
-                            }
-                            e.append('<li><b>'+pos+'.</b> '+resource+' ('+count+')</li>')
                         }
                     }).run();
 
