@@ -4,6 +4,7 @@
 
         <style>
             @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/list.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
         </style>
 
@@ -28,11 +29,11 @@
                 var top_elements = $('#topElements');
 
                 var playlist = new models.Playlist();
-                var player = new views.List();
+                var list = new views.List(playlist);
 
-                playlist.observe(models.EVENT.CHANGE, function() {
+                playlist.observe(models.EVENT.ITEMS_ADDED, function() {
                     console.log("Playlist renamed!");
-                    ('#player').append(player.node);
+                    $('#player').replaceWith(list.node);
                 });
 
                 function render(resource, url, count) {
@@ -41,7 +42,7 @@
                         if (uri) {
                             playlist.add(uri);
                             resource = resource.artist.name+': '+resource.title;
-                            top_elements.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
+                            //top_elements.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
                         }
                     });
                 }
