@@ -19,30 +19,15 @@
                 var views = sp.require('sp://import/scripts/api/views');
 
                 var API_ROOT = 'http://ws.audioscrobbler.com/2.0/';
-                var url      = API_ROOT + '?' + $.param({
-                    method: 'artist.getplaylinks',
-                    artist: ['Hello Mexico'],
-                    api_key: 'b25b959554ed76058ac220b7b2e0a026',
-                    format: 'json'
-                });
 
                 var top_elements = $('#topElements');
-
-                var playlist = new models.Playlist();
-                var list = new views.List(playlist);
-
-                playlist.observe(models.EVENT.ITEMS_ADDED, function() {
-                    console.log("Playlist renamed!");
-                    $('#player').replaceWith(list.node);
-                });
 
                 function render(resource, url, count) {
                     $.get(url, function (response) {
                         var uri = response.spotify.track.externalids.spotify;
                         if (uri) {
-                            playlist.add(uri);
                             resource = resource.artist.name+': '+resource.title;
-                            //top_elements.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
+                            top_elements.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
                         }
                     });
                 }
@@ -95,8 +80,7 @@
             <h3>The CSS</h3>
             
             <h3>Live Example</h3>
-            <div id="topElements"></div>
-            <div id="player"></div>
+            <ul id="topElements"></ul>
             <!-- Cool stuff goes here -->
         </div><!-- /wrapper -->
     </body>
