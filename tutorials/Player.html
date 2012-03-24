@@ -18,9 +18,7 @@
                 var models = sp.require("sp://import/scripts/api/models");
                 var views = sp.require("sp://import/scripts/api/views");
 
-                /* Create an array of tracks from the user's library */
                 var track = models.Track.fromURI('spotify:track:7DJI0fg4dzBJk31sEmn6Zk');
-
                 /* Create a temporary playlist for the song */
                 var playlist = new models.Playlist();
                 playlist.add(track);
@@ -30,6 +28,7 @@
 
                 /* Pass the player HTML code to the #player <div /> */
                 $('#player').append(playerView.node);
+                console.log(playerView.node);
             });
         </script>
     </head>

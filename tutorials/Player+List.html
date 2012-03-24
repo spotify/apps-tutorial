@@ -29,15 +29,6 @@
                     tempPlaylist.add(track);
                 }
 
-                /* Create a Player() object and fill it with content
-                 * from the temporary playlist object created earlier */
-                var player = new views.Player();
-                player.track = tempPlaylist.get(0);
-                player.context = tempPlaylist;
-
-                /* Pass the player HTML code to the #player <div /> */
-                $('#player').append(player.node);
-
                 /* Create a "view" for the playlist and pass the list
                  * code to the #player <div /> */
                 var playlist = new views.List(tempPlaylist);

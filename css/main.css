@@ -15,7 +15,3 @@ h1 {font-size:2em;}
 #player {min-height:140px;}
 #player .sp-player {float:left;margin-right:10px;}
 #player .sp-list {width:inherit;max-height:inherit;}
-
-
-/* Custom styles */
-#data{font-size:4em;}

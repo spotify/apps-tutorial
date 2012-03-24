@@ -10,6 +10,7 @@
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
         <script src="http://amsterdam.last.fm/lfmc.js"></script>
         <script>
+
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
@@ -24,35 +25,30 @@
                     format: 'json'
                 });
 
-                $.get(url, function (response) {
-                    console.log(response.spotify.artist.externalids.spotify); // Whew!
+                var top_elements = $('#topElements');
+
+                var playlist = new models.Playlist();
+                var player = new views.List();
+
+                playlist.observe(models.EVENT.CHANGE, function() {
+                    console.log("Playlist renamed!");
+                    ('#player').append(player.node);
                 });
 
-                /* How many people are scrobbling right now on Last.fm 
-                new lfmc_CountFeed()
-                    .onData(function(count) { 
-                        $('#data').text(count);
-                    })
-                    .run();
-                */
-                
-                var top_elements = $('#topElements');
-                function render(resource, url) {
+                function render(resource, url, count) {
                     $.get(url, function (response) {
                         var uri = response.spotify.track.externalids.spotify;
                         if (uri) {
-                            console.log(uri);
+                            playlist.add(uri);
                             resource = resource.artist.name+': '+resource.title;
-                            top_elements.append('<li><a href="'+uri+'">'+resource+'</a></li>')
+                            top_elements.append('<li><a href="'+uri+'">'+resource+'</a> ('+ count +')</li>');
                         }
                     });
                 }
-                
-                
-                
-                
 
-                var q2 = new lfmc_TopFeed('track')
+
+                /* Get sockety with Last.fm */
+                q2 = new lfmc_TopFeed('track')
                     .setSize(5)
                     .onData(function(list) {
                         var lastCount = 0;
@@ -61,6 +57,7 @@
                         for (i = 0, len = list.length; i < len; i++) {
                             element = list[i];
                             resource = element[0];
+                            count = element[1];
                             
                             artist_array = [resource.artist.name];
                             track_array = [resource.title];
@@ -73,7 +70,7 @@
                                 api_key: 'b25b959554ed76058ac220b7b2e0a026',
                                 format: 'json'
                             });
-                            render(resource, url);
+                            render(resource, url, count);
 
                         }
                     }).run();
@@ -98,6 +95,7 @@
             
             <h3>Live Example</h3>
             <div id="topElements"></div>
+            <div id="player"></div>
             <!-- Cool stuff goes here -->
         </div><!-- /wrapper -->
     </body>
