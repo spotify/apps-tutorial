@@ -5,9 +5,11 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -28,10 +30,23 @@
             <p class="description">Description of tutorial</p>
 
             <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">var sp = getSpotifyApi(1);
+var models = sp.require('sp://import/scripts/api/models');
+var views = sp.require('sp://import/scripts/api/views');</code></pre>
+            </div>
 
             <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html"><div id="player"></div></code></pre>
+            </div>
 
             <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-language="css"><style type="text/css">
+    @import url('sp://import/css/eve.css');
+</style></code></pre>
+            </div>
             
             <h3>Live Example</h3>
             <!-- Cool stuff goes here -->
