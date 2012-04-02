@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
+        </style>
+
+        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                /* Instantiate the global sp object; include models & views */
+
+                var sp = getSpotifyApi(1);
+                var models = sp.require('sp://import/scripts/api/models');
+                
+                var search = new models.Search('Rihanna');
+                search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+                
+                search.observe(models.EVENT.CHANGE, function() {
+
+                    search.tracks.forEach(function(track) {
+                        var link = '<li><a href="'+ track.uri +'">'+ track.name +'</a></li>';
+                        $('#search').append(link);
+                    });
+                
+                });
+
+                search.appendNext();
+
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Return all tracks with a given search query</h1>
+            <p class="description">Given the search term "Rihanna", return all tracks that match.</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">var sp = getSpotifyApi(1);
+var models = sp.require('sp://import/scripts/api/models');
+
+var search = new models.Search('Rihanna');
+search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+
+search.observe(models.EVENT.CHANGE, function() {
+
+    search.tracks.forEach(function(track) {
+        var link = '&lt;li&gt;&lt;a href="'+ track.uri +'"&gt;'+ track.name +'&lt;/a&gt;&lt;/li&gt;';
+        $('#search').append(link);
+    });
+});
+
+search.appendNext();</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html"><div id="player"></div></code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-language="css"><style type="text/css">
+    @import url('sp://import/css/eve.css');
+</style></code></pre>
+            </div>
+            
+            <h3>Live Example</h3>
+            <ul id="search"></ul>
+        </div><!-- /wrapper -->
+    </body>
+</html>

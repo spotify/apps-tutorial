@@ -5,15 +5,17 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
-                /* Instantiate the global sp object; include models & views */
+                /* Instantiate the global sp object; include models */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
-                var views = sp.require("sp://import/scripts/api/views");
                 
                 var artists = ['Frank Sinatra', 'Drake', 'T-Pain', 'The Lonely Island', 'Avan Lava'];
 
@@ -57,7 +59,38 @@
             <p class="description">Given five artists, grab their first five tracks and put them in in an array.</p>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1911137.js?file=spotify-apps-sandbox-top_artists_tracks.js"></script> 
+            <div id="the-js">
+<pre><code data-language="javascript">var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+
+var artists = ['Frank Sinatra', 'Drake', 'T-Pain', 'The Lonely Island', 'Avan Lava'];
+
+var playlist = [];
+var done = 0;
+
+for (var i=0; i&lt;artists.length; i++) {
+    var search = new models.Search('artist:"'+artists[i]+'"');
+    search.localResults = models.LOCALSEARCHRESULTS.IGNORE;
+    search.searchPlaylists = false;
+    search.searchAlbums = false;
+    search.pageSize = 5;
+
+    search.observe(models.EVENT.CHANGE, function(result) {
+
+        result.tracks.forEach(function(track) {
+            playlist.push(track);
+        });
+        done++;
+
+        if (done == artists.length) {
+            console.log(playlist);
+        }
+
+    });
+
+    search.appendNext();
+}</code></pre>
+            </div>
 
             <h3>Live Example</h3>
             <p>Check the console</p>
