@@ -5,15 +5,17 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
-                /* Instantiate the global sp object; include models & views */
+                /* Instantiate the global sp object; include models */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
-                var views = sp.require("sp://import/scripts/api/views");
 
                 var player = models.player;
 
@@ -38,13 +40,39 @@
             <p class="description">This code snippet will let you control the Player object with a click event.</p>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1792009.js?file=spotify-apps-sandbox-click_to_play.js"></script>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models & views */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+var player = models.player;
+
+$('#play-me').click(function(){
+    player.playing = !(player.playing);
+    if (player.playing == true) {
+        $('#play-me').empty().append('Playing!');
+    } else {
+        $('#play-me').empty().append('Paused');
+    }
+});</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/1792029.js?file=spotify-apps-sandbox-click_to_play.html"></script>
+            <div id="the-html">
+<pre><code data-language="html">&lt;div id="play-me"&gt;&lt;/div&gt;</code></pre>
+            </div>
 
             <h3>The CSS</h3>
-            <script src="https://gist.github.com/1792021.js?file=spotify-apps-sandbox-click_to_play.css"></script>
+            <div id="the-css">
+<pre><code data-language="css">&lt;style&gt;
+    #play-me {
+        width:600px;
+        height:40px;
+        border:1px solid #333;
+        font:italic 2.5em Georgia, serif;
+        text-align:center;color:#000;
+    }
+&lt;/style&gt;</code></pre>
+                </div>
 
             <h3>Live Example</h3>
             <input type="button" id="play-me" value="Click me to pause" />

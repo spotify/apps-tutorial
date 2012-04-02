@@ -5,19 +5,20 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
-                /* Instantiate the global sp object; include models & views */
+                /* Instantiate the global sp object; include models */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
-                var views = sp.require("sp://import/scripts/api/views");
 
                 var player = models.player;
 
-                console.log(player);
                 $('#previous').click(function(){
                     player.previous();
                 });
@@ -38,10 +39,27 @@
             <p class="description">This code snippet will let you control the move along the queue of songs.</p>
 
             <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+
+var player = models.player;
+
+$('#previous').click(function(){
+    player.previous();
+});
+
+$('#next').click(function(){
+    player.next();
+});</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-
-            <h3>The CSS</h3>
+            <div id="the-html">
+<pre><code data-language="html">&lt;input type="button" id="previous" value="&laquo Previous" /&gt;
+&lt;input type="button" id="next" value="Next &raquo;" /&gt;</code></pre>
+            </div>
 
             <h3>Live Example</h3>
             <input type="button" id="previous" value="&laquo Previous" />
