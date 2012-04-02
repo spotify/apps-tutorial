@@ -3,14 +3,15 @@
     <head>
 
         <style>
-            @import url("sp://import/css/api.css");
             @import url('sp://import/css/eve.css');
             @import url('sp://import/css/player.css');
-            @import url('sp://import/css/ui.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -42,13 +43,39 @@
             <p class="description">This snippet of code plays a hardcoded Spotify URI.</p>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1791222.js?file=spotify-apps-sandbox-player.js"></script>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models & views */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+var views = sp.require("sp://import/scripts/api/views");
+
+/* Create an array of tracks from the user's library */
+var track = models.Track.fromURI('spotify:track:7DJI0fg4dzBJk31sEmn6Zk');
+
+/* Create a temporary playlist for the song */
+var playlist = new models.Playlist();
+playlist.add(track);
+var playerView = new views.Player();
+playerView.track = null; // Don't play the track right away
+playerView.context = playlist;
+
+/* Pass the player HTML code to the #player div */
+$('#player').append(playerView.node);</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/1791250.js?file=spotify-apps-sandbox-player.html"></script>
+            <div id="the-html">
+<pre><code data-language="html">&ltdiv id="player"&gt;&lt;/div&gt;</code></pre>
+            </div>
 
             <h3>The CSS</h3>
-            <script src="https://gist.github.com/1791256.js?file=spotify-apps-sandbox-player.css"></script>
+            <div id="the-css">
+<pre><code data-language="css">&lt;style&gt; 
+    @import url("sp://import/css/api.css");                               
+    @import url('sp://import/css/eve.css');                               
+    @import url('sp://import/css/player.css');                            
+&lt;/style&gt;</code></pre>
+            </div>
 
             <h3>Live Example</h3>
             <div id="player"></div>

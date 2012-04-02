@@ -46,7 +46,6 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
  * Talking to Twitter
  * Display a Polymaps object
  * Use HTML5's local storage
- * Display a Google Maps object (coming soon)
 
 
 ## Installation

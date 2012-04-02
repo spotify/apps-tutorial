@@ -6,10 +6,12 @@
             @import url('sp://import/css/player.css');
             @import url('sp://import/css/ui.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
             h1, ul {margin:0 0 30px;}
             a:hover {color:#83be20;}
         </style>
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
         <script>
             $(document).ready(function() {
                 sp = getSpotifyApi(1);
@@ -94,13 +96,55 @@
             <p class="description">In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that corespond to nagivational tab names. In the <code>Application</code> class, when tabs are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
 
             <h3>The manifest.json snippet</h3>
-            <script src="https://gist.github.com/1804158.js?file=spotify-apps-sandbox-creating_tabs.json"></script>
+            <div id="the-json">
+<pre><code data-language="javascript">{
+    ...
+    "DefaultTabs": [
+        {
+            "arguments": "index",
+            "title": {
+                "en": "Home"
+            }
+        },
+        {
+            "arguments": "tabs",
+            "title": {
+                "en": "How to use tabs"
+            }
+        }
+    ],
+    ...
+}</code></pre>
+            </div>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1804049.js?file=spotify-apps-sandbox-creating_tabs.js"></script>
+            <div id="the-js">
+<pre><code data-language="javascript">sp = getSpotifyApi(1);   
+var models = sp.require('sp://import/scripts/api/models');
+
+tabs(); // See function definition below
+
+/* When a user clicks a tab, the "arguments" property on the 
+ * Application object changes, and the tabs() function fires */               
+models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);  
+
+function tabs() {
+    var args = models.application.arguments;
+    $('.section').hide(); // Hide all sections
+    $('#'+args[0]).show(); // Show the current section
+}</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/1804166.js?file=spotify-apps-sandbox-creating_tabs.html"></script>
+            <div id="the-html">
+<pre><code data-language="html">&lt;div id="index"&gt;
+<!-- This content will show up in the "Home" tab -->
+&lt;/div&gt;
+
+&lt;div id="tabs"&gt;
+<!-- This content will show up in the "How to use tabs" tab -->
+&lt;/div&gt;</code></pre>
+            </div>
 
         </div><!-- /tabs -->
 

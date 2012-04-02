@@ -5,9 +5,12 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -36,13 +39,32 @@
             </ul>
 
             <h1>Get the currently-playing track</h1>
-            <p class="description">Checks to see if the player is playing. #TODO: Add an observer to see when the track changes.</p>
+            <p class="description">Checks to see if the player is playing.</p>
+            <!-- TODO: Add an observer to see when the track changes. -->
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1791443.js?file=spotify-apps-sandbox-current_track.js"></script>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+
+// Get the track that is currently playing
+var currentTrack = models.player.track;
+
+// If nothing currently playing
+if (currentTrack == null) {
+    $('#now-playing').append('No track currently playing');
+} else {
+    var track = currentTrack;
+    var artist = track.artists[0].name;
+    $('#now-playing').append("Now playing: " + track, artist);
+}</code></pre>            
+            </div>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/1791595.js?file=spotify-apps-sandbox-current_track.html"></script>
+            <div id="the-html">
+<pre><code data-language="html">&lt;div id="now-playing"&gt;&lt;/div&gt;</code></pre>
+            </div>
 
             <h3>Live Example</h3>
             <div id="now-playing"></div>

@@ -3,14 +3,15 @@
     <head>
 
         <style>
-            @import url('sp://import/css/api.css');
             @import url('sp://import/css/eve.css');
             @import url('sp://import/css/list.css');
-            @import url('sp://import/css/player.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -46,13 +47,50 @@
             <p class="description">This snippet of code retrieves the user's 20 latest songs added to their Library and creates a Player & List view of the songs.</p>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1803331.js?file=spotify-apps-sandbox-player+list.js"></script>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models & views */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+var views = sp.require("sp://import/scripts/api/views");
+
+/* Create an array of tracks from the user's library */
+var tracks = models.library.tracks;
+
+/* Create a temporary playlist and fill it with tracks
+ * from the previous query */
+var tempPlaylist = new models.Playlist();
+for(var i=0;i<20;i++) {
+    var track = models.Track.fromURI(tracks[i].data.uri);
+    tempPlaylist.add(track);
+}
+
+/* Create a Player() object and fill it with content
+ * from the temporary playlist object created earlier */
+var player = new views.Player();
+player.track = tempPlaylist.get(0);
+player.context = tempPlaylist;
+
+/* Pass the player HTML code to the #player div */
+$('#player').append(player.node);
+
+/* Create a "view" for the playlist and pass the list
+ * code to the #player div */
+var playlist = new views.List(tempPlaylist);
+$('#player').append(playlist.node);</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/1791250.js?file=spotify-apps-sandbox-player.html"></script>
+            <div id="the-html">
+<pre><code data-language="html">&lt;div id="player"&gt;&lt;/div&gt;</code></pre>
+            </div>
 
             <h3>The CSS</h3>
-            <script src="https://gist.github.com/1791326.js?file=spotify-apps-sandbox-player+list.css"></script>
+            <div id="the-css">
+<pre><code data-langauge="css">&lt;style&gt;  
+    @import url('sp://import/css/eve.css');                               
+    @import url('sp://import/css/list.css');                            
+&lt;/style&gt;</code></pre> 
+            </div>
 
             <h3>Live Example</h3>
             <div id="player"></div>
