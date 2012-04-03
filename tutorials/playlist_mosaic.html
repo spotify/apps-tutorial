@@ -5,9 +5,12 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
@@ -41,10 +44,28 @@
             <p class="description">Given a playlist URI, we can show the mosaic image.</p>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/2012492.js?file=spotify-apps-tutorial-playlist_mosaic.js"></script>
+            <div id="the-js">
+<pre><code data-language="javascript">var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+var views = sp.require("sp://import/scripts/api/views");
+
+var playlistURL = 'spotify:user:magerleagues:playlist:5CZ3KO3EExplZOzHDMzgym';
+var playlist = models.Playlist.fromURI(playlistURL);
+playlist.observe(models.EVENT.CHANGE, function() {
+
+    var mosaic = new views.Image(playlist.image);
+    mosaic.node.style.width = '300px';
+    mosaic.node.style.height = '300px';
+    mosaic.node.style.backgroundSize = 'cover';
+    $('#image').append(mosaic.node);
+
+});</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/2012501.js?file=spotify-apps-tutorial-playlist_mosaic.html"></script>
+            <div id="the-html">
+<pre><code data-language="html">&lt;div id="image"&gt;&lt;/div&gt;</code></pre>
+            </div>
 
             <h3>Live Example</h3>
             <div id="image"></div>

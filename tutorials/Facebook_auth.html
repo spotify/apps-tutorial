@@ -5,12 +5,15 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
         <script>
             $(document).ready(function() {
-                /* Instantiate the global sp object; include models & views */
+                /* Instantiate the global sp object; include models */
                 var sp = getSpotifyApi(1);
                 var auth = sp.require('sp://import/scripts/api/auth');
 
@@ -19,15 +22,18 @@
                 var permissions = ['user_about_me'];
                 var app_id = '126891607432106';
 
-                auth.authenticateWithFacebook(app_id, permissions, {
-                    onSuccess: function(accessToken, ttl) {
-                        $('#status > p').append("<p>" + accessToken + "</p>");
-                        $('#status > p').append("<p>The request took " + ttl + " ms.</p>");
-                    },
-                    onFailure: function(error) {
-                        console.log("Authentication failed with error: " + error);
-                    },
-                    onComplete: function() { }
+                $('#fb-login').click(function(){
+                    auth.authenticateWithFacebook(app_id, permissions, {
+                        onSuccess: function(accessToken, ttl) {
+                            $('#fb-login').remove();
+                            $('#status > p').append("<p>" + accessToken + "</p>");
+                            $('#status > p').append("<p>The request took " + ttl + " ms.</p>");
+                        },
+                        onFailure: function(error) {
+                            console.log("Authentication failed with error: " + error);
+                        },
+                        onComplete: function() { }
+                    });
                 });
             });
         </script>
@@ -42,12 +48,39 @@
             <p class="description">Here, we'll attempt to authenticate a user from Facebook.</p>
 
             <h3>The Javascript</h3>
-            <script src="https://gist.github.com/1792236.js?file=spotify-apps-sandbox-Facebook_auth.js"></script>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
+var sp = getSpotifyApi(1);
+var auth = sp.require('sp://import/scripts/api/auth');
+
+/* Set the permissions you want from the user. For more
+ * info, check out http://bit.ly/A4KCW3 */
+var permissions = ['user_about_me'];
+var app_id = '126891607432106';
+
+$('#fb-login').click(function(){
+    auth.authenticateWithFacebook(app_id, permissions, {
+        onSuccess: function(accessToken, ttl) {
+            $('#fb-login').remove();
+            $('#status > p').append("&lt;p&gt;" + accessToken + "&lt;/p&gt;");
+            $('#status > p').append("&lt;p&gt;The request took " + ttl + " ms.&lt;/p&gt;");
+        },
+        onFailure: function(error) {
+            console.log("Authentication failed with error: " + error);
+        },
+        onComplete: function() { }
+    });
+});</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-            <script src="https://gist.github.com/1792242.js?file=spotify-apps-sandbox-Facebook_auth.html"></script>
+            <div id="the-html">
+<pre><code data-language="html">&lt;img src="sp://spotify-apps-tutorial/img/fb-login.png" id="fb-login" /&gt;
+&lt;div id="status"&gt;&lt;p&gt;If you've successfully authenticated with Facebook, this should be your access token:&lt;/p&gt;&lt;/div&gt;</code></pre>
+            </div>
 
             <h3>Live Example</h3>
+            <img src="sp://spotify-apps-tutorial/img/fb-login.png" id="fb-login" />
             <div id="status"><p>If you've successfully authenticated with Facebook, this should be your access token:</p></div>
         </div><!-- /wrapper -->
     </body>
