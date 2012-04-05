@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
+        </style>
+
+        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require('sp://import/scripts/api/models');
+                var views = sp.require('sp://import/scripts/api/views');
+
+                $("#subscribe").click(function(playlist){
+                    var playlist = models.Playlist.fromURI("spotify:user:spotify:playlist:3Yrvm5lBgnhzTYTXx2l55x");
+                    playlist.subscribed = true;
+
+                    playlist.observe(models.EVENT.CHANGE, function() {
+                        console.log("Playlist is subscribed!");
+                    });
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Subscribe to a playlist</h1>
+            <p class="description">Given a playlist URI, click a button to subscribe.</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
+var sp = getSpotifyApi(1);
+var models = sp.require('sp://import/scripts/api/models');
+$("#subscribe").click(function(playlist){
+    var playlist = models.Playlist.fromURI("spotify:user:spotify:playlist:3Yrvm5lBgnhzTYTXx2l55x");
+    playlist.subscribed = true;
+    playlist.observe(models.EVENT.CHANGE, function() {
+        console.log("Playlist is subscribed!");
+    });
+});</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&lt;input type="button" id="subscribe" value="Subscribe" /&gt;></code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <input type="button" id="subscribe" value="Subscribe" />
+        </div><!-- /wrapper -->
+    </body>
+</html>
