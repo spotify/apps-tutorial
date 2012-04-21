@@ -23,8 +23,16 @@
 
                 var en_api_key = 'QBWGCMIHMQAYHX72I';
 
-                var now_playing_artist = models.player.track.artists[0];
-                var artist_id = now_playing_artist.uri.replace('spotify', 'spotify-WW');
+                /* Get the seed song. If the player is playing, use that
+                 * artist. If not, grab the first artist from the user's
+                 * library. */
+                if (models.player.playing == true) {
+                    var seed = models.player.track.artists[0];
+                } else {
+                    var seed = models.library.tracks[0].artists[0];    
+                }
+
+                var artist_id = seed.uri.replace('spotify', 'spotify-WW');
                 var player = new views.Player();
                 player.track = null;
 
