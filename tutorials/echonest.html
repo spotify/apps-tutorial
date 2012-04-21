@@ -29,14 +29,14 @@
 
                 function getPlaylistFromEchoNest(api_key, artist_id) {
                     var url = 'http://developer.echonest.com/api/v4/playlist/basic?api_key=' + api_key + '&callback=?';
+                    url += "&bucket=id:spotify-WW&bucket=tracks";
                     $.getJSON(url,
                         {
                             artist_id: artist_id,
                             format:'jsonp',
                             limit: true,
                             results: 25,
-                            type:'artist-radio',
-                            bucket: ['id:spotify-WW', 'tracks']
+                            type:'artist-radio'
                         },
                     function(data) {
                         if (checkResponse(data)) {
