@@ -37,7 +37,8 @@
 	    "https://gist.github.com/",
 	    "http://search.twitter.com/",
 	    "http://amsterdam.last.fm",
-	    "http://ws.audioscrobbler.com/"
+	    "http://ws.audioscrobbler.com/",
+	    "http://developer.echonest.com"
 	],
 	"SupportedLanguages": [
 		"en"

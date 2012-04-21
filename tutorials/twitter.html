@@ -29,6 +29,11 @@
 
                 xhr.send(null);
 
+                $('#tweets li a').live('click', function(e){
+                    e.preventDefault();
+                    models.player.play(this.dataset.uri);
+                });
+
                 function handle(data) {
                 	for (var i = 0; i < data.results.length; i++) {
                 		var result = data.results[i];
@@ -41,7 +46,7 @@
                 			var a = document.createElement('a');
             	    		if (!track.name) continue;
                 			a.innerHTML = track.name.decodeForHTML();
-                			a.href = track.uri;
+                			a.dataset.uri = track.uri;
 
                             var li = document.createElement('li');
                             li.appendChild(a);

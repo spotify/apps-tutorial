@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
+        </style>
+
+        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require('sp://import/scripts/api/models');
+                var views = sp.require('sp://import/scripts/api/views');
+
+                var en_api_key = 'QBWGCMIHMQAYHX72I';
+
+                var now_playing_artist = models.player.track.artists[0];
+                var artist_id = now_playing_artist.uri.replace('spotify', 'spotify-WW');
+
+                console.log(artist_id);
+
+                getPlaylistFromEchoNest(en_api_key, artist_id);
+
+                function getPlaylistFromEchoNest(api_key, artist_id) {
+                    var url = 'http://developer.echonest.com/api/v4/playlist/basic?api_key=' + api_key + '&callback=?';
+                    $.getJSON(url,
+                        {
+                            artist_id: artist_id,
+                            format:'jsonp',
+                            limit: true,
+                            results: 25,
+                            type:'artist-radio',
+                            bucket: ['id:spotify-WW', 'tracks']
+                        },
+                    function(data) {
+                        if (checkResponse(data)) {
+                            console.log(data.response);
+                        } else {
+                            $('#error').text("trouble getting results");
+                        }
+                    });
+                }
+
+                function checkResponse(data) {
+                    if (data.response) {
+                        if (data.response.status.code != 0) {
+                            $('#error').text("Whoops... Unexpected error from server. " + data.response.status.message);
+                            console.log(JSON.stringify(data.response));
+                        } else {
+                            return true;
+                        }
+                    } else {
+                        error("Unexpected response from server");
+                    }
+                    return false;
+                }
+
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Title of tutorial</h1>
+            <p class="description">Description of tutorial</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">var sp = getSpotifyApi(1);
+var models = sp.require('sp://import/scripts/api/models');
+var views = sp.require('sp://import/scripts/api/views');</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html"><div id="player"></div></code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-language="css"><style type="text/css">
+    @import url('sp://import/css/eve.css');
+</style></code></pre>
+            </div>
+            
+            <h3>Live Example</h3>
+
+            <div id="error"></div>
+            <!-- Cool stuff goes here -->
+        </div><!-- /wrapper -->
+    </body>
+</html>
