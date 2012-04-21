@@ -18,14 +18,15 @@
                 var models = sp.require('sp://import/scripts/api/models');
                 var views = sp.require('sp://import/scripts/api/views');
 
+                /* Set traditional mode in JS */
+                $.ajaxSetup({traditional: true, cache: true});
+
                 var en_api_key = 'QBWGCMIHMQAYHX72I';
 
                 var now_playing_artist = models.player.track.artists[0];
                 var artist_id = now_playing_artist.uri.replace('spotify', 'spotify-WW');
 
-                console.log(artist_id);
-
-                getPlaylistFromEchoNest(en_api_key, artist_id);
+                var songs = getPlaylistFromEchoNest(en_api_key, artist_id);
 
                 function getPlaylistFromEchoNest(api_key, artist_id) {
                     var url = 'http://developer.echonest.com/api/v4/playlist/basic?api_key=' + api_key + '&callback=?';
@@ -40,7 +41,10 @@
                         },
                     function(data) {
                         if (checkResponse(data)) {
-                            console.log(data.response);
+                            var playlist = models.Playlist();
+                            for (var i=0;i<data.response.songs.length;i++) {
+                            
+                            }
                         } else {
                             $('#error').text("trouble getting results");
                         }
