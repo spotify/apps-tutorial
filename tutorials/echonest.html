@@ -58,11 +58,7 @@
                                 playlist.add(track);
                             }
 
-                            console.log(playlist);
-                            var player = new views.Player();
-                            player.track = null;
-                            player.context = playlist;
-                            $('#player').append(player.node);
+                            makePlayerView(playlist);
 
                         } else {
                             $('#error').text("trouble getting results");
@@ -83,6 +79,15 @@
                     }
                     return false;
                 }
+
+                function makePlayerView(uri) {
+                    var player = new views.Player();
+                    player.track = null;
+                    player.context = uri;
+                    $('#player').append(player.node);
+                }
+
+
 
             });
         </script>
