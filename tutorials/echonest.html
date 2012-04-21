@@ -25,6 +25,8 @@
 
                 var now_playing_artist = models.player.track.artists[0];
                 var artist_id = now_playing_artist.uri.replace('spotify', 'spotify-WW');
+                var player = new views.Player();
+                player.track = null;
 
                 var songs = getPlaylistFromEchoNest(en_api_key, artist_id);
 
@@ -41,10 +43,17 @@
                         },
                     function(data) {
                         if (checkResponse(data)) {
-                            var playlist = models.Playlist();
+                            var playlist = new models.Playlist();
                             for (var i=0;i<data.response.songs.length;i++) {
-                            
+                                var track_uri = data.response.songs[i].tracks[0].foreign_id.replace('-WW', '');
+                                var track = models.Track.fromURI(track_uri);
+                                playlist.add(track);
                             }
+
+                            console.log(playlist);
+                            player.context = playlist;
+                            $('#player').append(player.node);
+
                         } else {
                             $('#error').text("trouble getting results");
                         }
@@ -86,19 +95,21 @@ var views = sp.require('sp://import/scripts/api/views');</code></pre>
 
             <h3>The HTML</h3>
             <div id="the-html">
-<pre><code data-language="html"><div id="player"></div></code></pre>
+<pre><code data-language="html">&lt;div id="player"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>The CSS</h3>
             <div id="the-css">
-<pre><code data-language="css"><style type="text/css">
+<pre><code data-language="css">&lt;style type="text/css"&gt;
     @import url('sp://import/css/eve.css');
-</style></code></pre>
+&lt;/style&gt;</code></pre>
             </div>
             
             <h3>Live Example</h3>
 
             <div id="error"></div>
+
+            <div id="player"></div>
             <!-- Cool stuff goes here -->
         </div><!-- /wrapper -->
     </body>
