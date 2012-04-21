@@ -4,6 +4,7 @@
 
         <style>
             @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/player.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
             @import url('sp://spotify-apps-tutorial/css/github.css');
         </style>
@@ -24,8 +25,9 @@
                 var en_api_key = 'QBWGCMIHMQAYHX72I';
 
                 /* Get the seed song. If the player is playing, use that
-                 * artist. If not, grab the first artist from the user's
-                 * library. */
+                 * artist. 
+                 * TODO: If no song is playing, grab the user's top 
+                 * artist. */
                 if (models.player.playing == true) {
                     var seed = models.player.track.artists[0];
                 } else {
@@ -33,10 +35,8 @@
                 }
 
                 var artist_id = seed.uri.replace('spotify', 'spotify-WW');
-                var player = new views.Player();
-                player.track = null;
 
-                var songs = getPlaylistFromEchoNest(en_api_key, artist_id);
+                getPlaylistFromEchoNest(en_api_key, artist_id);
 
                 function getPlaylistFromEchoNest(api_key, artist_id) {
                     var url = 'http://developer.echonest.com/api/v4/playlist/basic?api_key=' + api_key + '&callback=?';
@@ -45,7 +45,7 @@
                             artist_id: artist_id,
                             format:'jsonp',
                             limit: true,
-                            results: 25,
+                            results: 50,
                             type:'artist-radio',
                             bucket: ['id:spotify-WW', 'tracks']
                         },
@@ -59,6 +59,8 @@
                             }
 
                             console.log(playlist);
+                            var player = new views.Player();
+                            player.track = null;
                             player.context = playlist;
                             $('#player').append(player.node);
 
@@ -91,8 +93,8 @@
                 <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
             </ul>
 
-            <h1>Title of tutorial</h1>
-            <p class="description">Description of tutorial</p>
+            <h1>Create a smart radio station with The Echo Nest</h1>
+            <p class="description">Using The Echo Nest API, grab the user's currently playing track, or their top artist. If the user clicks "I like it" button in the first 30 seconds, add the song to a playlist. After 30 seconds, if the user hasn't liked the song, skip it.</p>
 
             <h3>The Javascript</h3>
             <div id="the-js">
