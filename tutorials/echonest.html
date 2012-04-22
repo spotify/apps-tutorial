@@ -101,7 +101,7 @@
                     if (event.data.curtrack) {
                         var t = setTimeout(function() {
                             models.player.next();
-                        }, 20000);
+                        }, 15000);
                         console.log('track advanced');
                     }
                     $('#like').click(function(){
@@ -120,8 +120,8 @@
                 <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
             </ul>
 
-            <h1>Create a smart radio station with The Echo Nest</h1>
-            <p class="description">Using The Echo Nest API, grab the user's currently playing track, or their top artist. If the user clicks "I like it" button in the first 20 seconds, add the song to a playlist. After 20 seconds, if the user hasn't liked the song, skip it.</p>
+            <h1>#29sec</h1>
+            <p class="description">Using The Echo Nest API, grab the user's currently playing track, or a random artist from their library. If the user clicks the "I like" button in the first 30 seconds, the song continues playing. After 20 seconds, if the user hasn't liked the song, skip it. Features we still want to add: let user decide how long before a skip, populate a playlist based on the songs a user likes, mobile version :)</p>
 
             <!--
             <h3>The Javascript</h3>
