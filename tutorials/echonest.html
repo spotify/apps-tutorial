@@ -9,7 +9,7 @@
             @import url('sp://spotify-apps-tutorial/css/github.css');
             #player {overflow:hidden; float:left;}
             input {float: left; margin: 0 5px;}
-            #msg {float: left; margin: 5px; color: #000;}
+            #msg {float: left; margin: 3px; color: #000;}
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
@@ -107,6 +107,7 @@
                     $('#like').click(function(){
                         clearTimeout(t);
                         $('#msg').text('Let\'s keep listening!');
+                        console.log('the song will continue');
                     });
                 });
 
@@ -120,8 +121,9 @@
             </ul>
 
             <h1>Create a smart radio station with The Echo Nest</h1>
-            <p class="description">Using The Echo Nest API, grab the user's currently playing track, or their top artist. If the user clicks "I like it" button in the first 30 seconds, add the song to a playlist. After 30 seconds, if the user hasn't liked the song, skip it.</p>
+            <p class="description">Using The Echo Nest API, grab the user's currently playing track, or their top artist. If the user clicks "I like it" button in the first 20 seconds, add the song to a playlist. After 20 seconds, if the user hasn't liked the song, skip it.</p>
 
+            <!--
             <h3>The Javascript</h3>
             <div id="the-js">
 <pre><code data-language="javascript">var sp = getSpotifyApi(1);
@@ -143,6 +145,7 @@ var views = sp.require('sp://import/scripts/api/views');</code></pre>
             
             <h3>Live Example</h3>
 
+-->
             <div id="error"></div>
 
             <div id="player"></div>
