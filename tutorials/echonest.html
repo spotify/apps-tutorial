@@ -7,6 +7,9 @@
             @import url('sp://import/css/player.css');
             @import url('sp://spotify-apps-tutorial/css/main.css');
             @import url('sp://spotify-apps-tutorial/css/github.css');
+            #player {overflow:hidden; float:left;}
+            input {float: left; margin: 0 5px;}
+            #msg {float: left; margin: 5px; color: #000;}
         </style>
 
         <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
@@ -24,6 +27,8 @@
 
                 var en_api_key = 'QBWGCMIHMQAYHX72I';
 
+                var random_number = Math.floor(Math.random()*51);
+
                 /* Get the seed song. If the player is playing, use that
                  * artist. 
                  * TODO: If no song is playing, grab the user's top 
@@ -31,8 +36,10 @@
                 if (models.player.playing == true) {
                     var seed = models.player.track.artists[0];
                 } else {
-                    var seed = models.library.tracks[0].artists[0];    
+                    var seed = models.library.tracks[random_number].artists[0];    
+                    console.log(seed.name);
                 }
+
 
                 var artist_id = seed.uri.replace('spotify', 'spotify-WW');
 
@@ -84,10 +91,24 @@
                     var player = new views.Player();
                     player.track = null;
                     player.context = uri;
+                    player.node.style.height = '300px';
+                    player.node.style.width = '300px';
+                    player.node.style.backgroundSize = 'cover';
                     $('#player').append(player.node);
                 }
 
-
+                models.player.observe(models.EVENT.CHANGE, function(event) {
+                    if (event.data.curtrack) {
+                        var t = setTimeout(function() {
+                            models.player.next();
+                        }, 20000);
+                        console.log('track advanced');
+                    }
+                    $('#like').click(function(){
+                        clearTimeout(t);
+                        $('#msg').text('Let\'s keep listening!');
+                    });
+                });
 
             });
         </script>
@@ -125,6 +146,8 @@ var views = sp.require('sp://import/scripts/api/views');</code></pre>
             <div id="error"></div>
 
             <div id="player"></div>
+            <input type="button" value="J'aime" id="like" />
+            <p id="msg"></p>
             <!-- Cool stuff goes here -->
         </div><!-- /wrapper -->
     </body>
