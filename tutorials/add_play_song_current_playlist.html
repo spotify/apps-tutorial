@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/player.css');
+            @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://spotify-apps-tutorial/css/github.css');
+        </style>
+
+        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+				/* Instantiate the global sp object; include models & views */
+				var sp = getSpotifyApi(1);
+				var models = sp.require("sp://import/scripts/api/models");
+				var views = sp.require("sp://import/scripts/api/views");
+
+				track = models.Track.fromURI('spotify:track:5JmS4ADcvk5a7eUb247lmP');
+				player = new views.Player();
+				player.play(track);
+				
+				// Only for "live example"
+				info = {name: models.player.track.data.name, artist: models.player.track.data.artists[0].name};
+				$('.example span').text(info.name + ' - ' + info.artist);
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Add and play a song</h1>
+            <p class="description">This snippet of code add and play a song in the current playlist.</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models & views */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+var views = sp.require("sp://import/scripts/api/views");
+
+track = models.Track.fromURI('spotify:track:5JmS4ADcvk5a7eUb247lmP');
+player = new views.Player();
+player.play(track);</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div class="example">Listen the song (<span class="song"></span>)</div>
+        </div><!-- /wrapper -->
+    </body>
+</html>
