@@ -4,17 +4,16 @@
 
         <style>
             @import url('sp://import/css/eve.css');
-            @import url('sp://spotify-apps-tutorial/css/main.css');
+            @import url('sp://tutorial/css/main.css');
         </style>
 
-        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
+        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var auth = sp.require('sp://import/scripts/api/auth');
 
-                var permissions = ['user_actions.music'];
                 var app_id = '126891607432106';
                 var request_url = 'https://graph.facebook.com/me/music.listens';
                 auth.authenticateWithFacebook(app_id, permissions, {
@@ -28,6 +27,8 @@
                                 $('#listens').append('<li><a href="' + tracklink + '">' + trackname + '</a></li>');
                             }
                         });
+                            console.log(data.data);
+                        });
                     },
                     onFailure : function(error) {
                         console.log("Authentication failed with error: " + error);
@@ -40,7 +41,7 @@
     <body>
         <div id="wrapper">
             <ul class="breadcrumb">
-                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
             </ul>
 
             <h1>Get a user's listening history from Facebook</h1>

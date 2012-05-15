@@ -8,7 +8,7 @@
 	"AppName": {
 		"en": "Spotify Apps API Tutorial"
 	},
-	"BundleIdentifier": "spotify-apps-tutorial",
+	"BundleIdentifier": "tutorial",
 	"BundleType": "Application",
 	"BundleVersion": "0.1",
 	"DefaultTabs": [

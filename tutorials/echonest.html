@@ -5,15 +5,15 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://import/css/player.css');
-            @import url('sp://spotify-apps-tutorial/css/main.css');
-            @import url('sp://spotify-apps-tutorial/css/github.css');
+            @import url('sp://tutorial/css/main.css');
+            @import url('sp://tutorial/css/github.css');
             #player {overflow:hidden; float:left;}
             input {float: left; margin: 0 5px;}
             #msg {float: left; margin: 3px; color: #000;}
         </style>
 
-        <script src="sp://spotify-apps-tutorial/js/jquery.min.js"></script>
-        <script src="sp://spotify-apps-tutorial/js/rainbow-custom.min.js"></script>
+        <script src="sp://tutorial/js/jquery.min.js"></script>
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
             $(document).ready(function() {
@@ -47,6 +47,7 @@
 
                 function getPlaylistFromEchoNest(api_key, artist_id) {
                     var url = 'http://developer.echonest.com/api/v4/playlist/basic?api_key=' + api_key + '&callback=?';
+                    console.log(url);
                     $.getJSON(url,
                         {
                             artist_id: artist_id,
@@ -57,6 +58,7 @@
                             bucket: ['id:spotify-WW', 'tracks']
                         },
                     function(data) {
+                        console.log(data);
                         if (checkResponse(data)) {
                             var playlist = new models.Playlist();
                             for (var i=0;i<data.response.songs.length;i++) {
@@ -98,6 +100,7 @@
                 }
 
                 models.player.observe(models.EVENT.CHANGE, function(event) {
+                    console.log(event.data);
                     if (event.data.curtrack) {
                         var t = setTimeout(function() {
                             models.player.next();
@@ -117,7 +120,7 @@
     <body>
         <div id="wrapper">
             <ul class="breadcrumb">
-                <li><a href="sp://spotify-apps-tutorial/index.html">&laquo; Back to main page</a></li>
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
             </ul>
 
             <h1>#29sec</h1>
