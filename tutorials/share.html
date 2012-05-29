@@ -6,26 +6,28 @@
             @import url('sp://import/css/eve.css');
             @import url('sp://tutorial/css/main.css');
             @import url('sp://tutorial/css/github.css');
-            body {padding:0 0 320px;}
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
 
-                /* The <div /> that will contain the popup */
-                var element = $('#share');
+                /* The button that the user clicks to activate
+                 * the share popup */
+                var element = document.getElementById('share-popup');
 
                 /* The Spotify URI of the content you want to share */
                 var content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
 
                 /* Display the popup */
-                models.application.showSharePopup(element[0], content);
-            });
+                element.onclick = displayPopup;
+                function displayPopup() {
+                    models.application.showSharePopup(element, content);
+                }
+            }
         </script>
     </head>
     <body>
@@ -39,18 +41,24 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
-var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
 
-/* The div that will contain the popup */
-var element = $('#share');
+    /* The button that the user clicks to activate
+     * the share popup */
+    var element = document.getElementById('share-popup');
 
-/* The Spotify URI of the content you want to share */
-var content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
+    /* The Spotify URI of the content you want to share */
+    var content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
 
-/* Display the popup */
-models.application.showSharePopup(element[0], content);</code></pre>
+    /* Display the popup */
+    element.onclick = displayPopup;
+    function displayPopup() {
+        models.application.showSharePopup(element, content);
+    }
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>
@@ -59,7 +67,9 @@ models.application.showSharePopup(element[0], content);</code></pre>
             </div>
 
             <h3>Live Example</h3>
-            <div id="share"></div>
+            <div id="share">
+                <button id="share-popup">Share</button>
+            </div>
         </div><!-- /wrapper -->
     </body>
 </html>
