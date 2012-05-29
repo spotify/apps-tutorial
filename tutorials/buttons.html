@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/api.css');
+            @import url('sp://tutorial/css/main.css');
+            @import url('sp://tutorial/css/github.css');
+
+            .sp-button {margin: 0 10px 0 0 !important;}
+        </style>
+
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Using standard components for buttons</h1>
+            <p class="description">Including <code>api.css</code> lets us use the standard button styles provided by Spotify.</p>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html"><div id="buttons">
+    <button class="sp-button">Normal button</button>
+    <button class="sp-button sp-primary">Primary button</button>
+    <button class="sp-button sp-flat">Flat button</button>
+    <!-- TODO: Add button styles for sp-icon -->
+</div></code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-language="html"><style>
+    @import url('sp://import/css/api.css');
+</style></code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="buttons">
+                <button class="sp-button">Normal button</button>
+                <button class="sp-button sp-primary">Primary button</button>
+                <button class="sp-button sp-flat">Flat button</button>
+                <!-- TODO: Add button styles for sp-icon -->
+            </div>
+        </div><!-- /wrapper -->
+    </body>
+</html>

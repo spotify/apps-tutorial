@@ -4,6 +4,7 @@
 
         <style>
             @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/api.css');
             @import url('sp://tutorial/css/main.css');
             @import url('sp://tutorial/css/github.css');
         </style>
@@ -63,12 +64,21 @@
 
             <h3>The HTML</h3>
             <div id="the-html">
-<pre><code data-language="html"><div id="share"></div></code></pre>
+<pre><code data-language="html"><div id="share">
+    <button id="share-popup" class="sp-button">Share</button>
+</div></code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-language="html"><style>
+    @import url('sp://import/css/api.css');
+</style></code></pre>
             </div>
 
             <h3>Live Example</h3>
             <div id="share">
-                <button id="share-popup">Share</button>
+                <button id="share-popup" class="sp-button">Share</button>
             </div>
         </div><!-- /wrapper -->
     </body>
