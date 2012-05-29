@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/list.css');
+            @import url('sp://tutorial/css/main.css');
+            @import url('sp://tutorial/css/github.css');
+        </style>
+
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+
+        <script>
+            window.onload = function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+                var views = sp.require("sp://import/scripts/api/views");
+
+                /* Create an array of tracks from the user's library */
+                var tracks = models.library.tracks;
+
+                /* Create a temporary playlist and fill it with tracks
+                 * from the previous query */
+                var tempPlaylist = new models.Playlist();
+                for(var i=0;i<20;i++) {
+                    var track = models.Track.fromURI(tracks[i].data.uri);
+                    tempPlaylist.add(track);
+                }
+
+                /* Create a "view" for the playlist and pass the list
+                 * code to the #player <div /> */
+                var playlist = new views.List(tempPlaylist);
+                var playerHTML = document.getElementById('player');
+                playerHTML.appendChild(playlist.node);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Play a list of songs</h1>
+            <p class="description">This snippet of code retrieves the user's 20 latest songs added to their Library and creates a Player & List view of the songs.</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">/* Instantiate the global sp object; include models & views */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+var views = sp.require("sp://import/scripts/api/views");
+
+/* Create an array of tracks from the user's library */
+var tracks = models.library.tracks;
+
+/* Create a temporary playlist and fill it with tracks
+ * from the previous query */
+var tempPlaylist = new models.Playlist();
+for(var i=0;i&lt;20;i++) {
+    var track = models.Track.fromURI(tracks[i].data.uri);
+    tempPlaylist.add(track);
+}
+
+/* Create a Player() object and fill it with content
+ * from the temporary playlist object created earlier */
+var player = new views.Player();
+player.track = tempPlaylist.get(0);
+player.context = tempPlaylist;
+
+/* Pass the player HTML code to the #player div */
+$('#player').append(player.node);
+
+/* Create a "view" for the playlist and pass the list
+ * code to the #player div */
+var playlist = new views.List(tempPlaylist);
+var playerHTML = document.getElementById('player');
+playerHTML.appendChild(playlist.node);</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&lt;div id="player"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-langauge="css">&lt;style&gt;  
+    @import url('sp://import/css/eve.css');                               
+    @import url('sp://import/css/list.css');                            
+&lt;/style&gt;</code></pre> 
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="player"></div>
+        </div><!-- /wrapper -->
+    </body>
+</html>
