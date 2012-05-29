@@ -10,25 +10,25 @@
             h1, ul {margin:0 0 30px;}
             a:hover {color:#83be20;}
         </style>
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
-                var gtrack = sp.require("sp://import/scripts/googletracker");
-                var tracker = new gtrack.GoogleTracker('UA–xxxxxxx–1');
-
+                
                 tabs();
                 models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
 
                 function tabs() {
                     var args = models.application.arguments;
-                    console.log(args[0]);
-                    $('.section').hide();
-                    $('#'+args[0]).show();
+                    var current = document.getElementById(args[0]);
+                    var sections = document.getElementsByClassName('section');
+                    for (i=0;i<sections.length;i++){
+                        sections[i].style.display = 'none';
+                    }
+                    current.style.display = 'block';
                 }
-            });
+            }
         </script>
     </head>
     <body>
@@ -129,19 +129,22 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">sp = getSpotifyApi(1);   
-var models = sp.require('sp://import/scripts/api/models');
+<pre><code data-language="javascript">window.onload = function() {
+    sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+    
+    tabs();
+    models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
 
-tabs(); // See function definition below
-
-/* When a user clicks a tab, the "arguments" property on the 
- * Application object changes, and the tabs() function fires */               
-models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);  
-
-function tabs() {
-    var args = models.application.arguments;
-    $('.section').hide(); // Hide all sections
-    $('#'+args[0]).show(); // Show the current section
+    function tabs() {
+        var args = models.application.arguments;
+        var current = document.getElementById(args[0]);
+        var sections = document.getElementsByClassName('section');
+        for (i=0;i&lt;sections.length;i++){
+            sections[i].style.display = 'none';
+        }
+        current.style.display = 'block';
+    }
 }</code></pre>
             </div>
 
