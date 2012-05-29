@@ -8,25 +8,30 @@
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
 
                 var player = models.player;
 
-                $('#previous').click(function(){
-                    player.previous();
-                });
+                var previous = document.getElementById('previous');
+                var next = document.getElementById('next');
 
-                $('#next').click(function(){
+                previous.addEventListener('click', skipPrevious);
+                next.addEventListener('click', skipNext);
+
+                function skipPrevious(){
+                    player.previous();
+                }
+
+                function skipNext(){
                     player.next();
-                });
-            });
+                }
+            }
         </script>
     </head>
     <body>
@@ -40,19 +45,27 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
-var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
 
-var player = models.player;
+    var player = models.player;
 
-$('#previous').click(function(){
-    player.previous();
-});
+    var previous = document.getElementById('previous');
+    var next = document.getElementById('next');
 
-$('#next').click(function(){
-    player.next();
-});</code></pre>
+    previous.addEventListener('click', skipPrevious);
+    next.addEventListener('click', skipNext);
+
+    function skipPrevious(){
+        player.previous();
+    }
+
+    function skipNext(){
+        player.next();
+    }
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>
