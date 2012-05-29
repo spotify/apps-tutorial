@@ -12,22 +12,26 @@
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
 
                 var player = models.player;
 
-                $('#play-me').click(function(){
+                var playerButton = document.getElementById('play-me');
+
+                playerButton.addEventListener('click', playOrPause);
+
+                function playOrPause() {
                     player.playing = !(player.playing);
                     if (player.playing == true) {
-                        $('#play-me').val('Pause');
+                        playerButton.value = 'Pause';
                     } else {
-                        $('#play-me').val('Play');
+                        playerButton.value = 'Play';
                     }
-                });
-            });
+                }
+            }
         </script>
     </head>
     <body>
@@ -41,19 +45,26 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models & views */
-var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
-var player = models.player;
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
 
-$('#play-me').click(function(){
-    player.playing = !(player.playing);
-    if (player.playing == true) {
-        $('#play-me').empty().append('Playing!');
-    } else {
-        $('#play-me').empty().append('Paused');
+    var player = models.player;
+
+    var playerButton = document.getElementById('play-me');
+
+    playerButton.addEventListener('click', playOrPause);
+
+    function playOrPause() {
+        player.playing = !(player.playing);
+        if (player.playing == true) {
+            playerButton.value = 'Pause';
+        } else {
+            playerButton.value = 'Play';
+        }
     }
-});</code></pre>
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>
