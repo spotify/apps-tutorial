@@ -48,36 +48,29 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models & views */
-var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
-var views = sp.require("sp://import/scripts/api/views");
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models &amp; views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
+    var views = sp.require("sp://import/scripts/api/views");
 
-/* Create an array of tracks from the user's library */
-var tracks = models.library.tracks;
+    /* Create an array of tracks from the user's library */
+    var tracks = models.library.tracks;
 
-/* Create a temporary playlist and fill it with tracks
- * from the previous query */
-var tempPlaylist = new models.Playlist();
-for(var i=0;i&lt;20;i++) {
-    var track = models.Track.fromURI(tracks[i].data.uri);
-    tempPlaylist.add(track);
-}
+    /* Create a temporary playlist and fill it with tracks
+     * from the previous query */
+    var tempPlaylist = new models.Playlist();
+    for(var i=0;i&lt;20;i++) {
+        var track = models.Track.fromURI(tracks[i].data.uri);
+        tempPlaylist.add(track);
+    }
 
-/* Create a Player() object and fill it with content
- * from the temporary playlist object created earlier */
-var player = new views.Player();
-player.track = tempPlaylist.get(0);
-player.context = tempPlaylist;
-
-/* Pass the player HTML code to the #player div */
-$('#player').append(player.node);
-
-/* Create a "view" for the playlist and pass the list
- * code to the #player div */
-var playlist = new views.List(tempPlaylist);
-var playerHTML = document.getElementById('player');
-playerHTML.appendChild(playlist.node);</code></pre>
+    /* Create a "view" for the playlist and pass the list
+     * code to the #player div */
+    var playlist = new views.List(tempPlaylist);
+    var playerHTML = document.getElementById('player');
+    playerHTML.appendChild(playlist.node);
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>

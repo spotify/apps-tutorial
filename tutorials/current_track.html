@@ -8,11 +8,10 @@
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
@@ -21,15 +20,14 @@
                 // Get the track that is currently playing
                 var currentTrack = player.track;
     
+                var currentHTML = document.getElementById('np');
                 // if nothing currently playing
                 if (currentTrack == null) {
-                    $('#now-playing').append('No track currently playing');
+                    currentHTML.innerHTML = 'No track currently playing';
                 } else {
-                    var track = currentTrack;
-                    $('#now-playing').append('Now playing: ' + track);
+                    currentHTML.innerHTML = 'Now playing: ' + currentTrack;
                 }
-
-            });
+            }
         </script>
     </head>
     <body>
@@ -44,30 +42,32 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
-var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
+    var player = models.player;
 
-// Get the track that is currently playing
-var currentTrack = models.player.track;
+    // Get the track that is currently playing
+    var currentTrack = player.track;
 
-// If nothing currently playing
-if (currentTrack == null) {
-    $('#now-playing').append('No track currently playing');
-} else {
-    var track = currentTrack;
-    var artist = track.artists[0].name;
-    $('#now-playing').append("Now playing: " + track, artist);
+    var currentHTML = document.getElementById('np');
+    // if nothing currently playing
+    if (currentTrack == null) {
+        currentHTML.innerHTML = 'No track currently playing';
+    } else {
+        currentHTML.innerHTML = 'Now playing: ' + currentTrack;
+    }
 }</code></pre>            
             </div>
 
             <h3>The HTML</h3>
             <div id="the-html">
-<pre><code data-language="html">&lt;div id="now-playing"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="np"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>Live Example</h3>
-            <div id="now-playing"></div>
+            <div id="np"></div>
         </div><!-- /wrapper -->
     </body>
 </html>
