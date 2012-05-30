@@ -8,11 +8,10 @@
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 var sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
 
@@ -26,7 +25,7 @@
 
                 // Verify the song was added to the playlist
                 console.log(playlist);
-            });
+            }
         </script>
     </head>
     <body>
@@ -40,20 +39,22 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">var sp = getSpotifyApi(1);
-var models = sp.require('sp://import/scripts/api/models');
+<pre><code data-language="javascript">window.onload = function() {
+    var sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
 
-// Create a track object from a URI
-var track = models.Track.fromURI('spotify:track:6fycP4n7KoYxnT169sLush');
+    // Create a track object from a URI
+    var track = models.Track.fromURI('spotify:track:6fycP4n7KoYxnT169sLush');
 
-// Create a playlist object from a URI
-var playlist = models.Playlist.fromURI('spotify:user:magerleagues:playlist:3S0u0nTWj4P2bF5oq0DzLl');
+    // Create a playlist object from a URI
+    var playlist = models.Playlist.fromURI('spotify:user:magerleagues:playlist:3S0u0nTWj4P2bF5oq0DzLl');
 
-// Add the track
-playlist.add(track);
+    // Add the track
+    playlist.add(track);
 
-// Verify the song was added to the playlist
-console.log(playlist);</code></pre>
+    // Verify the song was added to the playlist
+    console.log(playlist);
+}</code></pre>
             </div>
 
             <h3>Live Example</h3>

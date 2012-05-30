@@ -8,25 +8,28 @@
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
 
                 var playlist_url = 'http://open.spotify.com/user/jkeck99/playlist/21iMSq0jzTie7m7v4UcMlV';
+                var playlistHTML = document.getElementById('playlist');
 
                 var pl = models.Playlist.fromURI(playlist_url, function(playlist) {
                     for(i=0;i<playlist.tracks.length;i++){
-                        var link = '<li><a href="' + playlist.tracks[i].uri + '">' + playlist.tracks[i].name + '</a></li>';
-                       $('#playlist').append(link);
+                        var link = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.href = playlist.tracks[i].uri;
+                        link.appendChild(a);
+                        a.innerHTML = playlist.tracks[i].name;
+                        playlistHTML.appendChild(link);
                     }
                 });
-
-            });
+            }
         </script>
     </head>
     <body>
@@ -40,18 +43,25 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
-var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
 
-var playlist_url = 'http://open.spotify.com/user/jkeck99/playlist/21iMSq0jzTie7m7v4UcMlV';
+    var playlist_url = 'http://open.spotify.com/user/jkeck99/playlist/21iMSq0jzTie7m7v4UcMlV';
+    var playlistHTML = document.getElementById('playlist');
 
-var pl = models.Playlist.fromURI(playlist_url, function(playlist) {
-    for(i=0;i&lt;playlist.tracks.length;i++){
-        var link = '<li><a href="' + playlist.tracks[i].uri + '">' + playlist.tracks[i].name + '</a></li>';
-       $('#playlist').append(link);
-    }
-});</code></pre>
+    var pl = models.Playlist.fromURI(playlist_url, function(playlist) {
+        for(i=0;i&lt;playlist.tracks.length;i++){
+            var link = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = playlist.tracks[i].uri;
+            link.appendChild(a);
+            a.innerHTML = playlist.tracks[i].name;
+            playlistHTML.appendChild(link);
+        }
+    });
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>

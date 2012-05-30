@@ -8,31 +8,33 @@
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
-
                 var sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
                 
                 var search = new models.Search('Rihanna');
                 search.localResults = models.LOCALSEARCHRESULTS.APPEND;
                 
-                search.observe(models.EVENT.CHANGE, function() {
+                var searchHTML = document.getElementById('search');
 
-                    search.tracks.forEach(function(track) {
-                        var link = '<li><a href="'+ track.uri +'">'+ track.name +'</a></li>';
-                        $('#search').append(link);
-                    });
-                
+                search.observe(models.EVENT.CHANGE, function() {
+                    var results = search.tracks;
+                    for(i=0;i<results.length;i++){
+                        var link = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.href = results[i].uri;
+                        link.appendChild(a);
+                        a.innerHTML = results[i].name;
+                        searchHTML.appendChild(link);
+                    }
                 });
 
                 search.appendNext();
-
-            });
+            }
         </script>
     </head>
     <body>
@@ -46,21 +48,30 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">var sp = getSpotifyApi(1);
-var models = sp.require('sp://import/scripts/api/models');
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+    
+    var search = new models.Search('Rihanna');
+    search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+    
+    var searchHTML = document.getElementById('search');
 
-var search = new models.Search('Rihanna');
-search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-
-search.observe(models.EVENT.CHANGE, function() {
-
-    search.tracks.forEach(function(track) {
-        var link = '&lt;li&gt;&lt;a href="'+ track.uri +'"&gt;'+ track.name +'&lt;/a&gt;&lt;/li&gt;';
-        $('#search').append(link);
+    search.observe(models.EVENT.CHANGE, function() {
+        var results = search.tracks;
+        for(i=0;i&lt;results.length;i++){
+            var link = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = results[i].uri;
+            link.appendChild(a);
+            a.innerHTML = results[i].name;
+            searchHTML.appendChild(link);
+        }
     });
-});
 
-search.appendNext();</code></pre>
+    search.appendNext();
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>
@@ -68,13 +79,6 @@ search.appendNext();</code></pre>
 <pre><code data-language="html"><div id="player"></div></code></pre>
             </div>
 
-            <h3>The CSS</h3>
-            <div id="the-css">
-<pre><code data-language="css"><style type="text/css">
-    @import url('sp://import/css/eve.css');
-</style></code></pre>
-            </div>
-            
             <h3>Live Example</h3>
             <ul id="search"></ul>
         </div><!-- /wrapper -->
