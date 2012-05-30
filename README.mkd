@@ -1,10 +1,10 @@
 # Spotify Apps API Tutorial
 
-This is a Spotify App that explains how to make a Spotify App. All examples use the latest version of jQuery.
+This is a Spotify App that explains how to make a Spotify App. 
 
 For API Guidelines, click [here](http://developer.spotify.com/download/spotify-apps-api/guidelines/).
 
-![Spotify Apps Tutorial home screen](https://github.com/mager/spotify-apps-tutorial/raw/master/img/spotify-apps-tutorial-v1.jpg)
+![Spotify Apps Tutorial home screen](https://github.com/mager/spotify-apps-tutorial/raw/master/img/spotify-apps-tutorial-v2.jpg)
 
 ## Topics covered
 
@@ -12,9 +12,14 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 
  * Creating your manifest file
  * Handling arguments and creating navigational tabs
- * Using the pager element (coming soon)
  * Dragging and dropping content into an app (coming soon)
  * Show "Share" popup
+
+#### UI
+
+ * Using standard components for buttons
+ * Track-listing components (coming soon)
+ * Using the pager element (coming soon)
 
 #### Playing music
 
@@ -27,13 +32,13 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 
 #### Searching
 
- * Returning all tracks with a certain search query (coming soon)
- * Get the top 5 most popular tracks from 5 artists
+ * Returning all tracks with a given search query
 
 #### Playlists
 
+ * Add a song to a playlist
  * Get songs from a playlist URL
- * Subscribe to a playlist (coming soon)
+ * Subscribe to a playlist
  * Showing a playlist mosiac image
 
 #### Interacting with Facebook
@@ -41,20 +46,20 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
  * Authenticate a user with Facebook
  * Get a user's listening history from Facebook
 
-#### Experimental
+#### Experimental & Unsupported
 
  * Talking to Twitter
+ * Create an EchoNest radio station
  * Display a Polymaps object
- * Use HTML5's local storage
-
+ * Template
 
 ## Installation
 
- 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/). It takes about 24 hours to get access, so email mager@spotify.com with your Spotify username for rush access.
+ 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/) 
  2. Open Terminal, `mkdir ~/Spotify`
  3. `cd ~/Spotify`
  4. `git clone git@github.com:mager/spotify-apps-tutorial.git`
- 5. Download the [latest version of Spotify](http://spotify.com/download)
- 6. Open Spotify and type "spotify:app:tutorial" in the search bar
+ 6. Download the [latest version of Spotify](http://spotify.com/download)
+ 7. Open Spotify and type "spotify:app:tutorial" in the search bar
 
 Your feedback is welcome! Please email mager@spotify.com.
