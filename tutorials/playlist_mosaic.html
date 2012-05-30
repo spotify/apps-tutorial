@@ -8,30 +8,27 @@
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require("sp://import/scripts/api/models");
                 var views = sp.require("sp://import/scripts/api/views");
 
                 var playlistURL = 'spotify:user:magerleagues:playlist:5CZ3KO3EExplZOzHDMzgym';
-
                 var playlist = models.Playlist.fromURI(playlistURL);
-                playlist.observe(models.EVENT.CHANGE, function() {
+                var imageHTML = document.getElementById('image');
 
+                playlist.observe(models.EVENT.CHANGE, function() {
                     var mosaic = new views.Image(playlist.image);
                     mosaic.node.style.width = '300px';
                     mosaic.node.style.height = '300px';
                     mosaic.node.style.backgroundSize = 'cover';
-                    $('#image').append(mosaic.node);
-
+                    imageHTML.appendChild(mosaic.node);
                 });
-
-            });
+            }
         </script>
     </head>
     <body>
@@ -45,21 +42,24 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
-var views = sp.require("sp://import/scripts/api/views");
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
+    var views = sp.require("sp://import/scripts/api/views");
 
-var playlistURL = 'spotify:user:magerleagues:playlist:5CZ3KO3EExplZOzHDMzgym';
-var playlist = models.Playlist.fromURI(playlistURL);
-playlist.observe(models.EVENT.CHANGE, function() {
+    var playlistURL = 'spotify:user:magerleagues:playlist:5CZ3KO3EExplZOzHDMzgym';
+    var playlist = models.Playlist.fromURI(playlistURL);
+    var imageHTML = document.getElementById('image');
 
-    var mosaic = new views.Image(playlist.image);
-    mosaic.node.style.width = '300px';
-    mosaic.node.style.height = '300px';
-    mosaic.node.style.backgroundSize = 'cover';
-    $('#image').append(mosaic.node);
-
-});</code></pre>
+    playlist.observe(models.EVENT.CHANGE, function() {
+        var mosaic = new views.Image(playlist.image);
+        mosaic.node.style.width = '300px';
+        mosaic.node.style.height = '300px';
+        mosaic.node.style.backgroundSize = 'cover';
+        imageHTML.appendChild(mosaic.node);
+    });
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>

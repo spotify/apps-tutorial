@@ -4,30 +4,33 @@
 
         <style>
             @import url('sp://import/css/eve.css');
+            @import url('sp://import/css/api.css');
             @import url('sp://tutorial/css/main.css');
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
-                var views = sp.require('sp://import/scripts/api/views');
 
-                $("#subscribe").click(function(playlist){
+                var subscribeHTML = document.getElementById('subscribe');
+
+                subscribeHTML.addEventListener('click', subscribeToPlaylist);
+
+                function subscribeToPlaylist() {
                     var playlist = models.Playlist.fromURI("spotify:user:spotify:playlist:3Yrvm5lBgnhzTYTXx2l55x");
                     playlist.subscribed = true;
 
                     playlist.observe(models.EVENT.CHANGE, function() {
                         console.log("Playlist is subscribed!");
                     });
-                });
+                }
 
-            });
+            }
         </script>
     </head>
     <body>
@@ -41,25 +44,34 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
-var sp = getSpotifyApi(1);
-var models = sp.require('sp://import/scripts/api/models');
-$("#subscribe").click(function(playlist){
-    var playlist = models.Playlist.fromURI("spotify:user:spotify:playlist:3Yrvm5lBgnhzTYTXx2l55x");
-    playlist.subscribed = true;
-    playlist.observe(models.EVENT.CHANGE, function() {
-        console.log("Playlist is subscribed!");
-    });
-});</code></pre>
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+
+    var subscribeHTML = document.getElementById('subscribe');
+
+    subscribeHTML.addEventListener('click', subscribeToPlaylist);
+
+    function subscribeToPlaylist() {
+        var playlist = models.Playlist.fromURI("spotify:user:spotify:playlist:3Yrvm5lBgnhzTYTXx2l55x");
+        playlist.subscribed = true;
+
+        playlist.observe(models.EVENT.CHANGE, function() {
+            console.log("Playlist is subscribed!");
+        });
+    }
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>
             <div id="the-html">
-<pre><code data-language="html">&lt;input type="button" id="subscribe" value="Subscribe" /&gt;></code></pre>
+<pre><code data-language="html">&lt;button id="subscribe" class="sp-button"&gt;Subscribe&lt;/button&gt;</code></pre>
+            
             </div>
 
             <h3>Live Example</h3>
-            <input type="button" id="subscribe" value="Subscribe" />
+            <button id="subscribe" class="sp-button">Subscribe</button>
         </div><!-- /wrapper -->
     </body>
 </html>

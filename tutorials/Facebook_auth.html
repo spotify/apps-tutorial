@@ -8,11 +8,10 @@
             @import url('sp://tutorial/css/github.css');
         </style>
 
-        <script src="sp://tutorial/js/jquery.min.js"></script>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models */
                 var sp = getSpotifyApi(1);
                 var auth = sp.require('sp://import/scripts/api/auth');
@@ -21,21 +20,24 @@
                  * info, check out http://bit.ly/A4KCW3 */
                 var permissions = ['user_about_me'];
                 var app_id = '126891607432106';
+                var fbButtonHTML = document.getElementById('fb-login');
 
-                $('#fb-login').click(function(){
+                fbButtonHTML.addEventListener('click', authFB);
+
+                function authFB() {
                     auth.authenticateWithFacebook(app_id, permissions, {
                         onSuccess: function(accessToken, ttl) {
-                            $('#fb-login').remove();
-                            $('#status > p').append("<p>" + accessToken + "</p>");
-                            $('#status > p').append("<p>The request took " + ttl + " ms.</p>");
+                            fbButtonHTML.style.display = 'none';
+                            var statusHTML = document.getElementById('status');
+                            statusHTML.firstChild.innerHTML = 'Your access token :' + accessToken;
                         },
                         onFailure: function(error) {
-                            console.log("Authentication failed with error: " + error);
+                            console.log('Authentication failed with error: ' + error);
                         },
                         onComplete: function() { }
                     });
-                });
-            });
+                }
+            }
         </script>
     </head>
     <body>
@@ -49,28 +51,33 @@
 
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">/* Instantiate the global sp object; include models */
-var sp = getSpotifyApi(1);
-var auth = sp.require('sp://import/scripts/api/auth');
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models */
+    var sp = getSpotifyApi(1);
+    var auth = sp.require('sp://import/scripts/api/auth');
 
-/* Set the permissions you want from the user. For more
- * info, check out http://bit.ly/A4KCW3 */
-var permissions = ['user_about_me'];
-var app_id = '126891607432106';
+    /* Set the permissions you want from the user. For more
+     * info, check out http://bit.ly/A4KCW3 */
+    var permissions = ['user_about_me'];
+    var app_id = '126891607432106';
+    var fbButtonHTML = document.getElementById('fb-login');
 
-$('#fb-login').click(function(){
-    auth.authenticateWithFacebook(app_id, permissions, {
-        onSuccess: function(accessToken, ttl) {
-            $('#fb-login').remove();
-            $('#status > p').append("&lt;p&gt;" + accessToken + "&lt;/p&gt;");
-            $('#status > p').append("&lt;p&gt;The request took " + ttl + " ms.&lt;/p&gt;");
-        },
-        onFailure: function(error) {
-            console.log("Authentication failed with error: " + error);
-        },
-        onComplete: function() { }
-    });
-});</code></pre>
+    fbButtonHTML.addEventListener('click', authFB);
+
+    function authFB() {
+        auth.authenticateWithFacebook(app_id, permissions, {
+            onSuccess: function(accessToken, ttl) {
+                fbButtonHTML.style.display = 'none';
+                var statusHTML = document.getElementById('status');
+                statusHTML.firstChild.innerHTML = 'Your access token :' + accessToken;
+            },
+            onFailure: function(error) {
+                console.log('Authentication failed with error: ' + error);
+            },
+            onComplete: function() { }
+        });
+    }
+}</code></pre>
             </div>
 
             <h3>The HTML</h3>
@@ -81,7 +88,7 @@ $('#fb-login').click(function(){
 
             <h3>Live Example</h3>
             <img src="sp://tutorial/img/fb-login.png" id="fb-login" />
-            <div id="status"><p>If you've successfully authenticated with Facebook, this should be your access token:</p></div>
+            <div id="status"><p></p></div>
         </div><!-- /wrapper -->
     </body>
 </html>
