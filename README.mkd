@@ -4,7 +4,7 @@ This is a Spotify App that explains how to make a Spotify App.
 
 For API Guidelines, click [here](http://developer.spotify.com/download/spotify-apps-api/guidelines/).
 
-![Spotify Apps Tutorial home screen](https://github.com/mager/spotify-apps-tutorial/raw/master/img/spotify-apps-tutorial-v2.jpg)
+![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/master/img/spotify-apps-tutorial-v2.jpg)
 
 ## Topics covered
 
@@ -58,7 +58,7 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
  1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/) 
  2. Open Terminal, `mkdir ~/Spotify`
  3. `cd ~/Spotify`
- 4. `git clone git@github.com:mager/spotify-apps-tutorial.git`
+ 4. `git clone git@github.com:spotify/apps-tutorial.git`
  6. Download the [latest version of Spotify](http://spotify.com/download)
  7. Open Spotify and type "spotify:app:tutorial" in the search bar
 
