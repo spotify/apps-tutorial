@@ -11,25 +11,7 @@
             a:hover {color:#83be20;}
         </style>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
-        <script>
-            window.onload = function() {
-                sp = getSpotifyApi(1);
-                var models = sp.require('sp://import/scripts/api/models');
-                
-                tabs();
-                models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
-
-                function tabs() {
-                    var args = models.application.arguments;
-                    var current = document.getElementById(args[0]);
-                    var sections = document.getElementsByClassName('section');
-                    for (i=0;i<sections.length;i++){
-                        sections[i].style.display = 'none';
-                    }
-                    current.style.display = 'block';
-                }
-            }
-        </script>
+        <script src="sp://tutorial/js/tutorial.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -40,7 +22,7 @@
             <img src="sp://tutorial/img/spotify-char.png" class="right" />
             <h4>Getting started</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/manifest.html">Creating your manifest file</a></li>
+                <li><a href="spotify:app:tutorial:manifest">Creating your manifest file</a></li>
                 <li><a href="spotify:app:tutorial:tabs">Handling arguments and creating navigational tabs</a></li>
                 <li>Dragging and dropping content into an app (coming soon)</li>
                 <li><a href="sp://tutorial/tutorials/share.html">Show "Share" popup</a></li>
@@ -66,6 +48,7 @@
             <h4>Searching</h4>
             <ul>
                 <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a></li>
+                <li><a href="sp://tutorial/tutorials/search_albums_for_an_artist.html">Search albums for an artist</a></li>
             </ul>
 
 
@@ -155,7 +138,57 @@
 &lt;/div&gt;</code></pre>
             </div>
 
-        </div><!-- /tabs -->
+        </div><!-- /.section #tabs -->
+
+        <div id="manifest" class="section">
+
+            <h1>Creating your manifest file</h1>
+            <p class="description">The first step for building a Spotify App is to create a manifest.json file in your app's root directory. The example below is the most minimal manifest.json file needed for an app to work. For more information about the manifest.json file, please read our <a href="http://developer.spotify.com/download/spotify-apps-api/guidelines/#applicationmanifest">API guidelines</a>.</p>
+
+            <h3>The JSON</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">{
+    "AppDescription": {
+        "en": "A tutorial app for Spotify Apps API"
+    },
+    "AppIcon": {
+        "36x18": "tutorial.png"
+    },
+    "AppName": {
+        "en": "Spotify Apps Tutorial"
+     },
+    "BundleIdentifier": "tutorial",
+    "BundleType": "Application",
+    "BundleVersion": "0.1",
+    "DefaultTabs": [
+        {
+            "arguments": "home_tab",
+            "title": {
+                "en": "Home"
+            }
+        },
+        {
+            "arguments": "secondary_tab",
+            "title": {
+                "en": "Secondary Tab"
+            }
+        }
+    ],
+    "RequiredInterface": 1,
+    "RequiredPermissions": [
+        "http://api.twitter.com",
+        "https://graph.facebook.com",
+        "https://gist.github.com/"
+    ],
+    "SupportedLanguages": [
+        "en"
+    ],
+    "VendorIdentifier": "co.mager"
+}</code></pre>
+            </div>
+
+
+        </div>
 
 
         </div><!-- /wrapper -->

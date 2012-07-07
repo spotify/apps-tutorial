@@ -17,12 +17,11 @@
                 var models = sp.require('sp://import/scripts/api/models');
                 
                 var search = new models.Search('Rihanna');
-                search.localResults = models.LOCALSEARCHRESULTS.APPEND;
                 
                 var searchHTML = document.getElementById('results');
 
                 search.observe(models.EVENT.CHANGE, function() {
-                    var results = search.tracks;
+                    var results = search.albums;
                     for(i=0;i<results.length;i++){
                         var link = document.createElement('li');
                         var a = document.createElement('a');
@@ -80,7 +79,7 @@
             </div>
 
             <h3>Live Example</h3>
-            <ul id="search"></ul>
+            <ul id="results"></ul>
         </div><!-- /wrapper -->
     </body>
 </html>
