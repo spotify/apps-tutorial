@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta charset="UTF-8" />
+        <style>
+            @import url('sp://import/css/eve.css');
+            @import url('sp://tutorial/css/main.css');
+            #map_object {height:100%;border:1px solid #333;margin:0;padding:0;}
+        </style>
+
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script>
+            var map_object;
+            function initialize() {
+                var myOptions = {
+                    zoom: 8,
+                    center: new google.maps.LatLng(-34.397, 150.644),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map_object = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Display a Google Maps object</h1>
+            <p class="description">Cross your fingers...</p>
+
+            <h3>The Javascript</h3>
+
+            <h3>The HTML</h3>
+
+            <h3>The CSS</h3>
+
+            <h3>Live Example</h3>
+            <div id="map_object" style="width:400px;height:400px;"></div>
+        </div><!-- /wrapper -->
+    </body>
+</html>
