@@ -7,22 +7,11 @@
         <style>
             @import url('sp://import/css/eve.css');
             @import url('sp://tutorial/css/main.css');
-            #map_object {height:100%;border:1px solid #333;margin:0;padding:0;}
+            @import url('sp://tutorial/css/github.css');
+            #map_object {border:1px solid #333;margin:0;padding:0;}
         </style>
 
-        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-        <script>
-            var map_object;
-            function initialize() {
-                var myOptions = {
-                    zoom: 8,
-                    center: new google.maps.LatLng(-34.397, 150.644),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map_object = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
     </head>
     <body>
@@ -32,16 +21,56 @@
             </ul>
 
             <h1>Display a Google Maps object</h1>
-            <p class="description">Cross your fingers...</p>
+            <p class="description">Make sure you add the Javascript right before the ending &lt;/body&gt; element.</p>
+
+            <h3>The Manifest</h3>
+            <div id="the-json">                                                   
+<pre><code data-language="javascript">"RequiredPermissions": [
+    "https://*.googleapis.com",
+    "https://*.gstatic.com",
+    "https://*.gmaptiles.co.kr",
+    "https://earthbuilder.google.com",
+    "https://earthbuilder.googleapis.com"
+]</code></pre>
+            </div>
 
             <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">&lt;script src="https://maps.googleapis.com/maps/api/js?sensor=false"&gt;&lt;/script&gt;
+&lt;script&gt;
+    var map_object;
+    function initialize() {
+        var myOptions = {
+            zoom: 10,
+            center: new google.maps.LatLng(40.7415,-74.0045),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map_object = new google.maps.Map(document.getElementById('map_object'), myOptions);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+&lt;/script&gt;</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-
-            <h3>The CSS</h3>
+            <div id="the-html">
+            <pre><code data-language="html">&lt;div id="map_object" style="width:800px;height:400px;"&gt;&lt;/div&gt;</code></pre>
+            </div>
 
             <h3>Live Example</h3>
-            <div id="map_object" style="width:400px;height:400px;"></div>
+            <div id="map_object" style="width:800px;height:400px;"></div>
         </div><!-- /wrapper -->
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script>
+            var map_object;
+            function initialize() {
+                var myOptions = {
+                    zoom: 15,
+                    center: new google.maps.LatLng(40.7415,-74.0045),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map_object = new google.maps.Map(document.getElementById('map_object'), myOptions);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
     </body>
 </html>
