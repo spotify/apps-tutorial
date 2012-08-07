@@ -21,13 +21,12 @@
                 var playlist = models.Playlist.fromURI(playlistURL);
                 var imageHTML = document.getElementById('image');
 
-                playlist.observe(models.EVENT.CHANGE, function() {
-                    var mosaic = new views.Image(playlist.image);
-                    mosaic.node.style.width = '300px';
-                    mosaic.node.style.height = '300px';
-                    mosaic.node.style.backgroundSize = 'cover';
-                    imageHTML.appendChild(mosaic.node);
-                });
+		// Make the playlist mosiac image view
+                var mosaic = new views.Image(playlist.image);
+                mosaic.node.style.width = '300px';
+                mosaic.node.style.height = '300px';
+                mosaic.node.style.backgroundSize = 'cover';
+                imageHTML.appendChild(mosaic.node);
             }
         </script>
     </head>
