@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <!-- Spotify CSS Files -->
+        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/eve.css">
+        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/api.css">
+        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/player.css">
+        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/ui.css">
         <style>
-            @import url('sp://import/css/eve.css');
-            @import url('sp://import/css/player.css');
-            @import url('sp://import/css/ui.css');
             @import url('sp://tutorial/css/main.css');
             @import url('sp://tutorial/css/github.css');
             h1, ul {margin:0 0 30px;}
@@ -25,7 +28,7 @@
                 <li><a href="spotify:app:tutorial:manifest">Creating your manifest file</a></li>
                 <li><a href="spotify:app:tutorial:tabs">Handling arguments and creating navigational tabs</a></li>
                 <li>Dragging and dropping content into an app (coming soon)</li>
-                <li><a href="sp://tutorial/tutorials/share.html">Show "Share" popup</a></li>
+                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
             </ul>
 
             <h4>UI</h4>
@@ -78,15 +81,12 @@
         </div><!-- /index -->
 
         <div id="tabs" class="section">
-            <ul class="breadcrumb">
-                <li><a href="spotify:app:tutorial:index">&laquo; Back to main page</a></li>
-            </ul>
 
             <h1>Handling arguments and creating navigational tabs</h1>
             <p class="description">In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that corespond to nagivational tab names. In the <code>Application</code> class, when tabs are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
 
             <h3>The manifest.json snippet</h3>
-            <div id="the-json">
+            <div class="code-block">
 <pre><code data-language="javascript">{
     ...
     "DefaultTabs": [
@@ -105,10 +105,10 @@
     ],
     ...
 }</code></pre>
-            </div>
+            </div><!-- /.code-block -->
 
             <h3>The Javascript</h3>
-            <div id="the-js">
+            <div class="code-block">
 <pre><code data-language="javascript">window.onload = function() {
     sp = getSpotifyApi(1);
     var models = sp.require('sp://import/scripts/api/models');
@@ -126,10 +126,10 @@
         current.style.display = 'block';
     }
 }</code></pre>
-            </div>
+            </div><!-- /.code-block -->
 
             <h3>The HTML</h3>
-            <div id="the-html">
+            <div class="code-block">
 <pre><code data-language="html">&lt;div id="index"&gt;
 <!-- This content will show up in the "Home" tab -->
 &lt;/div&gt;
@@ -137,7 +137,7 @@
 &lt;div id="tabs"&gt;
 <!-- This content will show up in the "How to use tabs" tab -->
 &lt;/div&gt;</code></pre>
-            </div>
+            </div><!-- /.code-block -->
 
         </div><!-- /.section #tabs -->
 
@@ -147,7 +147,7 @@
             <p class="description">The first step for building a Spotify App is to create a manifest.json file in your app's root directory. The example below is the most minimal manifest.json file needed for an app to work. For more information about the manifest.json file, please read our <a href="http://developer.spotify.com/download/spotify-apps-api/guidelines/#applicationmanifest">API guidelines</a>.</p>
 
             <h3>The JSON</h3>
-            <div id="the-js">
+            <div class="code-block">
 <pre><code data-language="javascript">{
     "AppDescription": {
         "en": "A tutorial app for Spotify Apps API"
@@ -175,6 +175,11 @@
             }
         }
     ],
+	"Dependencies": {
+	  "api": "0.2.3",
+	  "util": "0.1.0",
+	  "resources": "0.2.2"
+    },
     "RequiredInterface": 1,
     "RequiredPermissions": [
         "http://api.twitter.com",
@@ -186,11 +191,53 @@
     ],
     "VendorIdentifier": "co.mager"
 }</code></pre>
+            </div><!-- /.code-block -->
+
+
+        </div><!-- /.section #manifest -->
+
+
+        <div id="share" class="section">
+             <h1>Show "Share" popup</h1>
+            <p class="description">One of the greatest features of Spotify is the ability to share music with your social graph. With a few lines of code, we can interact with the "Share" popup dialog.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">window.onload = function() {
+    sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+    var views = sp.require('sp://import/scripts/api/views');
+    
+    // Handle share popup
+    var share_element = document.getElementById('share-popup');
+    var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
+    share_element.addEventListener('click', displayPopup);
+    function displayPopup() {
+        models.application.showSharePopup(share_element, share_content);
+    }
+}</code></pre>
+            </div><!-- ./code-block -->
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&lt;div id="share"&gt;
+    &lt;button id="share-popup" class="sp-button"&gt;Share&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div><!-- /.code-block -->
+
+            <h3>The CSS</h3>
+            <div class="code-block">
+<pre><code data-language="html">&lt;style&gt;
+    @import url('sp://resources/css/api.css');
+&lt;/style&gt;</code></pre>
+            </div><!-- /.code-block -->
+
+            <h3>Live Example</h3>
+            <div id="share">
+                <button id="share-popup" class="sp-button">Share</button>
             </div>
 
-
-        </div>
-
+        </div><!-- /.section #share-popup -->
 
         </div><!-- /wrapper -->
     </body>

@@ -7,6 +7,10 @@ section {position: relative;overflow: hidden;margin: 0 0 40px;}
 h3 + div {margin: 0 0 35px;}
 
 
+/* Headers */
+#index h1 {background-image:url('/img/spotify-apps-tutorial.png');background-repeat: no-repeat;width:600px;height:83px;text-indent:-9999em;}
+
+
 /* Text */
 h1 {font-size:2em;}
 .description {font-size:1.5em;font-style:italic;font-family:Georgia;padding:0 0 25px;line-height:25px;}
