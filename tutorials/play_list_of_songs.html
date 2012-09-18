@@ -34,6 +34,10 @@
                 var playlist = new views.List(tempPlaylist);
                 var playerHTML = document.getElementById('player');
                 playerHTML.appendChild(playlist.node);
+
+		var list = document.getElementsByClassName('sp-list')[0];
+		console.log(list.className);
+		list.className += ' sp-light';
             }
         </script>
     </head>

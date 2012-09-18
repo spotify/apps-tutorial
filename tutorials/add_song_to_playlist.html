@@ -16,9 +16,12 @@
                 var models = sp.require('sp://import/scripts/api/models');
 
                 // Create a track object from a URI
-                var track = models.Track.fromURI('spotify:track:6fycP4n7KoYxnT169sLush');
+                // var track = models.Track.fromURI('spotify:track:6fycP4n7KoYxnT169sLush');
+                var track = models.Track.fromURI('spotify:track:7i105IWmto7KSH6jB27DO3');
                 // Create a playlist object from a URI
                 var playlist = models.Playlist.fromURI('spotify:user:magerleagues:playlist:3S0u0nTWj4P2bF5oq0DzLl');
+
+		playlist.data.collaborative = true;
 
                 // Add the track
                 playlist.add(track);

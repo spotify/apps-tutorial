@@ -11,13 +11,13 @@
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
 
         <script>
-            $(document).ready(function() {
+            window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
                 var views = sp.require('sp://import/scripts/api/views');
 
-            });
+            }
         </script>
     </head>
     <body>
