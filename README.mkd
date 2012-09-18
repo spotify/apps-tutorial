@@ -4,7 +4,7 @@ This is a Spotify App that explains how to make a Spotify App.
 
 For API Guidelines, click [here](http://developer.spotify.com/download/spotify-apps-api/guidelines/).
 
-![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/master/img/spotify-apps-tutorial-v2.jpg)
+![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/master/img/screenshot.png)
 
 ## Topics covered
 
