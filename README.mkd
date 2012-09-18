@@ -12,7 +12,7 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 
  * Creating your manifest file
  * Handling arguments and creating navigational tabs
- * Dragging and dropping content into an app (coming soon)
+ * Dragging and dropping content into an app
  * Show "Share" popup
 
 #### UI
