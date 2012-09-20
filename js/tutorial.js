@@ -9,6 +9,7 @@ window.onload = function() {
     sp = getSpotifyApi(1);
     var models = sp.require('sp://import/scripts/api/models');
     var views = sp.require('sp://import/scripts/api/views');
+    var player = models.player;
     
     // Handle share popup
     var share_element = document.getElementById('share-popup');
@@ -63,4 +64,17 @@ window.onload = function() {
         this.appendChild(success_message);
     }, false);
 
+    // Handle models.player
+    var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
+    var single_track_playlist = new models.Playlist();
+    single_track_playlist.add(single_track);
+    var single_track_player = new views.Player();
+    single_track_player.track = null; // Don't play the track right away
+    single_track_player.context = single_track_playlist;
+
+    /* Pass the player HTML code to the #single-track-player <div /> */
+    var single_track_player_HTML = document.getElementById('single-track-player');
+    console.log(single_track_player_HTML);
+    single_track_player_HTML.appendChild(single_track_player.node);
+    
 }
