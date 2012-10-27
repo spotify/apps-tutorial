@@ -2,16 +2,9 @@
 <html>
     <head>
 
-        <!-- Spotify CSS Files -->
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/eve.css">
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/api.css">
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/player.css">
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/list.css">
         <style>
             @import url('sp://tutorial/css/main.css');
             @import url('sp://tutorial/css/github.css');
-            h1, ul {margin:0 0 30px;}
-            a:hover {color:#83be20;}
         </style>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
         <script src="sp://tutorial/js/tutorial.js"></script>
@@ -40,7 +33,7 @@
             <ul>
                 <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a> (Unstable)</li>
                 <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/current_track.html">Get the currently-playing track</a> (Unstable)</li>
+                <li><a href="spotify:app:tutorial:current_track">Get the currently-playing track</a> (Unstable)</li>
                 <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a> (Unstable)</li>
                 <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a> (Unstable)</li>
                 <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a> (Unstable)</li>
@@ -402,6 +395,86 @@
             <div id="multiple-tracks-player"></div>
  
         </div><!-- /.section #play_list_of_tracks -->
+
+
+        <div id="current_track" class="section">
+            <h1>Get the currently-playing track</h1>
+            <p class="description">Checks to see which track is currently playing. This example also updates the DOM when the song changes.</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">window.onload = function() {
+    // Get the currently-playing track
+    models.player.load('track').done(updateCurrentTrack);
+
+    // Update the DOM when the song changes
+    models.player.addEventListener('change', updateCurrentTrack);
+
+    function updateCurrentTrack(){
+        var currentHTML = document.getElementById('current-track');
+        if (models.player.track == null) {
+            currentHTML.innerHTML = 'No track currently playing';
+        } else {
+            var artists = models.player.track.artists;
+            console.log(artists);
+            var artists_array = [];
+            for(i=0;i&lt;artists.length;i++) {
+                artists_array.push(artists[i].name);
+            }
+            currentHTML.innerHTML = 'Now playing: ' + artists_array.join(', ');
+            currentHTML.innerHTML += ' - ' + models.player.track.name;
+        }
+    }
+}</code></pre>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-language="css">&lt;style&gt; 
+    @import url("sp://import/css/api.css");                               
+    @import url('sp://import/css/eve.css');                               
+&lt;/style&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="current-track"></div>
+ 
+        </div><!-- /.section #template -->
+
+
+        <div id="template" class="section">
+            <h1>Title</h1>
+            <p class="description">Description</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">window.onload = function() {
+}</code></pre>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div id="the-css">
+<pre><code data-language="css">&lt;style&gt; 
+    @import url("sp://import/css/api.css");                               
+    @import url('sp://import/css/eve.css');                               
+&lt;/style&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="example"></div>
+ 
+        </div><!-- /.section #template -->
+
+
+
         </div><!-- /wrapper -->
     </body>
 </html>

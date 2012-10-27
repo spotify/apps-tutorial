@@ -23,6 +23,29 @@ window.onload = function() {
             }
             current.style.display = 'block';
         }
+
+        // Get the currently-playing track
+        models.player.load('track').done(updateCurrentTrack);
+
+        // Update the DOM when the song changes
+        models.player.addEventListener('change', updateCurrentTrack);
+
+        function updateCurrentTrack(){
+            var currentHTML = document.getElementById('current-track');
+            if (models.player.track == null) {
+                currentHTML.innerHTML = 'No track currently playing';
+            } else {
+                var artists = models.player.track.artists;
+                console.log(artists);
+                var artists_array = [];
+                for(i=0;i<artists.length;i++) {
+                    artists_array.push(artists[i].name);
+                }
+                currentHTML.innerHTML = 'Now playing: ' + artists_array.join(', ');
+                currentHTML.innerHTML += ' - ' + models.player.track.name;
+            }
+        }
+
     }); // require
 
     /*
