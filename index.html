@@ -4,6 +4,7 @@
 
         <style>
             @import url('sp://tutorial/css/main.css');
+            @import url('$views/css/image.css');
             @import url('sp://tutorial/css/github.css');
         </style>
         <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
@@ -31,9 +32,9 @@
 
             <h4>Playing music</h4>
             <ul>
-                <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a> (Unstable)</li>
+                <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a></li>
                 <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a> (Unstable)</li>
-                <li><a href="spotify:app:tutorial:current_track">Get the currently-playing track</a> (Unstable)</li>
+                <li><a href="spotify:app:tutorial:current_track">Get the currently-playing track</a></li>
                 <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a> (Unstable)</li>
                 <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a> (Unstable)</li>
                 <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a> (Unstable)</li>
@@ -305,91 +306,82 @@
             <h3>The Javascript</h3>
             <div id="the-js">
 <pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include models &amp; views */
-    var sp = getSpotifyApi(1);
-    var models = sp.require("sp://import/scripts/api/models");
-    var views = sp.require("sp://import/scripts/api/views");
+    require('$views/image#Image', function(Image) {
+        // Play a single track
+        var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
+        var image = Image.forTrack(single_track, {player:true});
 
-    var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
-    var single_track_playlist = new models.Playlist();
-    single_track_playlist.add(single_track);
-    var single_track_player = new views.Player();
-    single_track_player.track = null; // Don't play the track right away
-    single_track_player.context = single_track_playlist;
-
-    /* Pass the player HTML code to #single-track-player */
-    var single_track_player_HTML = document.getElementById('single-track-player');
-    console.log(single_track_player_HTML);
-    single_track_player_HTML.appendChild(single_track_player.node);
-}</code></pre>
-            </div>
-
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&ltdiv id="single-track-player"&gt;&lt;/div&gt;</code></pre>
-            </div>
-
-            <h3>The CSS</h3>
-            <div id="the-css">
-<pre><code data-language="css">&lt;style&gt; 
-    @import url("sp://import/css/api.css");                               
-    @import url('sp://import/css/eve.css');                               
-    @import url('sp://import/css/player.css');                            
-&lt;/style&gt;</code></pre>
-            </div>
-
-            <h3>Live Example</h3>
-            <div id="single-track-player"></div>
- 
-
-        </div><!-- /.section #play_single_track -->
-
-
-        <div id="play_list_of_tracks" class="section">
-            <h1>Play a list of tracks</h1>
-            <p class="description">This snippet of code retrieves the user's 20 latest songs added to their Library and creates a Player & List view of the songs.</p>
-
-            <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include models &amp; views */
-    var sp = getSpotifyApi(1);
-    var models = sp.require("sp://import/scripts/api/models");
-    var views = sp.require("sp://import/scripts/api/views");
-
-    var library_tracks = models.library.tracks;
-
-    var multiple_tracks_playlist = new models.Playlist();
-    for(var i=0;i&lt;20;i++) {
-        var library_track = models.Track.fromURI(library_tracks[i].data.uri);
-        multiple_tracks_playlist.add(library_track);
+        // Pass the player HTML code to the #single-track-player div 
+        var single_track_player_HTML = document.getElementById('single-track-player');
+        single_track_player_HTML.appendChild(image.node);
     }
-
-    console.log(multiple_tracks_playlist);
-    var multiple_tracks_player = new views.List(multiple_tracks_playlist);
-    multiple_tracks_player.track = null; // Don't play the track right away
-    multiple_tracks_player.context = multiple_tracks_playlist;
-   
-    /* Pass the player HTML code to #multiple-tracks-player */
-    var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
-    multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
-    single_track_player_HTML.appendChild(single_track_player.node);
 }</code></pre>
-            </div>
+        </div>
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&ltdiv id="multiple-tracks-player"&gt;&lt;/div&gt;</code></pre>
-            </div>
+        <h3>The HTML</h3>
+        <div id="the-html">
+<pre><code data-language="html">&ltdiv id="single-track-player"&gt;&lt;/div&gt;</code></pre>
+        </div>
 
-            <h3>The CSS</h3>
-            <div id="the-css">
+        <h3>The CSS</h3>
+        <div id="the-css">
 <pre><code data-language="css">&lt;style&gt; 
-    @import url("sp://import/css/api.css");                               
-    @import url('sp://import/css/eve.css');                               
-    @import url('sp://import/css/player.css');                            
+@import url('$views/css/image.css');                            
 &lt;/style&gt;</code></pre>
-            </div>
+        </div>
+
+        <h3>Live Example</h3>
+        <div id="single-track-player"></div>
+
+
+    </div><!-- /.section #play_single_track -->
+
+
+    <div id="play_list_of_tracks" class="section">
+        <h1>Play a list of tracks</h1>
+        <p class="description">This snippet of code retrieves the user's 20 latest songs added to their Library and creates a Player & List view of the songs.</p>
+
+        <h3>The Javascript</h3>
+        <div id="the-js">
+<pre><code data-language="javascript">window.onload = function() {
+/* Instantiate the global sp object; include models &amp; views */
+var sp = getSpotifyApi(1);
+var models = sp.require("sp://import/scripts/api/models");
+var views = sp.require("sp://import/scripts/api/views");
+
+var library_tracks = models.library.tracks;
+
+var multiple_tracks_playlist = new models.Playlist();
+for(var i=0;i&lt;20;i++) {
+    var library_track = models.Track.fromURI(library_tracks[i].data.uri);
+    multiple_tracks_playlist.add(library_track);
+}
+
+console.log(multiple_tracks_playlist);
+var multiple_tracks_player = new views.List(multiple_tracks_playlist);
+multiple_tracks_player.track = null; // Don't play the track right away
+multiple_tracks_player.context = multiple_tracks_playlist;
+
+/* Pass the player HTML code to #multiple-tracks-player */
+var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
+multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
+single_track_player_HTML.appendChild(single_track_player.node);
+}</code></pre>
+        </div>
+
+        <h3>The HTML</h3>
+        <div id="the-html">
+<pre><code data-language="html">&ltdiv id="multiple-tracks-player"&gt;&lt;/div&gt;</code></pre>
+        </div>
+
+        <h3>The CSS</h3>
+        <div id="the-css">
+<pre><code data-language="css">&lt;style&gt; 
+@import url("sp://import/css/api.css");                               
+@import url('sp://import/css/eve.css');                               
+@import url('sp://import/css/player.css');                            
+&lt;/style&gt;</code></pre>
+        </div>
 
             <h3>Live Example</h3>
             <div id="multiple-tracks-player"></div>
