@@ -6,10 +6,30 @@
 
 window.onload = function() {
 
-    sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
-    var views = sp.require('sp://import/scripts/api/views');
-    var player = models.player;
+    require(['$api/models', '$views/image', '$views/list'], function(m, i, l) {
+
+        models = m;
+        // Define global variables
+        player = models.player;
+
+        // Handle tabs and pages
+        models.application.load('arguments').done(function(){
+
+            models.application.addEventListener('arguments', function(){
+                var args = models.application.arguments;
+                var current = document.getElementById(args[0]);
+                var sections = document.getElementsByClassName('section');
+                for (i=0;i<sections.length;i++){
+                    sections[i].style.display = 'none';
+                }
+                current.style.display = 'block';
+            });
+
+        });
+
+    }); // require
+
+    /*
     
     // Handle share popup
     var share_element = document.getElementById('share-popup');
@@ -18,21 +38,6 @@ window.onload = function() {
     function displayPopup() {
         models.application.showSharePopup(share_element, share_content);
     }
-
-    // Handle tabs
-    tabs();
-    models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
-
-    function tabs() {
-        var args = models.application.arguments;
-        var current = document.getElementById(args[0]);
-        var sections = document.getElementsByClassName('section');
-        for (i=0;i<sections.length;i++){
-            sections[i].style.display = 'none';
-        }
-        current.style.display = 'block';
-    }
-
 
     // Handle drops
     var drop_box = document.querySelector('#drop_box');
@@ -73,7 +78,7 @@ window.onload = function() {
     single_track_player.track = null; // Don't play the track right away
     single_track_player.context = single_track_playlist;
 
-    /* Pass the player HTML code to the #single-track-player <div /> */
+    // Pass the player HTML code to the #single-track-player <div /> 
     var single_track_player_HTML = document.getElementById('single-track-player');
     single_track_player_HTML.appendChild(single_track_player.node);
 
@@ -86,13 +91,16 @@ window.onload = function() {
         multiple_tracks_playlist.add(library_track);
     }
 
-    console.log(multiple_tracks_playlist);
     var multiple_tracks_player = new views.List(multiple_tracks_playlist);
     multiple_tracks_player.track = null; // Don't play the track right away
     multiple_tracks_player.context = multiple_tracks_playlist;
    
-    /* Pass the player HTML code to #multiple-tracks-player */
+    // Pass the player HTML code to #multiple-tracks-player 
     var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
     multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
 
+    */
+
 }
+
+
