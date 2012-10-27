@@ -52,5 +52,6 @@
 	"SupportedLanguages": [
 		"en"
 	],
+	"UserInstallable": false,
 	"VendorIdentifier": "co.mager"
 }
