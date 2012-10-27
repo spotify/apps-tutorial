@@ -1,57 +1,57 @@
 {
-	"AppDescription": {
-		"en": "A tutorial app for Spotify Apps API"
-	},
-	"AppIcon": {
-		"36x18": "tutorial.png"
-	},
-	"AppName": {
-		"en": "Spotify Apps API Tutorial"
-	},
-	"BundleIdentifier": "tutorial",
-	"BundleType": "Application",
-	"BundleVersion": "0.1",
-	"DefaultTabs": [
-		{
-			"arguments": "index",
-			"title": {
-				"en": "Home"
-			}
-		},
-		{
-			"arguments": "tabs",
-			"title": {
-				"en": "How to use tabs"
-			}
+    "AppDescription": {
+		    "en": "A tutorial app for Spotify Apps API"
+	  },
+	  "AppIcon": {
+		    "36x18": "tutorial.png"
+	  },
+	  "AppName": {
+		    "en": "Spotify Apps API Tutorial"
+	  },
+	  "BundleIdentifier": "tutorial",
+	  "BundleType": "Application",
+	  "BundleVersion": "0.1",
+	  "DefaultTabs": [
+		    {
+			      "arguments": "index",
+			      "title": {
+				        "en": "Home"
+		        }
+		    },
+		    {
+		        "arguments": "tabs",
+			      "title": {
+				        "en": "How to use tabs"
+			      }
         }
-	],
-	"Dependencies": {
-	  "api": "1.0.0",
-	  "views": "1.0.0",
-	  "resources": "0.2.2"
-  },
-	"RequiredInterface": 1,
-	"RequiredPermissions": [
-	    "http://api.twitter.com",
-	    "http://o.scdn.co",
-	    "https://*.googleapis.com",
-	    "https://*.gstatic.com",
-	    "https://*.gmaptiles.co.kr",
-	    "https://earthbuilder.google.com",
-	    "https://earthbuilder.googleapis.com",
-	    "https://raw.github.com",
-	    "http://tile.cloudmade.com",
-	    "http://*.tile.cloudmade.com",
-	    "https://graph.facebook.com",
-	    "https://gist.github.com/",
-	    "http://search.twitter.com/",
-	    "http://amsterdam.last.fm",
-	    "http://ws.audioscrobbler.com/",
-	    "http://developer.echonest.com"
-	],
-	"SupportedLanguages": [
-		"en"
-	],
-	"UserInstallable": false,
-	"VendorIdentifier": "co.mager"
+	  ],
+	  "Dependencies": {
+	      "api": "1.0.0",
+	      "views": "1.0.0",
+	      "resources": "0.2.2"
+    },
+	  "RequiredInterface": 1,
+	  "RequiredPermissions": [
+        "http://api.twitter.com",
+        "http://o.scdn.co",
+        "https://*.googleapis.com",
+        "https://*.gstatic.com",
+        "https://*.gmaptiles.co.kr",
+        "https://earthbuilder.google.com",
+        "https://earthbuilder.googleapis.com",
+        "https://raw.github.com",
+        "http://tile.cloudmade.com",
+        "http://*.tile.cloudmade.com",
+        "https://graph.facebook.com",
+        "https://gist.github.com/",
+        "http://search.twitter.com/",
+        "http://amsterdam.last.fm",
+        "http://ws.audioscrobbler.com/",
+        "http://developer.echonest.com"
+	  ],
+	  "SupportedLanguages": [
+		    "en"
+	  ],
+	  "UserInstallable": false,
+	  "VendorIdentifier": "co.mager"
 }

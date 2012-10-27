@@ -27,45 +27,44 @@
             <ul>
                 <li><a href="spotify:app:tutorial:manifest">Creating your manifest file</a></li>
                 <li><a href="spotify:app:tutorial:tabs">Handling arguments and creating navigational tabs</a></li>
-                <li><a href="spotify:app:tutorial:drop">Dragging and dropping content into an app</a></li>
-                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
+                <li><a href="spotify:app:tutorial:drop">Dragging and dropping content into an app</a> (Unstable)</li>
+                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a> (Unstable)</li>
             </ul>
 
             <h4>UI</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/buttons.html">Using standard components for buttons</a></li>
-                <li>Track-listing components (coming soon)</li>
+                <li><a href="sp://tutorial/tutorials/buttons.html">Using standard components for buttons</a> (Unstable)</li>
             </ul>
 
             <h4>Playing music</h4>
             <ul>
-                <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a></li>
-                <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a></li>
-                <li><a href="sp://tutorial/tutorials/current_track.html">Get the currently-playing track</a></li>
-                <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a></li>
-                <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a></li>
-                <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a></li>
+                <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a> (Unstable)</li>
+                <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/current_track.html">Get the currently-playing track</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a> (Unstable)</li>
             </ul>
 
             <h4>Searching</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a></li>
-                <li><a href="sp://tutorial/tutorials/search_albums_for_an_artist.html">Search albums for an artist</a></li>
+                <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/search_albums_for_an_artist.html">Search albums for an artist</a> (Unstable)</li>
             </ul>
 
 
             <h4>Playlists</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/add_track_to_playlist.html">Add a track to a playlist</a></li>
-                <li><a href="sp://tutorial/tutorials/get_tracks_from_playlist.html">Get tracks from a playlist URL</a></li>
-                <li><a href="sp://tutorial/tutorials/subscribe.html">Subscribe to a playlist</a></li>
-                <li><a href="sp://tutorial/tutorials/playlist_mosaic.html">Showing a playlist mosiac image</a></li>
+                <li><a href="sp://tutorial/tutorials/add_track_to_playlist.html">Add a track to a playlist</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/get_tracks_from_playlist.html">Get tracks from a playlist URL</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/subscribe.html">Subscribe to a playlist</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/playlist_mosaic.html">Showing a playlist mosiac image</a> (Unstable)</li>
             </ul>
 
             <h4>Interacting with Facebook</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/Facebook_auth.html">Authenticate a user with Facebook</a></li>
-                <li><a href="sp://tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a></li>
+                <li><a href="sp://tutorial/tutorials/Facebook_auth.html">Authenticate a user with Facebook</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a> (Unstable)</li>
             </ul>
 
             <h4>Experimental &amp; Unsupported</h4>
@@ -81,8 +80,8 @@
 
         <div id="tabs" class="section">
 
-            <h1>Handling arguments and creating navigational tabs</h1>
-            <p class="description">In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that corespond to nagivational tab names. In the <code>Application</code> class, when tabs are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
+            <h1>Handling arguments page/tab navigational tabs</h1>
+            <p class="description">Your Spotify app should be one HTML page that shows and hides sections. In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that corespond to nagivational tab names. In the <code>Application</code> class, when tabs or page links are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
 
             <h3>The manifest.json snippet</h3>
             <div class="code-block">
@@ -102,6 +101,11 @@
             }
         }
     ],
+    "Dependencies": {
+        "api": "1.0.0",
+        "views": "1.0.0",
+        "resources": "0.2.2"
+    },
     ...
 }</code></pre>
             </div><!-- /.code-block -->
@@ -109,31 +113,35 @@
             <h3>The Javascript</h3>
             <div class="code-block">
 <pre><code data-language="javascript">window.onload = function() {
-    sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
-    
-    tabs();
-    models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
+    require(['$api/models'], function(models) {
 
-    function tabs() {
-        var args = models.application.arguments;
-        var current = document.getElementById(args[0]);
-        var sections = document.getElementsByClassName('section');
-        for (i=0;i&lt;sections.length;i++){
-            sections[i].style.display = 'none';
+        // When application has loaded, run pages function
+        models.application.load('arguments').done(pages);
+
+        // When arguments change, run pages function
+        models.application.addEventListener('arguments', pages);
+
+        function pages() {
+            var args = models.application.arguments;
+            var current = document.getElementById(args[0]);
+            var sections = document.getElementsByClassName('section');
+            for (i=0;i&lt;sections.length;i++){
+                sections[i].style.display = 'none';
+            }
+            current.style.display = 'block';
         }
-        current.style.display = 'block';
-    }
+    }); // require
+
 }</code></pre>
             </div><!-- /.code-block -->
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&lt;div id="index"&gt;
+<pre><code data-language="html">&lt;div id="index" class="section"&gt;
 <!-- This content will show up in the "Home" tab -->
 &lt;/div&gt;
 
-&lt;div id="tabs"&gt;
+&lt;div id="tabs" class="section"&gt;
 <!-- This content will show up in the "How to use tabs" tab -->
 &lt;/div&gt;</code></pre>
             </div><!-- /.code-block -->

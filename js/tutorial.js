@@ -6,27 +6,23 @@
 
 window.onload = function() {
 
-    require(['$api/models', '$views/image', '$views/list'], function(m, i, l) {
+    require('$api/models', function(models) {
 
-        models = m;
-        // Define global variables
-        player = models.player;
+        // When application has loaded, run pages function
+        models.application.load('arguments').done(pages);
 
-        // Handle tabs and pages
-        models.application.load('arguments').done(function(){
+        // When arguments change, run pages function
+        models.application.addEventListener('arguments', pages);
 
-            models.application.addEventListener('arguments', function(){
-                var args = models.application.arguments;
-                var current = document.getElementById(args[0]);
-                var sections = document.getElementsByClassName('section');
-                for (i=0;i<sections.length;i++){
-                    sections[i].style.display = 'none';
-                }
-                current.style.display = 'block';
-            });
-
-        });
-
+        function pages() {
+            var args = models.application.arguments;
+            var current = document.getElementById(args[0]);
+            var sections = document.getElementsByClassName('section');
+            for (i=0;i<sections.length;i++){
+                sections[i].style.display = 'none';
+            }
+            current.style.display = 'block';
+        }
     }); // require
 
     /*
