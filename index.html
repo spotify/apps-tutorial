@@ -20,9 +20,9 @@
             <h4>Getting started</h4>
             <ul>
                 <li><a href="spotify:app:tutorial:manifest">Creating your manifest file</a></li>
-                <li><a href="spotify:app:tutorial:tabs">Handling arguments and creating navigational tabs</a></li>
+                <li><a href="spotify:app:tutorial:tabs">Handling arguments, creating pages and navigational tabs</a></li>
                 <li><a href="spotify:app:tutorial:drop">Dragging and dropping content into an app</a> (Unstable)</li>
-                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a> (Unstable)</li>
+                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
             </ul>
 
             <h4>UI</h4>
@@ -74,7 +74,7 @@
 
         <div id="tabs" class="section">
 
-            <h1>Handling arguments page/tab navigational tabs</h1>
+            <h1>Handling arguments, creating pages and navigational tabs</h1>
             <p class="description">Your Spotify app should be one HTML page that shows and hides sections. In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that corespond to nagivational tab names. In the <code>Application</code> class, when tabs or page links are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
 
             <h3>The manifest.json snippet</h3>
@@ -124,7 +124,7 @@
             }
             current.style.display = 'block';
         }
-    }); // require
+    });
 
 }</code></pre>
             </div><!-- /.code-block -->
@@ -264,36 +264,28 @@
             <h3>The Javascript</h3>
             <div class="code-block">
 <pre><code data-language="javascript">window.onload = function() {
-    sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
-    var views = sp.require('sp://import/scripts/api/views');
-    
-    // Handle share popup
-    var share_element = document.getElementById('share-popup');
-    var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
-    share_element.addEventListener('click', displayPopup);
-    function displayPopup() {
-        models.application.showSharePopup(share_element, share_content);
+    // Show share popup
+    var shareHTML = document.getElementById('share-popup');
+    var shareURI = 'spotify:track:249E7AgSyA4vhtXNEjQYb5';
+    var rect = shareHTML.getBoundingClientRect();
+    shareHTML.addEventListener('click', showSharePopup);
+
+    function showSharePopup(){
+      models.client.showShareUI(shareURI, 'Check out my jam',
+        {x:((rect.width/2) + rect.left), y:rect.top});
     }
 }</code></pre>
             </div><!-- ./code-block -->
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&lt;div id="share"&gt;
+<pre><code data-language="html">&lt;div id="share-button"&gt;
     &lt;button id="share-popup" class="sp-button"&gt;Share&lt;/button&gt;
 &lt;/div&gt;</code></pre>
             </div><!-- /.code-block -->
 
-            <h3>The CSS</h3>
-            <div class="code-block">
-<pre><code data-language="html">&lt;style&gt;
-    @import url('sp://resources/css/api.css');
-&lt;/style&gt;</code></pre>
-            </div><!-- /.code-block -->
-
             <h3>Live Example</h3>
-            <div id="share">
+            <div id="share-button">
                 <button id="share-popup" class="sp-button">Share</button>
             </div>
 

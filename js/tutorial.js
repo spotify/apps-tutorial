@@ -24,9 +24,9 @@ window.onload = function() {
             current.style.display = 'block';
         }
 
+
         // Get the currently-playing track
         models.player.load('track').done(updateCurrentTrack);
-
         // Update the DOM when the song changes
         models.player.addEventListener('change', updateCurrentTrack);
 
@@ -46,13 +46,27 @@ window.onload = function() {
             }
         }
 
+
         // Play a single track
         var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
         var image = Image.forTrack(single_track, {player:true});
-
         // Pass the player HTML code to the #single-track-player div 
         var single_track_player_HTML = document.getElementById('single-track-player');
         single_track_player_HTML.appendChild(image.node);
+
+
+        // Show share popup
+        var shareHTML = document.getElementById('share-popup');
+        var shareURI = 'spotify:track:249E7AgSyA4vhtXNEjQYb5';
+        var rect = shareHTML.getBoundingClientRect();
+        shareHTML.addEventListener('click', showSharePopup);
+
+        function showSharePopup(){
+          models.client.showShareUI(shareURI, 'Check out my jam',
+            {x:((rect.width/2) + rect.left), y:rect.top});
+        }
+
+
 
     }); // require
 
