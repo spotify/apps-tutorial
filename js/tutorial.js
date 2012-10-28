@@ -36,7 +36,6 @@ window.onload = function() {
                 currentHTML.innerHTML = 'No track currently playing';
             } else {
                 var artists = models.player.track.artists;
-                console.log(artists);
                 var artists_array = [];
                 for(i=0;i<artists.length;i++) {
                     artists_array.push(artists[i].name);
@@ -66,49 +65,47 @@ window.onload = function() {
             {x:((rect.width/2) + rect.left), y:rect.top});
         }
 
+        
+        // Drag content into an HTML element from Spotify
+        var dropBox = document.querySelector('#drop-box');
+        dropBox.addEventListener('dragstart', function(e){
+            e.dataTransfer.setData('text/html', this.innerHTML);
+            e.dataTransfer.effectAllowed = 'copy';
+        }, false);
+
+        dropBox.addEventListener('dragenter', function(e){
+            if (e.preventDefault) e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+            this.classList.add('over');
+        }, false);
+
+        dropBox.addEventListener('dragover', function(e){
+            if (e.preventDefault) e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+            return false;
+        }, false);
+
+        dropBox.addEventListener('drop', function(e){
+            if (e.preventDefault) e.preventDefault();
+            var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
+            console.log(drop);
+            this.classList.remove('over');
+            var success_message = document.createElement('p');
+            success_message.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
+            this.appendChild(success_message);
+        }, false);
+        
+        // Drag content into the sidebar
+        models.application.addEventListener('dropped', function(){
+            console.log(models.application.dropped);
+        });
 
 
     }); // require
 
     /*
     
-    // Handle share popup
-    var share_element = document.getElementById('share-popup');
-    var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
-    share_element.addEventListener('click', displayPopup);
-    function displayPopup() {
-        models.application.showSharePopup(share_element, share_content);
-    }
 
-    // Handle drops
-    var drop_box = document.querySelector('#drop_box');
-
-    drop_box.addEventListener('dragstart', function(e){
-        e.dataTransfer.setData('text/html', this.innerHTML);
-        e.dataTransfer.effectAllowed = 'copy';
-    }, false);
-
-    drop_box.addEventListener('dragenter', function(e){
-        if (e.preventDefault) e.preventDefault();
-        e.dataTransfer.dropEffect = 'copy';
-        this.classList.add('over');
-    }, false);
-
-    drop_box.addEventListener('dragover', function(e){
-        if (e.preventDefault) e.preventDefault();
-        e.dataTransfer.dropEffect = 'copy';
-        return false;
-    }, false);
-
-    drop_box.addEventListener('drop', function(e){
-        if (e.preventDefault) e.preventDefault();
-        var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
-        console.log(drop);
-        this.classList.remove('over');
-        var success_message = document.createElement('p');
-        success_message.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
-        this.appendChild(success_message);
-    }, false);
 
     // Handle multiple tracks player
     var library_tracks = models.library.tracks;

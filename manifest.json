@@ -1,4 +1,7 @@
 {
+    "AcceptedLinkTypes": [
+        "playlist"
+    ],
     "AppDescription": {
 		    "en": "A tutorial app for Spotify Apps API"
 	  },
@@ -26,8 +29,8 @@
         }
 	  ],
 	  "Dependencies": {
-	      "api": "1.0.0",
-	      "views": "1.0.0",
+	      "api": "1.10.2",
+	      "views": "1.18.1",
 	      "resources": "0.2.2"
     },
 	  "RequiredInterface": 1,
@@ -52,6 +55,6 @@
 	  "SupportedLanguages": [
 		    "en"
 	  ],
-	  "UserInstallable": false,
+	  "UserInstallable": true,
 	  "VendorIdentifier": "co.mager"
 }

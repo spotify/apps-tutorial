@@ -201,31 +201,46 @@
         <div id="drop" class="section">
 
             <h1>Dragging and dropping content into an app</h1>
-            <p class="description">Using the built-in HTML "Drag &amp; Drop", we are able to detect and use content dragged into a Spotify App. Eric Bidelman from Google wrote <a href="http://www.html5rocks.com/en/tutorials/dnd/basics/">a nice tutorial</a> that I used to build this.</p>
+            <p class="description">Using the built-in HTML "Drag &amp; Drop", we are able to detect and use content dragged into a Spotify App. Eric Bidelman from Google wrote <a href="http://www.html5rocks.com/en/tutorials/dnd/basics/">a nice tutorial</a> that I used to build this. You can also drag items from Spotify (albums, tracks, playlists) into your app via the sidebar.</p>
+            <h3>The manifest.json snippet</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">{
+    ...
+    "ApplicationLinkTypes": [
+        "album",
+        "artist",
+        "playlist",
+        "track",
+        "user"
+    ],
+    ...
+}</code></pre>
+            </div><!-- /.code-block -->
+
 
             <h3>The Javascript</h3>
             <div class="code-block">
 <pre><code data-language="javascript">window.onload = function() {
-    var drop_box = document.querySelector('#drop_box');
-
-    drop_box.addEventListener('dragstart', function(e){
+    // Drag content into an HTML element from Spotify
+    var dropBox = document.querySelector('#drop-box');
+    dropBox.addEventListener('dragstart', function(e){
         e.dataTransfer.setData('text/html', this.innerHTML);
         e.dataTransfer.effectAllowed = 'copy';
     }, false);
 
-    drop_box.addEventListener('dragenter', function(e){
+    dropBox.addEventListener('dragenter', function(e){
         if (e.preventDefault) e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
         this.classList.add('over');
     }, false);
 
-    drop_box.addEventListener('dragover', function(e){
+    dropBox.addEventListener('dragover', function(e){
         if (e.preventDefault) e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
         return false;
     }, false);
 
-    drop_box.addEventListener('drop', function(e){
+    dropBox.addEventListener('drop', function(e){
         if (e.preventDefault) e.preventDefault();
         var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
         console.log(drop);
@@ -234,24 +249,29 @@
         success_message.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
         this.appendChild(success_message);
     }, false);
+    
+    // Drag content into the sidebar
+    models.application.addEventListener('dropped', function(){
+        console.log(models.application.dropped);
+    });
 }</code></pre>
             </div><!-- ./code-block -->
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&lt;div id="drop_box"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="drop-box"&gt;&lt;/div&gt;</code></pre>
             </div><!-- /.code-block -->
 
             <h3>The CSS</h3>
             <div class="code-block">
 <pre><code data-language="html">&lt;style&gt;
-    #drop_box {border:4px dashed #333;width:100%;height:200px;padding:10px;}
-    #drop_box.over {opacity:0.8;border-color:#74c043;}
+    #drop-box {border:4px dashed #333;width:100%;height:200px;padding:10px;}
+    #drop-box.over {opacity:0.8;border-color:#74c043;}
 &lt;/style&gt;</code></pre>
             </div><!-- /.code-block -->
 
             <h3>Live Example</h3>
-            <div id="drop_box">
+            <div id="drop-box">
             </div>
 
         </div><!-- /.section #drop -->
