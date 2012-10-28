@@ -21,44 +21,49 @@
             <ul>
                 <li><a href="spotify:app:tutorial:manifest">Creating your manifest file</a></li>
                 <li><a href="spotify:app:tutorial:tabs">Handling arguments, creating pages and navigational tabs</a></li>
-                <li><a href="spotify:app:tutorial:drop">Dragging and dropping content into an app</a> (Unstable)</li>
-                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
+                <li>Making asyncronous requests</li>
+                <li><a href="spotify:app:tutorial:drop">Dragging and dropping content into an app</a></li>
             </ul>
 
             <h4>UI</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/buttons.html">Using standard components for buttons</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/buttons.html">Using standard components for buttons</a> (Old API)</li>
+                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
             </ul>
 
             <h4>Playing music</h4>
             <ul>
                 <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a></li>
-                <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a> (Unstable)</li>
+                <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a> (Old API)</li>
                 <li><a href="spotify:app:tutorial:current_track">Get the currently-playing track</a></li>
-                <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a> (Old API)</li>
+                <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a> (Old API)</li>
             </ul>
 
-            <h4>Searching</h4>
+            <h4>Metadata</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/search_albums_for_an_artist.html">Search albums for an artist</a> (Unstable)</li>
+                <li>Get metadata from an artist, album, track, or playlist</li>
+                <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a> (Old API)</li>
+                <li><a href="sp://tutorial/tutorials/search_albums_for_an_artist.html">Search albums for an artist</a> (Old API)</li>
             </ul>
 
 
             <h4>Playlists</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/add_track_to_playlist.html">Add a track to a playlist</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/get_tracks_from_playlist.html">Get tracks from a playlist URL</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/subscribe.html">Subscribe to a playlist</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/playlist_mosaic.html">Showing a playlist mosiac image</a> (Unstable)</li>
+                <li><a href="sp://tutorial/tutorials/add_track_to_playlist.html">Add a track to a playlist</a> (Old API)</li>
+                <li><a href="sp://tutorial/tutorials/get_tracks_from_playlist.html">Get tracks from a playlist URL</a> (Old API)</li>
+                <li><a href="sp://tutorial/tutorials/subscribe.html">Subscribe to a playlist</a> (Old API)</li>
+                <li><a href="sp://tutorial/tutorials/playlist_mosaic.html">Showing a playlist mosiac image</a> (Old API)</li>
+                <li>How to create a playlist snapshot</li>
             </ul>
 
-            <h4>Interacting with Facebook</h4>
+            <h4>Interacting with user data</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/Facebook_auth.html">Authenticate a user with Facebook</a> (Unstable)</li>
-                <li><a href="sp://tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a> (Unstable)</li>
+                <li>Get a user's playlists and starred tracks</li>
+                <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a> (Old API)</li>
+                <li>Get a user's location</li>
+                <li><a href="sp://tutorial/tutorials/Facebook_auth.html">Authenticate a user with Facebook</a> (Old API)</li>
+                <li><a href="sp://tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a> (Old API)</li>
             </ul>
 
             <h4>Experimental &amp; Unsupported</h4>
@@ -95,11 +100,6 @@
             }
         }
     ],
-    "Dependencies": {
-        "api": "1.0.0",
-        "views": "1.0.0",
-        "resources": "0.2.2"
-    },
     ...
 }</code></pre>
             </div><!-- /.code-block -->
@@ -145,7 +145,7 @@
         <div id="manifest" class="section">
 
             <h1>Creating your manifest file</h1>
-            <p class="description">The first step for building a Spotify App is to create a manifest.json file in your app's root directory. The example below is the most minimal manifest.json file needed for an app to work. For more information about the manifest.json file, please read our <a href="http://developer.spotify.com/download/spotify-apps-api/guidelines/#applicationmanifest">API guidelines</a>.</p>
+            <p class="description">The first step for building a Spotify App is to create a manifest.json file in your app's root directory. The example below is the most minimal manifest.json file needed for an app to work. For more information about the manifest.json file, please read our <a href="http://developer.spotify.com/download/spotify-apps-api/guidelines/#applicationmanifest">API guidelines</a>. To see the latest dependencies, look in Develop &gt; Bundle Manager.</p>
 
             <h3>The JSON</h3>
             <div class="code-block">
@@ -162,6 +162,7 @@
     "BundleIdentifier": "tutorial",
     "BundleType": "Application",
     "BundleVersion": "0.1",
+
     "DefaultTabs": [
         {
             "arguments": "home_tab",
@@ -177,9 +178,8 @@
         }
     ],
 	"Dependencies": {
-	  "api": "0.2.3",
-	  "util": "0.1.0",
-	  "resources": "0.2.2"
+        "api": "1.10.2",
+	    "views": "1.18.1"
     },
     "RequiredInterface": 1,
     "RequiredPermissions": [
