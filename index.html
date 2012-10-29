@@ -7,8 +7,6 @@
             @import url('$views/css/image.css');
             @import url('sp://tutorial/css/github.css');
         </style>
-        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
-        <script src="sp://tutorial/js/tutorial.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -44,7 +42,6 @@
             <ul>
                 <li>Get metadata from an artist, album, track, or playlist</li>
                 <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a> (Old API)</li>
-                <li><a href="sp://tutorial/tutorials/search_albums_for_an_artist.html">Search albums for an artist</a> (Old API)</li>
             </ul>
 
 
@@ -61,7 +58,7 @@
             <ul>
                 <li>Get a user's playlists and starred tracks</li>
                 <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a> (Old API)</li>
-                <li>Get a user's location</li>
+                <li><a href="spotify:app:tutorial:location">Get a user's location</a></li>
                 <li><a href="sp://tutorial/tutorials/Facebook_auth.html">Authenticate a user with Facebook</a> (Old API)</li>
                 <li><a href="sp://tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a> (Old API)</li>
             </ul>
@@ -106,27 +103,25 @@
 
             <h3>The Javascript</h3>
             <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
-    require(['$api/models'], function(models) {
+<pre><code data-language="javascript">require(['$api/models'], function(models) {
 
-        // When application has loaded, run pages function
-        models.application.load('arguments').done(pages);
+    // When application has loaded, run pages function
+    models.application.load('arguments').done(pages);
 
-        // When arguments change, run pages function
-        models.application.addEventListener('arguments', pages);
+    // When arguments change, run pages function
+    models.application.addEventListener('arguments', pages);
 
-        function pages() {
-            var args = models.application.arguments;
-            var current = document.getElementById(args[0]);
-            var sections = document.getElementsByClassName('section');
-            for (i=0;i&lt;sections.length;i++){
-                sections[i].style.display = 'none';
-            }
-            current.style.display = 'block';
+    function pages() {
+        var args = models.application.arguments;
+        var current = document.getElementById(args[0]);
+        var sections = document.getElementsByClassName('section');
+        for (i=0;i&lt;sections.length;i++){
+            sections[i].style.display = 'none';
         }
-    });
+        current.style.display = 'block';
+    }
 
-}</code></pre>
+});</code></pre>
             </div><!-- /.code-block -->
 
             <h3>The HTML</h3>
@@ -220,7 +215,8 @@
 
             <h3>The Javascript</h3>
             <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
+<pre><code data-language="javascript">require(['$api/models'], function(models) {
+
     // Drag content into an HTML element from Spotify
     var dropBox = document.querySelector('#drop-box');
     dropBox.addEventListener('dragstart', function(e){
@@ -254,7 +250,8 @@
     models.application.addEventListener('dropped', function(){
         console.log(models.application.dropped);
     });
-}</code></pre>
+
+});</code></pre>
             </div><!-- ./code-block -->
 
             <h3>The HTML</h3>
@@ -278,12 +275,13 @@
 
 
         <div id="share" class="section">
-             <h1>Show "Share" popup</h1>
+            <h1>Show "Share" popup</h1>
             <p class="description">One of the greatest features of Spotify is the ability to share music with your social graph. With a few lines of code, we can interact with the "Share" popup dialog.</p>
 
             <h3>The Javascript</h3>
             <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
+<pre><code data-language="javascript">require(['$api/models'], function(models) {
+
     // Show share popup
     var shareHTML = document.getElementById('share-popup');
     var shareURI = 'spotify:track:249E7AgSyA4vhtXNEjQYb5';
@@ -294,7 +292,8 @@
       models.client.showShareUI(shareURI, 'Check out my jam',
         {x:((rect.width/2) + rect.left), y:rect.top});
     }
-}</code></pre>
+
+});</code></pre>
             </div><!-- ./code-block -->
 
             <h3>The HTML</h3>
@@ -316,27 +315,27 @@
             <p class="description">This snippet of code plays a hardcoded Spotify URI.</p>
 
             <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-    require('$views/image#Image', function(Image) {
-        // Play a single track
-        var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
-        var image = Image.forTrack(single_track, {player:true});
+            <div class="code-block">
+<pre><code data-language="javascript">require('$views/image#Image', function(Image) {
 
-        // Pass the player HTML code to the #single-track-player div 
-        var single_track_player_HTML = document.getElementById('single-track-player');
-        single_track_player_HTML.appendChild(image.node);
-    }
-}</code></pre>
-        </div>
+    // Play a single track
+    var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
+    var image = Image.forTrack(single_track, {player:true});
+
+    // Pass the player HTML code to the #single-track-player div 
+    var single_track_player_HTML = document.getElementById('single-track-player');
+    single_track_player_HTML.appendChild(image.node);
+
+});</code></pre>
+            </div><!-- /.code-block -->
 
         <h3>The HTML</h3>
-        <div id="the-html">
+        <div class="code-block">
 <pre><code data-language="html">&ltdiv id="single-track-player"&gt;&lt;/div&gt;</code></pre>
         </div>
 
         <h3>The CSS</h3>
-        <div id="the-css">
+        <div class="code-block">
 <pre><code data-language="css">&lt;style&gt; 
 @import url('$views/css/image.css');                            
 &lt;/style&gt;</code></pre>
@@ -354,40 +353,19 @@
         <p class="description">This snippet of code retrieves the user's 20 latest songs added to their Library and creates a Player & List view of the songs.</p>
 
         <h3>The Javascript</h3>
-        <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-/* Instantiate the global sp object; include models &amp; views */
-var sp = getSpotifyApi(1);
-var models = sp.require("sp://import/scripts/api/models");
-var views = sp.require("sp://import/scripts/api/views");
+        <div class="code-block">
+<pre><code data-language="javascript">
 
-var library_tracks = models.library.tracks;
-
-var multiple_tracks_playlist = new models.Playlist();
-for(var i=0;i&lt;20;i++) {
-    var library_track = models.Track.fromURI(library_tracks[i].data.uri);
-    multiple_tracks_playlist.add(library_track);
-}
-
-console.log(multiple_tracks_playlist);
-var multiple_tracks_player = new views.List(multiple_tracks_playlist);
-multiple_tracks_player.track = null; // Don't play the track right away
-multiple_tracks_player.context = multiple_tracks_playlist;
-
-/* Pass the player HTML code to #multiple-tracks-player */
-var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
-multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
-single_track_player_HTML.appendChild(single_track_player.node);
-}</code></pre>
-        </div>
+</code></pre>
+        </div><!-- /.code-block -->
 
         <h3>The HTML</h3>
-        <div id="the-html">
+        <div class="code-block">
 <pre><code data-language="html">&ltdiv id="multiple-tracks-player"&gt;&lt;/div&gt;</code></pre>
         </div>
 
         <h3>The CSS</h3>
-        <div id="the-css">
+        <div class="code-block">
 <pre><code data-language="css">&lt;style&gt; 
 @import url("sp://import/css/api.css");                               
 @import url('sp://import/css/eve.css');                               
@@ -406,8 +384,9 @@ single_track_player_HTML.appendChild(single_track_player.node);
             <p class="description">Checks to see which track is currently playing. This example also updates the DOM when the song changes.</p>
 
             <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
+            <div class="code-block">
+<pre><code data-language="javascript">require(['$api/models'], function(models) {
+
     // Get the currently-playing track
     models.player.load('track').done(updateCurrentTrack);
 
@@ -429,15 +408,17 @@ single_track_player_HTML.appendChild(single_track_player.node);
             currentHTML.innerHTML += ' - ' + models.player.track.name;
         }
     }
-}</code></pre>
+
+});</code></pre>
+            </div>
 
             <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
+            <div class="code-block">
+<pre><code data-language="html">&ltdiv id="current-track"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>The CSS</h3>
-            <div id="the-css">
+            <div class="code-block">
 <pre><code data-language="css">&lt;style&gt; 
     @import url("sp://import/css/api.css");                               
     @import url('sp://import/css/eve.css');                               
@@ -447,7 +428,30 @@ single_track_player_HTML.appendChild(single_track_player.node);
             <h3>Live Example</h3>
             <div id="current-track"></div>
  
-        </div><!-- /.section #template -->
+        </div><!-- /.section #current_track -->
+
+
+        <div id="location" class="section">
+            <h1>Get the user's location</h1>
+            <p class="description">We've built a location function into the Spotify Apps API. Simply require <code>$api/location#Location</code> and call <code>location.query()</code> to get the user's location.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+            <pre><code data-language="javascript">require('$api/location#Location'), function(Location){
+
+    var loc = Location.query();                                                   
+    loc.load(['latitude', 'longitude']).done(function(loc) {                      
+        console.log('Latitude: ' + loc.latitude);
+        console.log('Longitude: ' + loc.latitude);
+    });
+
+});</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="map" style="width:800px;height:300px;"></div>
+ 
+        </div><!-- /.section #location -->
 
 
         <div id="template" class="section">
@@ -455,21 +459,15 @@ single_track_player_HTML.appendChild(single_track_player.node);
             <p class="description">Description</p>
 
             <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-}</code></pre>
+            <div class="code-block">
+<pre><code data-language="javascript">
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
+</code></pre>
             </div>
 
-            <h3>The CSS</h3>
-            <div id="the-css">
-<pre><code data-language="css">&lt;style&gt; 
-    @import url("sp://import/css/api.css");                               
-    @import url('sp://import/css/eve.css');                               
-&lt;/style&gt;</code></pre>
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>Live Example</h3>
@@ -480,5 +478,10 @@ single_track_player_HTML.appendChild(single_track_player.node);
 
 
         </div><!-- /wrapper -->
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script src="sp://tutorial/js/tutorial.js"></script>
+        <script>
+        </script>
     </body>
 </html>

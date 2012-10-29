@@ -4,104 +4,114 @@
 *
 **/
 
-window.onload = function() {
+require(['$api/models', '$api/location#Location', '$views/image#Image'], function(models, Location, Image) {
 
-    require(['$api/models', '$views/image#Image'], function(models, Image) {
+    // When application has loaded, run pages function
+    models.application.load('arguments').done(pages);
 
-        // When application has loaded, run pages function
-        models.application.load('arguments').done(pages);
+    // When arguments change, run pages function
+    models.application.addEventListener('arguments', pages);
 
-        // When arguments change, run pages function
-        models.application.addEventListener('arguments', pages);
+    function pages() {
+        var args = models.application.arguments;
+        var current = document.getElementById(args[0]);
+        var sections = document.getElementsByClassName('section');
+        for (i=0;i<sections.length;i++){
+            sections[i].style.display = 'none';
+        }
+        current.style.display = 'block';
+    }
 
-        function pages() {
-            var args = models.application.arguments;
-            var current = document.getElementById(args[0]);
-            var sections = document.getElementsByClassName('section');
-            for (i=0;i<sections.length;i++){
-                sections[i].style.display = 'none';
+
+    // Get the currently-playing track
+    models.player.load('track').done(updateCurrentTrack);
+    // Update the DOM when the song changes
+    models.player.addEventListener('change', updateCurrentTrack);
+
+    function updateCurrentTrack(){
+        var currentHTML = document.getElementById('current-track');
+        if (models.player.track == null) {
+            currentHTML.innerHTML = 'No track currently playing';
+        } else {
+            var artists = models.player.track.artists;
+            var artists_array = [];
+            for(i=0;i<artists.length;i++) {
+                artists_array.push(artists[i].name);
             }
-            current.style.display = 'block';
+            currentHTML.innerHTML = 'Now playing: ' + artists_array.join(', ');
+            currentHTML.innerHTML += ' - ' + models.player.track.name;
         }
+    }
 
 
-        // Get the currently-playing track
-        models.player.load('track').done(updateCurrentTrack);
-        // Update the DOM when the song changes
-        models.player.addEventListener('change', updateCurrentTrack);
-
-        function updateCurrentTrack(){
-            var currentHTML = document.getElementById('current-track');
-            if (models.player.track == null) {
-                currentHTML.innerHTML = 'No track currently playing';
-            } else {
-                var artists = models.player.track.artists;
-                var artists_array = [];
-                for(i=0;i<artists.length;i++) {
-                    artists_array.push(artists[i].name);
-                }
-                currentHTML.innerHTML = 'Now playing: ' + artists_array.join(', ');
-                currentHTML.innerHTML += ' - ' + models.player.track.name;
-            }
-        }
+    // Play a single track
+    var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
+    var image = Image.forTrack(single_track, {player:true});
+    // Pass the player HTML code to the #single-track-player div 
+    var single_track_player_HTML = document.getElementById('single-track-player');
+    single_track_player_HTML.appendChild(image.node);
 
 
-        // Play a single track
-        var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
-        var image = Image.forTrack(single_track, {player:true});
-        // Pass the player HTML code to the #single-track-player div 
-        var single_track_player_HTML = document.getElementById('single-track-player');
-        single_track_player_HTML.appendChild(image.node);
+    // Show share popup
+    var shareHTML = document.getElementById('share-popup');
+    var shareURI = 'spotify:track:249E7AgSyA4vhtXNEjQYb5';
+    var rect = shareHTML.getBoundingClientRect();
+    shareHTML.addEventListener('click', showSharePopup);
+
+    function showSharePopup(){
+      models.client.showShareUI(shareURI, 'Check out my jam',
+        {x:((rect.width/2) + rect.left), y:rect.top});
+    }
+
+    
+    // Drag content into an HTML element from Spotify
+    var dropBox = document.querySelector('#drop-box');
+    dropBox.addEventListener('dragstart', function(e){
+        e.dataTransfer.setData('text/html', this.innerHTML);
+        e.dataTransfer.effectAllowed = 'copy';
+    }, false);
+
+    dropBox.addEventListener('dragenter', function(e){
+        if (e.preventDefault) e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+        this.classList.add('over');
+    }, false);
+
+    dropBox.addEventListener('dragover', function(e){
+        if (e.preventDefault) e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+        return false;
+    }, false);
+
+    dropBox.addEventListener('drop', function(e){
+        if (e.preventDefault) e.preventDefault();
+        var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
+        console.log(drop);
+        this.classList.remove('over');
+        var success_message = document.createElement('p');
+        success_message.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
+        this.appendChild(success_message);
+    }, false);
+    
+    // Drag content into the sidebar
+    models.application.addEventListener('dropped', function(){
+        console.log(models.application.dropped);
+    });
 
 
-        // Show share popup
-        var shareHTML = document.getElementById('share-popup');
-        var shareURI = 'spotify:track:249E7AgSyA4vhtXNEjQYb5';
-        var rect = shareHTML.getBoundingClientRect();
-        shareHTML.addEventListener('click', showSharePopup);
+    // Get the user's location
+    var loc = Location.query();
+    loc.load(['latitude', 'longitude']).done(function(loc) {
+      // Create a Google Maps object
+      var myOptions = {
+          zoom: 13,
+          center: new google.maps.LatLng(loc.latitude, loc.longitude),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map_object = new google.maps.Map(document.getElementById('map'), myOptions);
+    });
 
-        function showSharePopup(){
-          models.client.showShareUI(shareURI, 'Check out my jam',
-            {x:((rect.width/2) + rect.left), y:rect.top});
-        }
-
-        
-        // Drag content into an HTML element from Spotify
-        var dropBox = document.querySelector('#drop-box');
-        dropBox.addEventListener('dragstart', function(e){
-            e.dataTransfer.setData('text/html', this.innerHTML);
-            e.dataTransfer.effectAllowed = 'copy';
-        }, false);
-
-        dropBox.addEventListener('dragenter', function(e){
-            if (e.preventDefault) e.preventDefault();
-            e.dataTransfer.dropEffect = 'copy';
-            this.classList.add('over');
-        }, false);
-
-        dropBox.addEventListener('dragover', function(e){
-            if (e.preventDefault) e.preventDefault();
-            e.dataTransfer.dropEffect = 'copy';
-            return false;
-        }, false);
-
-        dropBox.addEventListener('drop', function(e){
-            if (e.preventDefault) e.preventDefault();
-            var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
-            console.log(drop);
-            this.classList.remove('over');
-            var success_message = document.createElement('p');
-            success_message.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
-            this.appendChild(success_message);
-        }, false);
-        
-        // Drag content into the sidebar
-        models.application.addEventListener('dropped', function(){
-            console.log(models.application.dropped);
-        });
-
-
-    }); // require
+}); // require
 
     /*
     
@@ -126,6 +136,5 @@ window.onload = function() {
 
     */
 
-}
 
 
