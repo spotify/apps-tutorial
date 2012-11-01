@@ -4,7 +4,13 @@
 *
 **/
 
-require(['$api/models', '$api/location#Location', '$views/list#List', '$views/image#Image'], function(models, Location, List, Image) {
+require([
+        '$api/models',
+        '$api/location#Location',
+        '$views/buttons',
+        '$views/list#List',
+        '$views/image#Image'
+        ], function(models, Location, buttons, List, Image) {
 
     // When application has loaded, run pages function
     models.application.load('arguments').done(pages);
@@ -21,6 +27,26 @@ require(['$api/models', '$api/location#Location', '$views/list#List', '$views/im
         }
         current.style.display = 'block';
     }
+
+
+    // Show buttons
+    var button = buttons.Button.withLabel('Hello World');
+    var buttons_example = document.getElementById('buttons-example');
+    buttons_example.appendChild(button.node);
+
+    var playlist = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
+    var subscribe_button = buttons.SubscribeButton.forPlaylist(playlist);
+    buttons_example.appendChild(subscribe_button.node);
+
+    var album = models.Album.fromURI('spotify:album:7w19PFbxAjwZ7UVNp9z0uT');
+    var share_button = buttons.ShareButton.forAlbum(album);
+    buttons_example.appendChild(share_button.node);
+
+    var radio_button = buttons.StartRadioButton.forAlbum(album);
+    buttons_example.appendChild(radio_button.node);
+
+    var custom_button = buttons.CustomButton.withClass('custom-button', 'Custom Button');
+    buttons_example.appendChild(custom_button.node);
 
 
     // Get the currently-playing track
@@ -54,7 +80,6 @@ require(['$api/models', '$api/location#Location', '$views/list#List', '$views/im
 
     // Play multiple tracks
     var multiple_tracks = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
-    console.log(multiple_tracks);
     var list = List.forPlaylist(multiple_tracks);
     var multiple_tracks_player = document.getElementById('multiple-tracks-player');
     multiple_tracks_player.appendChild(list.node);

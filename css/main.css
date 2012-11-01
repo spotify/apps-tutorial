@@ -28,6 +28,8 @@ a:hover {color:#83be20;}
 #drop-box.over {opacity:0.8;border-color:#74c043;}
 
 
+/* Buttons */
+#buttons-example .sp-button {margin: 0 20px 0 0;} 
 
 
 body, html {overflow:visible !important;}

@@ -4,6 +4,7 @@
 
         <style>
             @import url('sp://tutorial/css/main.css');
+            @import url('$views/css/buttons.css');
             @import url('$views/css/image.css');
             @import url('$views/css/list.css');
             @import url('sp://tutorial/css/github.css');
@@ -26,14 +27,14 @@
 
             <h4>UI</h4>
             <ul>
-                <li><a href="sp://tutorial/tutorials/buttons.html">Using standard components for buttons</a> (Old API)</li>
+                <li><a href="spotify:app:tutorial:buttons">Using standard components for buttons</a> (Old API)</li>
                 <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
             </ul>
 
             <h4>Playing music</h4>
             <ul>
                 <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a></li>
-                <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a> (Old API)</li>
+                <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a></li>
                 <li><a href="spotify:app:tutorial:current_track">Get the currently-playing track</a></li>
                 <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a> (Old API)</li>
                 <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a> (Old API)</li>
@@ -62,9 +63,10 @@
                 <li><a href="spotify:app:tutorial:location">Get a user's location</a></li>
                 <li><a href="sp://tutorial/tutorials/Facebook_auth.html">Authenticate a user with Facebook</a> (Old API)</li>
                 <li><a href="sp://tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a> (Old API)</li>
+                <li>Logging out of Facebook</li>
             </ul>
 
-            <h4>Experimental &amp; Unsupported</h4>
+            <h4>Experimental &amp; Unsupported (Old API)</h4>
             <ul>
                 <li><a href="sp://tutorial/tutorials/twitter.html">Talking to Twitter</a></li>
                 <li><a href="sp://tutorial/tutorials/echonest.html">Create an EchoNest radio station</a></li>
@@ -273,6 +275,30 @@
             </div>
 
         </div><!-- /.section #drop -->
+
+
+        <div id="buttons" class="section">
+
+
+            <h1>Using standard compoments for buttons</h1>
+            <p class="description">Here, we include the <code>$views/buttons</code> bundle and render buttons from the API.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">
+
+</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="buttons-example"></div>
+
+        </div><!-- /.section #buttons -->
 
 
         <div id="share" class="section">
