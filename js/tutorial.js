@@ -4,7 +4,7 @@
 *
 **/
 
-require(['$api/models', '$api/location#Location', '$views/image#Image'], function(models, Location, Image) {
+require(['$api/models', '$api/location#Location', '$views/list#List', '$views/image#Image'], function(models, Location, List, Image) {
 
     // When application has loaded, run pages function
     models.application.load('arguments').done(pages);
@@ -51,6 +51,14 @@ require(['$api/models', '$api/location#Location', '$views/image#Image'], functio
     var single_track_player_HTML = document.getElementById('single-track-player');
     single_track_player_HTML.appendChild(image.node);
 
+
+    // Play multiple tracks
+    var multiple_tracks = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
+    console.log(multiple_tracks);
+    var list = List.forPlaylist(multiple_tracks);
+    var multiple_tracks_player = document.getElementById('multiple-tracks-player');
+    multiple_tracks_player.appendChild(list.node);
+    list.init();
 
     // Show share popup
     var shareHTML = document.getElementById('share-popup');
@@ -112,29 +120,3 @@ require(['$api/models', '$api/location#Location', '$views/image#Image'], functio
     });
 
 }); // require
-
-    /*
-    
-
-
-    // Handle multiple tracks player
-    var library_tracks = models.library.tracks;
-
-    var multiple_tracks_playlist = new models.Playlist();
-    for(var i=0;i<20;i++) {
-        var library_track = models.Track.fromURI(library_tracks[i].data.uri);
-        multiple_tracks_playlist.add(library_track);
-    }
-
-    var multiple_tracks_player = new views.List(multiple_tracks_playlist);
-    multiple_tracks_player.track = null; // Don't play the track right away
-    multiple_tracks_player.context = multiple_tracks_playlist;
-   
-    // Pass the player HTML code to #multiple-tracks-player 
-    var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
-    multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
-
-    */
-
-
-

@@ -5,6 +5,7 @@
         <style>
             @import url('sp://tutorial/css/main.css');
             @import url('$views/css/image.css');
+            @import url('$views/css/list.css');
             @import url('sp://tutorial/css/github.css');
         </style>
     </head>
@@ -316,7 +317,7 @@
 
             <h3>The Javascript</h3>
             <div class="code-block">
-<pre><code data-language="javascript">require('$views/image#Image', function(Image) {
+<pre><code data-language="javascript">require(['$api/models', '$views/image#Image', function(models, Image) {
 
     // Play a single track
     var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
@@ -350,13 +351,21 @@
 
     <div id="play_list_of_tracks" class="section">
         <h1>Play a list of tracks</h1>
-        <p class="description">This snippet of code retrieves the user's 20 latest songs added to their Library and creates a Player & List view of the songs.</p>
+        <p class="description">This code example shows you how to create a list view for multiple tracks.</p>
 
         <h3>The Javascript</h3>
         <div class="code-block">
-<pre><code data-language="javascript">
+<pre><code data-language="javascript">require('$api/models', '$views/list#List', function(models, List) {
 
-</code></pre>
+    // Play multiple tracks
+    var multiple_tracks = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
+    console.log(multiple_tracks);
+    var list = List.forPlaylist(multiple_tracks);
+    var multiple_tracks_player = document.getElementById('multiple-tracks-player');
+    multiple_tracks_player.appendChild(list.node);
+    list.init();
+
+});</code></pre>
         </div><!-- /.code-block -->
 
         <h3>The HTML</h3>
@@ -364,14 +373,12 @@
 <pre><code data-language="html">&ltdiv id="multiple-tracks-player"&gt;&lt;/div&gt;</code></pre>
         </div>
 
-        <h3>The CSS</h3>
-        <div class="code-block">
+            <h3>The CSS</h3>
+            <div class="code-block">
 <pre><code data-language="css">&lt;style&gt; 
-@import url("sp://import/css/api.css");                               
-@import url('sp://import/css/eve.css');                               
-@import url('sp://import/css/player.css');                            
+    @import url('$views/css/list.css');                               
 &lt;/style&gt;</code></pre>
-        </div>
+            </div>
 
             <h3>Live Example</h3>
             <div id="multiple-tracks-player"></div>
