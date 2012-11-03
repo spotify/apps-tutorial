@@ -45,8 +45,10 @@ require([
     var radio_button = buttons.StartRadioButton.forAlbum(album);
     buttons_example.appendChild(radio_button.node);
 
+    /* Why doesn't this look like the other buttons?
     var custom_button = buttons.CustomButton.withClass('custom-button', 'Custom Button');
     buttons_example.appendChild(custom_button.node);
+    */
 
 
     // Get the currently-playing track

@@ -285,14 +285,29 @@
 
             <h3>The Javascript</h3>
             <div class="code-block">
-<pre><code data-language="javascript">
+<pre><code data-language="javascript">require('$views/buttons', function(buttons) {
 
-</code></pre>
+    var button = buttons.Button.withLabel('Hello World');
+    var buttons_example = document.getElementById('buttons-example');
+    buttons_example.appendChild(button.node);
+
+    var playlist = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
+    var subscribe_button = buttons.SubscribeButton.forPlaylist(playlist);
+    buttons_example.appendChild(subscribe_button.node);
+
+    var album = models.Album.fromURI('spotify:album:7w19PFbxAjwZ7UVNp9z0uT');
+    var share_button = buttons.ShareButton.forAlbum(album);
+    buttons_example.appendChild(share_button.node);
+
+    var radio_button = buttons.StartRadioButton.forAlbum(album);
+    buttons_example.appendChild(radio_button.node);
+
+});</code></pre>
             </div>
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&ltdiv id="buttons-example"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>Live Example</h3>
