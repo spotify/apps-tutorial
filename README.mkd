@@ -11,46 +11,51 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 #### Getting started
 
  * Creating your manifest file
- * Handling arguments and creating navigational tabs
+ * Handling arguments, creating pages and navigational tabs
+ * Making asyncronous requests
  * Dragging and dropping content into an app
- * Show "Share" popup
 
 #### UI
 
  * Using standard components for buttons
- * Track-listing components (coming soon)
- * Using the pager element (coming soon)
+ * Show "Share" popup
 
 #### Playing music
 
- * Play a single song
- * Play a list of songs
+ * Play a single track
+ * Play a list of tracks
  * Get the currently-playing track
  * Create a play/pause button with an HTML element
  * Skip to the next or previous track
- * Get a user's top tracks
 
-#### Searching
+#### Metadata
 
+ * Get metadata from an artist, album, track, or playlist
  * Returning all tracks with a given search query
 
 #### Playlists
 
- * Add a song to a playlist
- * Get songs from a playlist URL
+ * Add a track to a playlist
+ * Get tracks from a playlist URL
  * Subscribe to a playlist
  * Showing a playlist mosiac image
+ * How to create a playlist snapshot
 
-#### Interacting with Facebook
+#### Interacting with user data
 
+ * Get a user's playlists and starred tracks
+ * Get a user's top tracks
+ * Get a user's location
  * Authenticate a user with Facebook
  * Get a user's listening history from Facebook
+ * Logging out of Facebook
 
 #### Experimental & Unsupported
 
  * Talking to Twitter
  * Create an EchoNest radio station
  * Display a Polymaps object
+ * Display a Google Maps object
  * Template
 
 ## Installation
