@@ -72,6 +72,27 @@ require([
     }
 
 
+    // Skip the track
+    var previous_button = buttons.Button.withLabel('Previous');
+    var next_button = buttons.Button.withLabel('Next');
+    var player_buttons = document.getElementById('player-buttons');
+    console.log(player_buttons);
+    player_buttons.appendChild(previous_button.node);
+    player_buttons.appendChild(next_button.node);
+
+    previous_button.addEventListener('click', skipPrevious);
+    next_button.addEventListener('click', skipNext);
+
+    function skipPrevious(){
+        models.player.skipToPrevTrack();
+    }
+
+    function skipNext(){
+        models.player.skipToNextTrack();
+    }
+
+
+
     // Play a single track
     var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
     var image = Image.forTrack(single_track, {player:true});

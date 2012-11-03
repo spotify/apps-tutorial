@@ -29,7 +29,7 @@ a:hover {color:#83be20;}
 
 
 /* Buttons */
-#buttons-example .sp-button {margin: 0 20px 0 0;} 
+.buttons button {margin: 0 20px 0 0;} 
 
 
 body, html {overflow:visible !important;}

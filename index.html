@@ -27,7 +27,7 @@
 
             <h4>UI</h4>
             <ul>
-                <li><a href="spotify:app:tutorial:buttons">Using standard components for buttons</a> (Old API)</li>
+                <li><a href="spotify:app:tutorial:buttons">Using standard components for buttons</a></li>
                 <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
             </ul>
 
@@ -36,8 +36,7 @@
                 <li><a href="spotify:app:tutorial:play_single_track">Play a single track</a></li>
                 <li><a href="spotify:app:tutorial:play_list_of_tracks">Play a list of tracks</a></li>
                 <li><a href="spotify:app:tutorial:current_track">Get the currently-playing track</a></li>
-                <li><a href="sp://tutorial/tutorials/click_to_play.html">Create a play/pause button with an HTML element</a> (Old API)</li>
-                <li><a href="sp://tutorial/tutorials/skip_track.html">Skip to the next or previous track</a> (Old API)</li>
+                <li><a href="spotify:app:tutorial:skip_track">Skip to the next or previous track</a></li>
             </ul>
 
             <h4>Metadata</h4>
@@ -279,7 +278,6 @@
 
         <div id="buttons" class="section">
 
-
             <h1>Using standard compoments for buttons</h1>
             <p class="description">Here, we include the <code>$views/buttons</code> bundle and render buttons from the API.</p>
 
@@ -310,8 +308,15 @@
 <pre><code data-language="html">&ltdiv id="buttons-example"&gt;&lt;/div&gt;</code></pre>
             </div>
 
+            <h3>The CSS</h3>
+            <div class="code-block">
+<pre><code data-language="css">&ltstyle&gt;
+    @import url('$views/css/buttons.css');
+&lt;/style&gt;</code></pre>
+            </div>
+
             <h3>Live Example</h3>
-            <div id="buttons-example"></div>
+            <div id="buttons-example" class="buttons"></div>
 
         </div><!-- /.section #buttons -->
 
@@ -477,6 +482,53 @@
             <div id="current-track"></div>
  
         </div><!-- /.section #current_track -->
+
+
+        <div id="skip_track" class="section">
+            <h1>Skip to the next or previous track</h1>
+            <p class="description">We can control the player object with Javascript.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">require(['$api/models'], function(models) {
+
+    var previous_button = buttons.Button.withLabel('Previous');
+    var next_button = buttons.Button.withLabel('Next');
+    var player_buttons = document.getElementById('player-buttons');
+    console.log(player_buttons);
+    player_buttons.appendChild(previous_button.node);
+    player_buttons.appendChild(next_button.node);
+
+    previous_button.addEventListener('click', skipPrevious);
+    next_button.addEventListener('click', skipNext);
+
+    function skipPrevious(){
+        models.player.skipToPrevTrack();
+    }
+
+    function skipNext(){
+        models.player.skipToNextTrack();
+    }
+
+});</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&ltdiv id="player-buttons"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>The CSS</h3>
+            <div class="code-block">
+<pre><code data-language="css">&ltstyle&gt;
+    @import url('$views/css/buttons.css');
+&lt;/style&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="player-buttons"></div>
+
+        </div><!-- /.section #template -->
 
 
         <div id="location" class="section">
