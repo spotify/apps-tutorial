@@ -41,10 +41,9 @@
 
             <h4>Metadata</h4>
             <ul>
-                <li>Get metadata from an artist, album, track, or playlist</li>
+                <li><a href="spotify:app:tutorial:get_metadata">Get metadata from an artist, album, track, or playlist</a></li>
                 <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a> (Old API)</li>
             </ul>
-
 
             <h4>Playlists</h4>
             <ul>
@@ -305,7 +304,7 @@
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&ltdiv id="buttons-example"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="buttons-example"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>The CSS</h3>
@@ -378,7 +377,7 @@
 
         <h3>The HTML</h3>
         <div class="code-block">
-<pre><code data-language="html">&ltdiv id="single-track-player"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="single-track-player"&gt;&lt;/div&gt;</code></pre>
         </div>
 
         <h3>The CSS</h3>
@@ -416,7 +415,7 @@
 
         <h3>The HTML</h3>
         <div class="code-block">
-<pre><code data-language="html">&ltdiv id="multiple-tracks-player"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="multiple-tracks-player"&gt;&lt;/div&gt;</code></pre>
         </div>
 
             <h3>The CSS</h3>
@@ -467,7 +466,7 @@
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&ltdiv id="current-track"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="current-track"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>The CSS</h3>
@@ -515,7 +514,7 @@
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&ltdiv id="player-buttons"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="player-buttons"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>The CSS</h3>
@@ -529,6 +528,179 @@
             <div id="player-buttons"></div>
 
         </div><!-- /.section #template -->
+
+
+        <div id="get_metadata" class="section">
+            <h1>Get metadata from an artist, album, track, or playlist</h1>
+            <p class="description">You can get back more metadata than ever in this version of the API. Check out the examples below. Be sure to properly create snapshots when <code>Collection</code> types are returned.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">require(['$api/models'], function(models) {
+
+    var artist_metadata_HTML = document.getElementById('artist-metadata');
+
+    artist_metadata_properties = [
+        'biography',
+        'genres',
+        'name',
+        'popularity',
+        'portraits',
+        'related',
+        'uri',
+        'years'
+    ]
+
+    models.Artist.fromURI('spotify:artist:7hJcb9fa4alzcOq3EaNPoG') // Snoop Dogg
+        .load(artist_metadata_properties)
+        .done(function(a){
+            artist_metadata_HTML.innerHTML = '&lt;h4&gt;Artist metadata&lt;/h4&gt;'
+            artist_metadata_HTML.innerHTML += '&lt;p&gt;Name: ' + a.name.decodeForHtml() + '&lt;/p&gt;';
+            artist_metadata_HTML.innerHTML += '&lt;p&gt;Bio: ' + a.biography.substring(0, 400) + '...&lt;/p&gt;';
+            artist_metadata_HTML.innerHTML += '&lt;p&gt;Genres: ' + a.genres.join(', ') + '&lt;/p&gt;';
+            artist_metadata_HTML.innerHTML += '&lt;p&gt;Popularity: ' + a.popularity + '&lt;/p&gt;';
+            for(var i=0;i&lt;3;i++) { // Just show 3 portraits
+                var image = document.createElement('img');
+                image.setAttribute('src', a.portraits[i]);
+                artist_metadata_HTML.appendChild(image);
+            }
+            a.related.snapshot().done(function(r){
+                var related_artists = r.toArray();
+                var related_artist_names = [];
+                for(i=0;i&lt;related_artists.length;i++){
+                    related_artist_names.push(related_artists[i].name);
+                }
+                related_artist_names = related_artist_names.join(', ');
+                artist_metadata_HTML.innerHTML += '&lt;p&gt;Related artists: ' + related_artist_names + '&lt;/p&gt;';
+            })
+
+        });
+
+    var album_metadata_HTML = document.getElementById('album-metadata');
+    album_metadata_properties = [
+        'artists',
+        'availability',
+        'copyrights',
+        'discs',
+        'label',
+        'name',
+        'playable',
+        'popularity',
+        'tracks',
+        'type',
+        'uri'
+    ]
+
+    models.Album.fromURI('spotify:album:6Yfaff9em7z9TmO9QQscpw')
+        .load(album_metadata_properties)
+        .done(function(a){
+            album_metadata_HTML.innerHTML += '&lt;h4&gt;Album metadata&lt;/h4&gt;';
+            album_metadata_HTML.innerHTML += '&lt;p&gt;Name: ' + a.name.decodeForHtml() + '&lt;/p&gt;';
+            album_metadata_HTML.innerHTML += '&lt;p&gt;Date: ' + a.date + '&lt;/p&gt;';
+            album_metadata_HTML.innerHTML += '&lt;p&gt;Availability: ' + a.availability + ' (playable = '+ a.playable +')&lt;/p&gt;';
+            album_metadata_HTML.innerHTML += '&lt;p&gt;Copyrights: ' + a.copyrights.join(', ') + '&lt;/p&gt;';
+            var image = document.createElement('img');
+            image.setAttribute('src', a.image);
+            album_metadata_HTML.appendChild(image);
+            a.tracks.snapshot().done(function(t){
+                var tracks = t.toArray();
+                var track_names = '';
+                for(i=0;i&lt;tracks.length;i++){
+                    track_names += '&lt;li&gt;' + tracks[i].name + '&lt;/li&gt;';
+                }
+                album_metadata_HTML.innerHTML += '&lt;ol&gt;' + track_names.toString() + '&lt;/ol&gt;';
+            });
+
+    });
+
+    var track_metadata_HTML = document.getElementById('track-metadata');
+    track_metadata_properties = [
+        'album',
+        'artists',
+        'availability',
+        'duration',
+        'explicit',
+        'name',
+        'number',
+        'playable',
+        'popularity',
+        'starred',
+        'uri'
+    ]
+
+    models.Track.fromURI('spotify:track:4675yUu8AUbE72T94BkLCD')
+        .load('name')
+        .done(function(t){
+            track_metadata_HTML.innerHTML += '&lt;h4&gt;Track metadata&lt;/h4&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Name: ' + t.name + '&lt;/p&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Album: ' + t.album + '&lt;/p&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Artists: ' + t.artists.join(', '); + '&lt;/p&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Availability: ' + t.availability + '&lt;/p&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Duration: ' + t.duration + ' (in milliseconds)&lt;/p&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Explicit: ' + t.explicit + '&lt;/p&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Popularity: ' + t.popularity + '&lt;/p&gt;';
+            track_metadata_HTML.innerHTML += '&lt;p&gt;Starred: ' + t.starred + '&lt;/p&gt;';
+    });
+    
+
+    var playlist_metadata_HTML = document.getElementById('playlist-metadata');
+    playlist_metadata_properties = [
+        'collaborative',
+        'description',
+        'name',
+        'owner',
+        'published',
+        'subscribed',
+        'subscribers',
+        'tracks'
+    ]
+
+    models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ')
+        .load(playlist_metadata_properties)
+        .done(function(p){
+            playlist_metadata_HTML.innerHTML += '&lt;h4&gt;playlist metadata&lt;/h4&gt;';
+            playlist_metadata_HTML.innerHTML += '&lt;p&gt;Name: ' + p.name.decodeForHtml() + '&lt;/p&gt;';
+            playlist_metadata_HTML.innerHTML += '&lt;p&gt;Collaborative: ' + p.collaborative + '&lt;/p&gt;';
+            playlist_metadata_HTML.innerHTML += '&lt;p&gt;Description: ' + p.description.decodeForHtml() + '&lt;/p&gt;';
+            playlist_metadata_HTML.innerHTML += '&lt;p&gt;Owner: ' + p.owner + '&lt;/p&gt;';
+            playlist_metadata_HTML.innerHTML += '&lt;p&gt;Published: ' + p.published + '&lt;/p&gt;';
+            playlist_metadata_HTML.innerHTML += '&lt;p&gt;Subscribed: ' + p.subscribed + '&lt;/p&gt;';
+            p.subscribers.snapshot().done(function(s){
+                playlist_metadata_HTML.innerHTML += '&lt;p&gt;Subscribers: ' + s.length + '&lt;/p&gt;';
+            })
+            p.tracks.snapshot().done(function(t){
+                var tracks = t.toArray();
+                var track_names = '';
+                for(i=0;i&lt;tracks.length;i++){
+                    track_names += '&lt;li&gt;' + tracks[i].name + '&lt;/li&gt;';
+                }
+                playlist_metadata_HTML.innerHTML += '&lt;ol&gt;' + track_names.toString() + '&lt;/ol&gt;';
+            });
+    });
+});</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&lt;div id="artist-metadata"&gt;&lt;/div&gt;
+
+&lt;div id="album-metadata"&gt;&lt;/div&gt;
+
+&lt;div id="track-metadata"&gt;&lt;/div&gt;
+
+&lt;div id="playlist-metadata"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="artist-metadata"></div>
+
+            <div id="album-metadata"></div>
+
+            <div id="track-metadata"></div>
+
+            <div id="playlist-metadata"></div>
+ 
+        </div><!-- /.section #get_metadata -->
 
 
         <div id="location" class="section">
@@ -567,7 +739,7 @@
 
             <h3>The HTML</h3>
             <div class="code-block">
-<pre><code data-language="html">&ltdiv id="example"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="example"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>Live Example</h3>

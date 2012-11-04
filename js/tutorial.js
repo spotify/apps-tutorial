@@ -72,11 +72,26 @@ require([
     }
 
 
+    // Play a single track
+    var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
+    var image = Image.forTrack(single_track, {player:true});
+    // Pass the player HTML code to the #single-track-player div 
+    var single_track_player_HTML = document.getElementById('single-track-player');
+    single_track_player_HTML.appendChild(image.node);
+
+
+    // Play multiple tracks
+    var multiple_tracks = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
+    var list = List.forPlaylist(multiple_tracks);
+    var multiple_tracks_player = document.getElementById('multiple-tracks-player');
+    multiple_tracks_player.appendChild(list.node);
+    list.init();
+
+
     // Skip the track
     var previous_button = buttons.Button.withLabel('Previous');
     var next_button = buttons.Button.withLabel('Next');
     var player_buttons = document.getElementById('player-buttons');
-    console.log(player_buttons);
     player_buttons.appendChild(previous_button.node);
     player_buttons.appendChild(next_button.node);
 
@@ -92,21 +107,104 @@ require([
     }
 
 
+    // Get metadata from artist, album, track, playlist
+    var artist_metadata_HTML = document.getElementById('artist-metadata');
 
-    // Play a single track
-    var single_track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL');
-    var image = Image.forTrack(single_track, {player:true});
-    // Pass the player HTML code to the #single-track-player div 
-    var single_track_player_HTML = document.getElementById('single-track-player');
-    single_track_player_HTML.appendChild(image.node);
+    artist_metadata_properties = ['biography', 'genres', 'name', 'popularity', 'portraits', 'related', 'uri', 'years']
 
+    models.Artist.fromURI('spotify:artist:7hJcb9fa4alzcOq3EaNPoG') // Snoop Dogg
+        .load(artist_metadata_properties)
+        .done(function(a){
+            artist_metadata_HTML.innerHTML = '<h4>Artist metadata</h4>'
+            artist_metadata_HTML.innerHTML += '<p>Name: ' + a.name.decodeForHtml() + '</p>';
+            artist_metadata_HTML.innerHTML += '<p>Bio: ' + a.biography.substring(0, 400) + '...</p>';
+            artist_metadata_HTML.innerHTML += '<p>Genres: ' + a.genres.join(', ') + '</p>';
+            artist_metadata_HTML.innerHTML += '<p>Popularity: ' + a.popularity + '</p>';
+            for(var i=0;i<3;i++) { // Just show 3 portraits
+                var image = document.createElement('img');
+                image.setAttribute('src', a.portraits[i]);
+                artist_metadata_HTML.appendChild(image);
+            }
+            a.related.snapshot().done(function(r){
+                var related_artists = r.toArray();
+                var related_artist_names = [];
+                for(i=0;i<related_artists.length;i++){
+                    related_artist_names.push(related_artists[i].name);
+                }
+                related_artist_names = related_artist_names.join(', ');
+                artist_metadata_HTML.innerHTML += '<p>Related artists: ' + related_artist_names + '</p>';
+            })
 
-    // Play multiple tracks
-    var multiple_tracks = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
-    var list = List.forPlaylist(multiple_tracks);
-    var multiple_tracks_player = document.getElementById('multiple-tracks-player');
-    multiple_tracks_player.appendChild(list.node);
-    list.init();
+        });
+
+    var album_metadata_HTML = document.getElementById('album-metadata');
+    album_metadata_properties = ['artists', 'availability', 'copyrights', 'discs', 'label', 'name', 'playable', 'popularity', 'tracks', 'type', 'uri']
+
+    models.Album.fromURI('spotify:album:6Yfaff9em7z9TmO9QQscpw')
+        .load(album_metadata_properties)
+        .done(function(a){
+            album_metadata_HTML.innerHTML += '<h4>Album metadata</h4>';
+            album_metadata_HTML.innerHTML += '<p>Name: ' + a.name.decodeForHtml() + '</p>';
+            album_metadata_HTML.innerHTML += '<p>Date: ' + a.date + '</p>';
+            album_metadata_HTML.innerHTML += '<p>Availability: ' + a.availability + ' (playable = '+ a.playable +')</p>';
+            album_metadata_HTML.innerHTML += '<p>Copyrights: ' + a.copyrights.join(', ') + '</p>';
+            var image = document.createElement('img');
+            image.setAttribute('src', a.image);
+            album_metadata_HTML.appendChild(image);
+            a.tracks.snapshot().done(function(t){
+                var tracks = t.toArray();
+                var track_names = '';
+                for(i=0;i<tracks.length;i++){
+                    track_names += '<li>' + tracks[i].name + '</li>';
+                }
+                album_metadata_HTML.innerHTML += '<ol>' + track_names.toString() + '</ol>';
+            });
+
+    });
+
+    var track_metadata_HTML = document.getElementById('track-metadata');
+    track_metadata_properties = ['album', 'artists', 'availability', 'duration', 'explicit', 'name', 'number', 'playable', 'popularity', 'starred', 'uri']
+
+    models.Track.fromURI('spotify:track:4675yUu8AUbE72T94BkLCD')
+        .load('name')
+        .done(function(t){
+            track_metadata_HTML.innerHTML += '<h4>Track metadata</h4>';
+            track_metadata_HTML.innerHTML += '<p>Name: ' + t.name + '</p>';
+            track_metadata_HTML.innerHTML += '<p>Album: ' + t.album + '</p>';
+            track_metadata_HTML.innerHTML += '<p>Artists: ' + t.artists.join(', '); + '</p>';
+            track_metadata_HTML.innerHTML += '<p>Availability: ' + t.availability + '</p>';
+            track_metadata_HTML.innerHTML += '<p>Duration: ' + t.duration + ' (in milliseconds)</p>';
+            track_metadata_HTML.innerHTML += '<p>Explicit: ' + t.explicit + '</p>';
+            track_metadata_HTML.innerHTML += '<p>Popularity: ' + t.popularity + '</p>';
+            track_metadata_HTML.innerHTML += '<p>Starred: ' + t.starred + '</p>';
+    });
+    
+
+    var playlist_metadata_HTML = document.getElementById('playlist-metadata');
+    playlist_metadata_properties = ['collaborative', 'description', 'name', 'owner', 'published', 'subscribed', 'subscribers', 'tracks']
+
+    models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ')
+        .load(playlist_metadata_properties)
+        .done(function(p){
+            playlist_metadata_HTML.innerHTML += '<h4>playlist metadata</h4>';
+            playlist_metadata_HTML.innerHTML += '<p>Name: ' + p.name.decodeForHtml() + '</p>';
+            playlist_metadata_HTML.innerHTML += '<p>Collaborative: ' + p.collaborative + '</p>';
+            playlist_metadata_HTML.innerHTML += '<p>Description: ' + p.description.decodeForHtml() + '</p>';
+            playlist_metadata_HTML.innerHTML += '<p>Owner: ' + p.owner + '</p>';
+            playlist_metadata_HTML.innerHTML += '<p>Published: ' + p.published + '</p>';
+            playlist_metadata_HTML.innerHTML += '<p>Subscribed: ' + p.subscribed + '</p>';
+            p.subscribers.snapshot().done(function(s){
+                playlist_metadata_HTML.innerHTML += '<p>Subscribers: ' + s.length + '</p>';
+            })
+            p.tracks.snapshot().done(function(t){
+                var tracks = t.toArray();
+                var track_names = '';
+                for(i=0;i<tracks.length;i++){
+                    track_names += '<li>' + tracks[i].name + '</li>';
+                }
+                playlist_metadata_HTML.innerHTML += '<ol>' + track_names.toString() + '</ol>';
+            });
+    });
 
     // Show share popup
     var shareHTML = document.getElementById('share-popup');
