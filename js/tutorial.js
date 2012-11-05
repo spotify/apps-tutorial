@@ -7,10 +7,11 @@
 require([
         '$api/models',
         '$api/location#Location',
+        '$api/search#Search',
         '$views/buttons',
         '$views/list#List',
         '$views/image#Image'
-        ], function(models, Location, buttons, List, Image) {
+        ], function(models, Location, Search, buttons, List, Image) {
 
     // When application has loaded, run pages function
     models.application.load('arguments').done(pages);
@@ -166,7 +167,7 @@ require([
     track_metadata_properties = ['album', 'artists', 'availability', 'duration', 'explicit', 'name', 'number', 'playable', 'popularity', 'starred', 'uri']
 
     models.Track.fromURI('spotify:track:4675yUu8AUbE72T94BkLCD')
-        .load('name')
+        .load(track_metadata_properties)
         .done(function(t){
             track_metadata_HTML.innerHTML += '<h4>Track metadata</h4>';
             track_metadata_HTML.innerHTML += '<p>Name: ' + t.name + '</p>';
@@ -205,6 +206,47 @@ require([
                 playlist_metadata_HTML.innerHTML += '<ol>' + track_names.toString() + '</ol>';
             });
     });
+
+
+    // Search
+    var my_search = Search.search('Kendrick Lamar');
+
+    var search_artists = document.getElementById('search-artists');
+    my_search.artists.snapshot().done(function(a){
+        search_artists.innerHTML = '<h4>Artists (' + a.length + ')</h4>';
+        var artist_results = [];
+        a.loadAll('name').each(function(name) {
+            artist_results.push(name.name);
+        });
+        search_artists.innerHTML += '<p>' + artist_results.join(', ') + '</p>';
+    });
+
+    var search_albums = document.getElementById('search-albums');
+    my_search.albums.snapshot().done(function(a){
+        search_albums.innerHTML = '<h4>Albums (' + a.length + ')</h4>';
+        console.log(a);
+    });
+
+    var search_tracks = document.getElementById('search-tracks');
+    my_search.tracks.snapshot().done(function(t){
+        search_tracks.innerHTML = '<h4>Tracks (' + t.length + ')</h4>';
+        console.log(t);
+    });
+
+    var search_playlists = document.getElementById('search-playlists');
+    my_search.playlists.snapshot().done(function(p){
+        search_albums.innerHTML = '<h4>Playlists (' + p.length + ')</h4>';
+        var playlist_results = [];
+        p.loadAll('name').each(function(name) {
+            console.log(name.name);
+            playlist_results.push(name.name);
+        });
+        search_playlists.innerHTML += '<p>' + playlist_results.join(', ') + '</p>';
+    });
+
+
+
+
 
     // Show share popup
     var shareHTML = document.getElementById('share-popup');

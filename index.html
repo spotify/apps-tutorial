@@ -42,7 +42,7 @@
             <h4>Metadata</h4>
             <ul>
                 <li><a href="spotify:app:tutorial:get_metadata">Get metadata from an artist, album, track, or playlist</a></li>
-                <li><a href="sp://tutorial/tutorials/search.html">Returning all tracks with a given search query</a> (Old API)</li>
+                <li><a href="spotify:app:tutorial:search">Return metadata with a given search query</a></li>
             </ul>
 
             <h4>Playlists</h4>
@@ -404,7 +404,6 @@
 
     // Play multiple tracks
     var multiple_tracks = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ');
-    console.log(multiple_tracks);
     var list = List.forPlaylist(multiple_tracks);
     var multiple_tracks_player = document.getElementById('multiple-tracks-player');
     multiple_tracks_player.appendChild(list.node);
@@ -451,7 +450,6 @@
             currentHTML.innerHTML = 'No track currently playing';
         } else {
             var artists = models.player.track.artists;
-            console.log(artists);
             var artists_array = [];
             for(i=0;i&lt;artists.length;i++) {
                 artists_array.push(artists[i].name);
@@ -494,7 +492,6 @@
     var previous_button = buttons.Button.withLabel('Previous');
     var next_button = buttons.Button.withLabel('Next');
     var player_buttons = document.getElementById('player-buttons');
-    console.log(player_buttons);
     player_buttons.appendChild(previous_button.node);
     player_buttons.appendChild(next_button.node);
 
@@ -701,6 +698,36 @@
             <div id="playlist-metadata"></div>
  
         </div><!-- /.section #get_metadata -->
+
+
+        <div id="search" class="section">
+            <h1>Return metadata with a given search query</h1>
+            <p class="description">Using <code>Search</code>, we can get albums, artists, tracks, and playlist data. Use <code>fuzzyMatch</code> for an alternate search query.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">
+
+</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&lt;div id="example"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="search-results">
+
+                <div id="search-artists"></div>
+                <div id="search-albums"></div>
+                <div id="search-tracks"></div>
+                <div id="search-playlists"></div>
+
+            </div>
+ 
+        </div><!-- /.section #search -->
+
 
 
         <div id="location" class="section">
