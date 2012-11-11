@@ -8,10 +8,11 @@ require([
         '$api/models',
         '$api/location#Location',
         '$api/search#Search',
+        '$api/toplists#Toplist',
         '$views/buttons',
         '$views/list#List',
         '$views/image#Image'
-        ], function(models, Location, Search, buttons, List, Image) {
+        ], function(models, Location, Search, Toplist, buttons, List, Image) {
 
     // When application has loaded, run pages function
     models.application.load('arguments').done(pages);
@@ -305,6 +306,23 @@ require([
           mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map_object = new google.maps.Map(document.getElementById('map'), myOptions);
+    });
+
+
+
+    // Get user's top tracks
+    var toplist = Toplist.forCurrentUser();
+    var toplist_HTML = document.getElementById('toplist');
+    toplist.tracks.snapshot().done(function(tracks) {
+        for (var i = 0; i < tracks.length; i++) {
+            var t = tracks.get(i);
+            var link = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = t.uri;
+            link.appendChild(a);
+            a.innerHTML = t.name;
+            toplist_HTML.appendChild(link);
+        }
     });
 
 

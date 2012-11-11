@@ -57,7 +57,7 @@
             <h4>Interacting with user data</h4>
             <ul>
                 <li>Get a user's playlists and starred tracks</li>
-                <li><a href="sp://tutorial/tutorials/user_toplist.html">Get a user's top tracks</a> (Old API)</li>
+                <li><a href="spotify:app:tutorial:user_toplist">Get a user's top tracks</a></li>
                 <li><a href="spotify:app:tutorial:location">Get a user's location</a></li>
                 <li><a href="spotify:app:tutorial:FB_auth">Authenticate a user with Facebook</a> (Old API)</li>
                 <li><a href="sp://tutorial/tutorials/Facebook_get_listening_history.html">Get a user's listening history from Facebook</a> (Old API)</li>
@@ -796,7 +796,43 @@
                 <button id="fb_auth_login">Login to Facebook</button>
             </div>
  
-        </div><!-- /.section #template -->
+        </div><!-- /.section #fb_auth -->
+
+
+        <div id="user_toplist" class="section">
+            <h1>Get a user's top tracks</h1>
+            <p class="description">You can get the current user's top tracks using <code>Toplist</code>. Besides top lists for the current user, you can get lists for an user, a region, an artist, or the whole world.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">require(['$api/toplists#Toplist'], function(Toplist) {
+
+    var toplist = Toplist.forCurrentUser();
+    var toplist_HTML = document.getElementById('toplist');
+    toplist.tracks.snapshot().done(function(tracks) {
+        for (var i = 0; i < tracks.length; i++) {
+            var t = tracks.get(i);
+            var link = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = t.uri;
+            link.appendChild(a);
+            a.innerHTML = t.name;
+            toplist_HTML.appendChild(link);
+        }
+    });
+
+});</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&lt;ul id="toplist"&gt;&lt;/ul&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <ul id="toplist" class="tight"></ul>
+ 
+        </div><!-- /.section #user_toplist -->
 
 
         <div id="template" class="section">

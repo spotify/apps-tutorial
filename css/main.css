@@ -12,6 +12,9 @@ h4 {margin:0 0 4px;}
 ul {margin:0 0 20px;}
 a:hover {color:#83be20;}
 .description {font-size:1.4em;padding:0 0 25px;line-height:25px;color:#999;margin:0;}
+ul.tight {margin:0;padding:0;list-style:none;}
+
+
 
 /* Headers */
 #index h1 {background-image:url('/img/spotify-apps-tutorial.png');background-repeat: no-repeat;width:600px;height:83px;text-indent:-9999em;margin: 0 0 20px;}
