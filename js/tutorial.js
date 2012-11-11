@@ -238,7 +238,7 @@ require([
         search_albums.innerHTML = '<h4>Playlists (' + p.length + ')</h4>';
         var playlist_results = [];
         p.loadAll('name').each(function(name) {
-            console.log(name.name);
+            // console.log(name.name);
             playlist_results.push(name.name);
         });
         search_playlists.innerHTML += '<p>' + playlist_results.join(', ') + '</p>';
@@ -306,5 +306,43 @@ require([
       };
       var map_object = new google.maps.Map(document.getElementById('map'), myOptions);
     });
+
+
+    // FB Auth
+    window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '126891607432106', // App ID from the App Dashboard
+        status     : true, // check the login status upon init?
+        cookie     : true, // set sessions cookies to allow your server to access the session?
+        xfbml      : true  // parse XFBML tags on this page?
+    });
+
+    function fbLogin(){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function(response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        });
+    }
+
+    var button = document.getElementById('fb_auth_login');
+    button.addEventListener('click', fbLogin);
+
+    };
+
+    // Load the SDK's source Asynchronously
+    (function(d, debug){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "https://connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document, /*debug*/ false));
+
 
 }); // require
