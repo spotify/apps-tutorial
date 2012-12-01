@@ -248,6 +248,11 @@ require([
 
 
 
+    // Get info about a user
+    var user = models.User.fromURI('spotify:user:magerleagues');
+    user.load('username', 'name').done(function(user) {
+      document.getElementById('user_info').innerHTML = user.image;
+    });
 
     // Show share popup
     var shareHTML = document.getElementById('share-popup');
