@@ -56,7 +56,8 @@ require([
     // Get the currently-playing track
     models.player.load('track').done(updateCurrentTrack);
     // Update the DOM when the song changes
-    models.player.addEventListener('change', updateCurrentTrack);
+    models.player.addEventListener('change:track', updateCurrentTrack);
+
 
     function updateCurrentTrack(){
         var currentHTML = document.getElementById('current-track');
@@ -112,7 +113,7 @@ require([
     // Get metadata from artist, album, track, playlist
     var artist_metadata_HTML = document.getElementById('artist-metadata');
 
-    artist_metadata_properties = ['biography', 'genres', 'name', 'popularity', 'portraits', 'related', 'uri', 'years']
+    artist_metadata_properties = ['biography', 'genres', 'name', 'popularity', 'portraits', 'related', 'singles', 'uri', 'years']
 
     models.Artist.fromURI('spotify:artist:7hJcb9fa4alzcOq3EaNPoG') // Snoop Dogg
         .load(artist_metadata_properties)
@@ -136,6 +137,10 @@ require([
                 related_artist_names = related_artist_names.join(', ');
                 artist_metadata_HTML.innerHTML += '<p>Related artists: ' + related_artist_names + '</p>';
             })
+            // BUG
+            a.singles.snapshot().done(function(s){
+                // console.log(s);
+            });
 
         });
 
@@ -225,13 +230,14 @@ require([
     var search_albums = document.getElementById('search-albums');
     my_search.albums.snapshot().done(function(a){
         search_albums.innerHTML = '<h4>Albums (' + a.length + ')</h4>';
-        console.log(a);
     });
 
     var search_tracks = document.getElementById('search-tracks');
     my_search.tracks.snapshot().done(function(t){
         search_tracks.innerHTML = '<h4>Tracks (' + t.length + ')</h4>';
-        console.log(t);
+        t.loadAll('name').each(function(name){
+            console.log(name.name);
+        });
     });
 
     var search_playlists = document.getElementById('search-playlists');
@@ -239,7 +245,6 @@ require([
         search_albums.innerHTML = '<h4>Playlists (' + p.length + ')</h4>';
         var playlist_results = [];
         p.loadAll('name').each(function(name) {
-            // console.log(name.name);
             playlist_results.push(name.name);
         });
         search_playlists.innerHTML += '<p>' + playlist_results.join(', ') + '</p>';
@@ -331,41 +336,6 @@ require([
     });
 
 
-    // FB Auth
-    window.fbAsyncInit = function() {
-    FB.init({
-        appId      : '126891607432106', // App ID from the App Dashboard
-        status     : true, // check the login status upon init?
-        cookie     : true, // set sessions cookies to allow your server to access the session?
-        xfbml      : true  // parse XFBML tags on this page?
-    });
-
-    function fbLogin(){
-        FB.login(function(response) {
-            if (response.authResponse) {
-                console.log('Welcome!  Fetching your information.... ');
-                FB.api('/me', function(response) {
-                    console.log('Good to see you, ' + response.name + '.');
-                });
-            } else {
-                console.log('User cancelled login or did not fully authorize.');
-            }
-        });
-    }
-
-    var button = document.getElementById('fb_auth_login');
-    button.addEventListener('click', fbLogin);
-
-    };
-
-    // Load the SDK's source Asynchronously
-    (function(d, debug){
-        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "https://connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
-        ref.parentNode.insertBefore(js, ref);
-    }(document, /*debug*/ false));
 
 
 }); // require
