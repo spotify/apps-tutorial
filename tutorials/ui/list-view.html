@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="sp://import/css/shared.css">
+        <link rel="stylesheet" type="text/css" href="sp://resources/css/api.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+            <h1>Showing a list of tracks</h1>
+            <p class="description">You can use the List view to show a set of tracks, passing a playlist or an album. A List view allows starring, sharing and playing its tracks. You can customize which columns and in which order they are rendered.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">window.onload = function() {
+    var sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+    var views = sp.require('sp://import/scripts/api/views');
+    var playlist = models.Playlist.fromURI("spotify:user:mattias:playlist:1PDwG4hvy5n2pBf93A8R3r");
+    var list = new views.List(playlist);
+    // note: you can also customize columns by using
+    // var list = new views.List(playlist , function (track) {
+    //    return new views.Track(track, views.Track.FIELD.STAR |
+    //          views.Track.FIELD.SHARE |
+    //          views.Track.FIELD.NAME |
+    //          views.Track.FIELD.ARTIST |
+    //          views.Track.FIELD.DURATION |
+    //          views.Track.FIELD.ALBUM);
+    // });
+
+    document.getElementById('playlist').appendChild(list.node);</code></pre>
+            </div><!-- ./code-block -->
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&lt;div id="playlist"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <div id="playlist"></div>
+        </div>
+
+        <script src="/js/rainbow-custom.min.js"></script>
+        <script>
+            var sp = getSpotifyApi(1);
+            var models = sp.require('sp://import/scripts/api/models');
+            var views = sp.require('sp://import/scripts/api/views');
+            var playlist = models.Playlist.fromURI("spotify:user:mattias:playlist:1PDwG4hvy5n2pBf93A8R3r");
+            var list = new views.List(playlist);
+            document.getElementById('playlist').appendChild(list.node);
+        </script>
+    </body>
+</html>

@@ -18,8 +18,7 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 #### UI
 
  * Using standard components for buttons
- * Track-listing components (coming soon)
- * Using the pager element (coming soon)
+ * Showing a list of tracks
 
 #### Playing music
 
