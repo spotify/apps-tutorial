@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Handling arguments and creating navigational tabs</h1>
+            <p class="description">In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that correspond to nagivational tab names. In the <code>Application</code> class, when tabs are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
+
+            <h3>The manifest.json snippet</h3>
+            <div class="code-block">
+                <pre><code data-language="javascript">{
+    ...
+    "DefaultTabs": [
+        {
+            "arguments": "index",
+            "title": {
+                "en": "Home"
+            }
+        },
+        {
+            "arguments": "tabs",
+            "title": {
+                "en": "How to use tabs"
+            }
+        }
+    ],
+    ...
+}</code></pre>
+            </div><!-- /.code-block -->
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+                <pre><code data-language="javascript">window.onload = function() {
+    var sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+
+    tabs();
+    models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
+
+    function tabs() {
+        var args = models.application.arguments;
+        var current = document.getElementById(args[0]);
+        var sections = document.getElementsByClassName('section');
+        for (var i=0, l = sections.length; i&lt;l; i++){
+            sections[i].style.display = 'none';
+        }
+        current.style.display = 'block';
+    }
+}</code></pre>
+            </div><!-- /.code-block -->
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+                <pre><code data-language="html">&lt;div id="index"&gt;
+<!-- This content will show up in the "Home" tab -->
+&lt;/div&gt;
+
+&lt;div id="tabs"&gt;
+<!-- This content will show up in the "How to use tabs" tab -->
+&lt;/div&gt;</code></pre>
+            </div><!-- /.code-block -->
+        </div>
+        <script src="/js/rainbow-custom.min.js"></script>
+    </body>
+</html>

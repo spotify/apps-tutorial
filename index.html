@@ -1,18 +1,14 @@
 <!DOCTYPE html>
     <head>
-        <!-- Spotify CSS Files -->
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/eve.css">
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/api.css">
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/player.css">
-        <link rel="stylesheet" type="text/css" charset="utf-8" href="sp://resources/css/list.css">
-        <style>
-            @import url('sp://tutorial/css/main.css');
-            @import url('sp://tutorial/css/github.css');
-            h1, ul {margin:0 0 30px;}
-            a:hover {color:#83be20;}
-        </style>
-        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
-        <script src="sp://tutorial/js/tutorial.js"></script>
+        <!-- Spotify CSS files -->
+        <link rel="stylesheet" type="text/css" href="sp://resources/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="sp://resources/css/api.css">
+        <link rel="stylesheet" type="text/css" href="sp://resources/css/player.css">
+        <link rel="stylesheet" type="text/css" href="sp://resources/css/list.css">
+
+        <!-- Project CSS files -->
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/github.css">
     </head>
     <body>
         <div id="wrapper">
@@ -23,10 +19,10 @@
             <img src="sp://tutorial/img/spotify-char.png" class="right" />
             <h4>Getting started</h4>
             <ul>
-                <li><a href="spotify:app:tutorial:manifest">Creating your manifest file</a></li>
-                <li><a href="spotify:app:tutorial:tabs">Handling arguments and creating navigational tabs</a></li>
-                <li><a href="spotify:app:tutorial:drop">Dragging and dropping content into an app</a></li>
-                <li><a href="spotify:app:tutorial:share">Show "Share" popup</a></li>
+                <li><a href="sp://tutorial/tutorials/getting-started/manifest.html">Creating your manifest file</a></li>
+                <li><a href="sp://tutorial/tutorials/getting-started/arguments.html">Handling arguments and creating navigational tabs</a></li>
+                <li><a href="sp://tutorial/tutorials/getting-started/drag-drop.html">Dragging and dropping content into an app</a></li>
+                <li><a href="sp://tutorial/tutorials/getting-started/share.html">Show "Share" popup</a></li>
             </ul>
 
             <h4>UI</h4>
@@ -52,7 +48,6 @@
                 <li><a href="sp://tutorial/tutorials/search_albums_for_an_artist.html">Search albums for an artist</a></li>
             </ul>
 
-
             <h4>Playlists</h4>
             <ul>
                 <li><a href="sp://tutorial/tutorials/add_track_to_playlist.html">Add a track to a playlist</a></li>
@@ -77,220 +72,6 @@
             </ul>
 
         </div><!-- /index -->
-
-        <div id="tabs" class="section">
-
-            <h1>Handling arguments and creating navigational tabs</h1>
-            <p class="description">In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that correspond to nagivational tab names. In the <code>Application</code> class, when tabs are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
-
-            <h3>The manifest.json snippet</h3>
-            <div class="code-block">
-<pre><code data-language="javascript">{
-    ...
-    "DefaultTabs": [
-        {
-            "arguments": "index",
-            "title": {
-                "en": "Home"
-            }
-        },
-        {
-            "arguments": "tabs",
-            "title": {
-                "en": "How to use tabs"
-            }
-        }
-    ],
-    ...
-}</code></pre>
-            </div><!-- /.code-block -->
-
-            <h3>The Javascript</h3>
-            <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
-    var sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
-
-    tabs();
-    models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
-
-    function tabs() {
-        var args = models.application.arguments;
-        var current = document.getElementById(args[0]);
-        var sections = document.getElementsByClassName('section');
-        for (var i=0, l = sections.length; i&lt;l; i++){
-            sections[i].style.display = 'none';
-        }
-        current.style.display = 'block';
-    }
-}</code></pre>
-            </div><!-- /.code-block -->
-
-            <h3>The HTML</h3>
-            <div class="code-block">
-<pre><code data-language="html">&lt;div id="index"&gt;
-<!-- This content will show up in the "Home" tab -->
-&lt;/div&gt;
-
-&lt;div id="tabs"&gt;
-<!-- This content will show up in the "How to use tabs" tab -->
-&lt;/div&gt;</code></pre>
-            </div><!-- /.code-block -->
-
-        </div><!-- /.section #tabs -->
-
-        <div id="manifest" class="section">
-
-            <h1>Creating your manifest file</h1>
-            <p class="description">The first step for building a Spotify App is to create a manifest.json file in your app's root directory. The example below is the most minimal manifest.json file needed for an app to work. For more information about the manifest.json file, please read our <a href="http://developer.spotify.com/download/spotify-apps-api/guidelines/#applicationmanifest">API guidelines</a>.</p>
-
-            <h3>The JSON</h3>
-            <div class="code-block">
-<pre><code data-language="javascript">{
-    "AppDescription": {
-        "en": "A tutorial app for Spotify Apps API"
-    },
-    "AppIcon": {
-        "36x18": "tutorial.png"
-    },
-    "AppName": {
-        "en": "Spotify Apps Tutorial"
-     },
-    "BundleIdentifier": "tutorial",
-    "BundleType": "Application",
-    "BundleVersion": "0.1",
-    "DefaultTabs": [
-        {
-            "arguments": "home_tab",
-            "title": {
-                "en": "Home"
-            }
-        },
-        {
-            "arguments": "secondary_tab",
-            "title": {
-                "en": "Secondary Tab"
-            }
-        }
-    ],
-    "Dependencies": {
-        "api": "0.2.3",
-        "util": "0.1.0",
-        "resources": "0.2.2"
-    },
-    "RequiredInterface": 1,
-    "RequiredPermissions": [
-        "http://api.twitter.com",
-        "https://graph.facebook.com",
-        "https://gist.github.com/"
-    ],
-    "SupportedLanguages": [
-        "en"
-    ],
-    "VendorIdentifier": "co.mager"
-}</code></pre>
-            </div><!-- /.code-block -->
-
-
-        </div><!-- /.section #manifest -->
-
-
-        <div id="drop" class="section">
-
-            <h1>Dragging and dropping content into an app</h1>
-            <p class="description">Using the built-in HTML "Drag &amp; Drop", we are able to detect and use content dragged into a Spotify App. Eric Bidelman from Google wrote <a href="http://www.html5rocks.com/en/tutorials/dnd/basics/">a nice tutorial</a> that I used to build this.</p>
-
-            <h3>The Javascript</h3>
-            <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
-    var drop_box = document.getElementById('drop_box');
-
-    drop_box.addEventListener('dragstart', function(e){
-        e.dataTransfer.setData('text/html', this.innerHTML);
-        e.dataTransfer.effectAllowed = 'copy';
-    }, false);
-
-    drop_box.addEventListener('dragenter', function(e){
-        e.dataTransfer.dropEffect = 'copy';
-        this.classList.add('over');
-    }, false);
-
-    drop_box.addEventListener('dragover', function(e){
-        e.dataTransfer.dropEffect = 'copy';
-        return false;
-    }, false);
-
-    drop_box.addEventListener('drop', function(e){
-        var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
-        this.classList.remove('over');
-        var success_message = document.createElement('p');
-        success_message.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
-        this.appendChild(success_message);
-    }, false);
-}</code></pre>
-            </div><!-- ./code-block -->
-
-            <h3>The HTML</h3>
-            <div class="code-block">
-<pre><code data-language="html">&lt;div id="drop_box"&gt;&lt;/div&gt;</code></pre>
-            </div><!-- /.code-block -->
-
-            <h3>The CSS</h3>
-            <div class="code-block">
-<pre><code data-language="html">&lt;style&gt;
-    #drop_box {border:4px dashed #333;width:100%;height:200px;padding:10px;}
-    #drop_box.over {opacity:0.8;border-color:#74c043;}
-&lt;/style&gt;</code></pre>
-            </div><!-- /.code-block -->
-
-            <h3>Live Example</h3>
-            <div id="drop_box">
-            </div>
-
-        </div><!-- /.section #drop -->
-
-
-        <div id="share" class="section">
-             <h1>Show "Share" popup</h1>
-            <p class="description">One of the greatest features of Spotify is the ability to share music with your social graph. With a few lines of code, we can interact with the "Share" popup dialog.</p>
-
-            <h3>The Javascript</h3>
-            <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
-    sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
-    var views = sp.require('sp://import/scripts/api/views');
-
-    // Handle share popup
-    var share_element = document.getElementById('share-popup');
-    var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
-    share_element.addEventListener('click', displayPopup);
-    function displayPopup() {
-        models.application.showSharePopup(share_element, share_content);
-    }
-}</code></pre>
-            </div><!-- ./code-block -->
-
-            <h3>The HTML</h3>
-            <div class="code-block">
-<pre><code data-language="html">&lt;div id="share"&gt;
-    &lt;button id="share-popup" class="sp-button"&gt;Share&lt;/button&gt;
-&lt;/div&gt;</code></pre>
-            </div><!-- /.code-block -->
-
-            <h3>The CSS</h3>
-            <div class="code-block">
-<pre><code data-language="html">&lt;style&gt;
-    @import url('sp://resources/css/api.css');
-&lt;/style&gt;</code></pre>
-            </div><!-- /.code-block -->
-
-            <h3>Live Example</h3>
-            <div id="share">
-                <button id="share-popup" class="sp-button">Share</button>
-            </div>
-
-        </div><!-- /.section #share-popup -->
 
         <div id="play_single_track" class="section">
             <h1>Play a single track</h1>
@@ -387,5 +168,7 @@
 
         </div><!-- /.section #play_list_of_tracks -->
         </div><!-- /wrapper -->
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+        <script src="sp://tutorial/js/tutorial.js"></script>
     </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="sp://import/css/shared.css">
+        <link rel="stylesheet" type="text/css" href="sp://resources/css/api.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Show "Share" popup</h1>
+            <p class="description">One of the greatest features of Spotify is the ability to share music with your social graph. With a few lines of code, we can interact with the "Share" popup dialog.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">window.onload = function() {
+    sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+    var views = sp.require('sp://import/scripts/api/views');
+
+    // Handle share popup
+    var share_element = document.getElementById('share-popup');
+    var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
+    share_element.addEventListener('click', displayPopup);
+    function displayPopup() {
+        models.application.showSharePopup(share_element, share_content);
+    }
+}</code></pre>
+            </div><!-- ./code-block -->
+
+            <h3>The HTML</h3>
+            <div class="code-block">
+<pre><code data-language="html">&lt;div id="share"&gt;
+    &lt;button id="share-popup" class="sp-button"&gt;Share&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div><!-- /.code-block -->
+
+            <h3>The CSS</h3>
+            <div class="code-block">
+<pre><code data-language="html">&lt;style&gt;
+    @import url('sp://resources/css/api.css');
+&lt;/style&gt;</code></pre>
+            </div><!-- /.code-block -->
+
+            <h3>Live Example</h3>
+            <div id="share">
+                <button id="share-popup" class="button icon"><span class="share"></span>Share</button>
+            </div>
+        </div>
+        <script src="/js/rainbow-custom.min.js"></script>
+        <script>
+            var sp = getSpotifyApi(1);
+            var models = sp.require('sp://import/scripts/api/models');
+            var views = sp.require('sp://import/scripts/api/views');
+
+            // Handle share popup
+            var share_element = document.getElementById('share-popup');
+            var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
+            share_element.addEventListener('click', function() {
+                models.application.showSharePopup(share_element, share_content);
+            });
+        </script>
+    </body>
+</html>

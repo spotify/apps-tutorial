@@ -25,3 +25,7 @@ h1 {font-size:2em;}
 /* Drop Box */
 #drop_box {border:4px dashed #333;width:100%;height:200px;padding:10px;}
 #drop_box.over {opacity:0.8;border-color:#74c043;}
+
+/* Index */
+#index h1, #index ul {margin:0 0 30px;}
+#index a:hover {color:#83be20;}
