@@ -37,21 +37,35 @@
 
             <h3>The HTML</h3>
             <div id="the-html">
-<pre><code data-language="html">&lt;div id="playlist"&gt;&lt;/div&gt;</code></pre>
+<pre><code data-language="html">&lt;div id="list"&gt;&lt;/div&gt;</code></pre>
             </div>
 
             <h3>Live Example</h3>
-            <div id="playlist"></div>
-        </div>
+            <div id="list"></div>
+
+            <h1>More examples</h1>
+            <p class="description">You can also use light theme instead of the default dark one.</p>
+            <div class="code-block">
+            <pre><code data-language="javascript">var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
+var list = new views.List(album);
+list.node.classList.add('sp-light');
+document.getElementById('light-list').appendChild(list.node);</code></pre>
+            </div>
+            <div id="light-list"></div>
 
         <script src="/js/rainbow-custom.min.js"></script>
         <script>
             var sp = getSpotifyApi(1);
             var models = sp.require('sp://import/scripts/api/models');
             var views = sp.require('sp://import/scripts/api/views');
-            var playlist = models.Playlist.fromURI("spotify:user:mattias:playlist:1PDwG4hvy5n2pBf93A8R3r");
-            var list = new views.List(playlist);
-            document.getElementById('playlist').appendChild(list.node);
+            var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
+            var list = new views.List(album);
+            document.getElementById('list').appendChild(list.node);
+
+            var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
+            list = new views.List(album);
+            list.node.classList.add('sp-light');
+            document.getElementById('light-list').appendChild(list.node);
         </script>
     </body>
 </html>
