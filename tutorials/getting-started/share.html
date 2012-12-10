@@ -20,15 +20,11 @@
 <pre><code data-language="javascript">window.onload = function() {
     var sp = getSpotifyApi(1);
     var models = sp.require('sp://import/scripts/api/models');
-    var views = sp.require('sp://import/scripts/api/views');
 
-    // Handle share popup
     var share_element = document.getElementById('share-popup');
-    var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
-    share_element.addEventListener('click', displayPopup);
-    function displayPopup() {
-        models.application.showSharePopup(share_element, share_content);
-    }
+    share_element.addEventListener('click', function() {
+        models.application.showSharePopup(this, 'spotify:track:76a6mUM5r7VPexAj37TLjo');
+    });
 }</code></pre>
             </div><!-- ./code-block -->
 
@@ -55,13 +51,10 @@
         <script>
             var sp = getSpotifyApi(1);
             var models = sp.require('sp://import/scripts/api/models');
-            var views = sp.require('sp://import/scripts/api/views');
 
-            // Handle share popup
             var share_element = document.getElementById('share-popup');
-            var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
             share_element.addEventListener('click', function() {
-                models.application.showSharePopup(share_element, share_content);
+                models.application.showSharePopup(this, 'spotify:track:76a6mUM5r7VPexAj37TLjo');
             });
         </script>
     </body>
