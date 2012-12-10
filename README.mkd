@@ -1,6 +1,6 @@
 # Spotify Apps API Tutorial
 
-This is a Spotify App that explains how to make a Spotify App. 
+This is a Spotify App that explains how to make a Spotify App.
 
 For API Guidelines, click [here](http://developer.spotify.com/download/spotify-apps-api/guidelines/).
 
@@ -33,13 +33,14 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 #### Searching
 
  * Returning all tracks with a given search query
+ * Search albums for an artist
 
 #### Playlists
 
  * Add a song to a playlist
  * Get songs from a playlist URL
  * Subscribe to a playlist
- * Showing a playlist mosiac image
+ * Showing a playlist mosaic image
 
 #### Interacting with Facebook
 
@@ -55,7 +56,7 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
 
 ## Installation
 
- 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/) 
+ 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/)
  2. Open Terminal, `mkdir ~/Spotify`
  3. `cd ~/Spotify`
  4. `git clone git@github.com:spotify/apps-tutorial.git`

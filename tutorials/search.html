@@ -15,22 +15,25 @@
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
-                
+
                 var search = new models.Search('Rihanna');
                 search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-                
+
                 var searchHTML = document.getElementById('results');
 
                 search.observe(models.EVENT.CHANGE, function() {
                     var results = search.tracks;
-                    for(i=0;i<results.length;i++){
+                    var fragment = document.createDocumentFragment();
+                    for (var i=0; i<results.length; i++){
                         var link = document.createElement('li');
                         var a = document.createElement('a');
                         a.href = results[i].uri;
                         link.appendChild(a);
                         a.innerHTML = results[i].name;
-                        searchHTML.appendChild(link);
+                        fragment.appendChild(link);
                     }
+
+                    searchHTML.appendChild(fragment);
                 });
 
                 search.appendNext();
@@ -52,22 +55,25 @@
     /* Instantiate the global sp object; include models & views */
     var sp = getSpotifyApi(1);
     var models = sp.require('sp://import/scripts/api/models');
-    
+
     var search = new models.Search('Rihanna');
     search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-    
+
     var searchHTML = document.getElementById('results');
 
     search.observe(models.EVENT.CHANGE, function() {
         var results = search.tracks;
-        for(i=0;i&lt;results.length;i++){
+        var fragment = document.createDocumentFragment();
+        for (var i=0; i&lt;results.length; i++){
             var link = document.createElement('li');
             var a = document.createElement('a');
             a.href = results[i].uri;
             link.appendChild(a);
             a.innerHTML = results[i].name;
-            searchHTML.appendChild(link);
+            fragment.appendChild(link);
         }
+
+        searchHTML.appendChild(fragment);
     });
 
     search.appendNext();
@@ -80,7 +86,7 @@
             </div>
 
             <h3>Live Example</h3>
-            <ul id="search"></ul>
+            <ul id="results"></ul>
         </div><!-- /wrapper -->
     </body>
 </html>

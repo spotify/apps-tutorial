@@ -27,14 +27,16 @@
 
                 toplist.observe(models.EVENT.CHANGE, function() {
                     var results = toplist.results;
-                    for(i=0;i<results.length;i++){
+                    var fragment = document.createDocumentFragment();
+                    for (var i=0; i<results.length; i++) {
                         var link = document.createElement('li');
                         var a = document.createElement('a');
                         a.href = results[i].uri;
                         link.appendChild(a);
                         a.innerHTML = results[i].name;
-                        toplistHTML.appendChild(link);
+                        fragment.appendChild(link);
                     }
+                    toplistHTML.appendChild(fragment);
                 });
 
                 toplist.run();
@@ -68,14 +70,16 @@
 
     toplist.observe(models.EVENT.CHANGE, function() {
         var results = toplist.results;
-        for(i=0;i&lt;results.length;i++){
+        var fragment = document.createDocumentFragment();
+        for (var i=0; i&lt;results.length; i++){
             var link = document.createElement('li');
             var a = document.createElement('a');
             a.href = results[i].uri;
             link.appendChild(a);
             a.innerHTML = results[i].name;
-            toplistHTML.appendChild(link);
+            fragment.appendChild(link);
         }
+        toplistHTML.appendChild(fragment);
     });
 
     toplist.run();

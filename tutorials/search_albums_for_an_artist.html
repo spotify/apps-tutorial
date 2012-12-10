@@ -15,21 +15,25 @@
                 /* Instantiate the global sp object; include models & views */
                 var sp = getSpotifyApi(1);
                 var models = sp.require('sp://import/scripts/api/models');
-                
+
                 var search = new models.Search('Rihanna');
-                
+                search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+
                 var searchHTML = document.getElementById('results');
 
                 search.observe(models.EVENT.CHANGE, function() {
                     var results = search.albums;
-                    for(i=0;i<results.length;i++){
+                    var fragment = document.createDocumentFragment();
+                    for (var i=0; i<results.length; i++){
                         var link = document.createElement('li');
                         var a = document.createElement('a');
                         a.href = results[i].uri;
                         link.appendChild(a);
                         a.innerHTML = results[i].name;
-                        searchHTML.appendChild(link);
+                        fragment.appendChild(link);
                     }
+
+                    searchHTML.appendChild(fragment);
                 });
 
                 search.appendNext();
@@ -42,8 +46,8 @@
                 <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
             </ul>
 
-            <h1>Return all tracks with a given search query</h1>
-            <p class="description">Given the search term "Rihanna", return all tracks that match.</p>
+            <h1>Return all albums with a given search query</h1>
+            <p class="description">Given the search term "Rihanna", return all albums that match.</p>
 
             <h3>The Javascript</h3>
             <div id="the-js">
@@ -51,22 +55,25 @@
     /* Instantiate the global sp object; include models & views */
     var sp = getSpotifyApi(1);
     var models = sp.require('sp://import/scripts/api/models');
-    
+
     var search = new models.Search('Rihanna');
     search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-    
+
     var searchHTML = document.getElementById('results');
 
     search.observe(models.EVENT.CHANGE, function() {
-        var results = search.tracks;
-        for(i=0;i&lt;results.length;i++){
+        var results = search.albums;
+        var fragment = document.createDocumentFragment();
+        for (var i=0; i&lt;results.length; i++){
             var link = document.createElement('li');
             var a = document.createElement('a');
             a.href = results[i].uri;
             link.appendChild(a);
             a.innerHTML = results[i].name;
-            searchHTML.appendChild(link);
+            fragment.appendChild(link);
         }
+
+        searchHTML.appendChild(fragment);
     });
 
     search.appendNext();

@@ -57,7 +57,7 @@
 
     function playOrPause() {
         player.playing = !(player.playing);
-        if (player.playing == true) {
+        if (player.playing) {
             playerButton.value = 'Pause';
         } else {
             playerButton.value = 'Play';
@@ -79,7 +79,8 @@
         height:40px;
         border:1px solid #333;
         font:italic 2.5em Georgia, serif;
-        text-align:center;color:#000;
+        text-align:center;
+        color:#000;
     }
 &lt;/style&gt;</code></pre>
                 </div>

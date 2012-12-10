@@ -3,14 +3,12 @@
 *  Spotify green: #74c043
 *
 **/
-
+"use strict";
 window.onload = function() {
-
-    sp = getSpotifyApi(1);
+    var sp = getSpotifyApi(1);
     var models = sp.require('sp://import/scripts/api/models');
     var views = sp.require('sp://import/scripts/api/views');
-    var player = models.player;
-    
+
     // Handle share popup
     var share_element = document.getElementById('share-popup');
     var share_content = 'spotify:track:76a6mUM5r7VPexAj37TLjo';
@@ -43,21 +41,17 @@ window.onload = function() {
     }, false);
 
     drop_box.addEventListener('dragenter', function(e){
-        if (e.preventDefault) e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
         this.classList.add('over');
     }, false);
 
     drop_box.addEventListener('dragover', function(e){
-        if (e.preventDefault) e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
         return false;
     }, false);
 
     drop_box.addEventListener('drop', function(e){
-        if (e.preventDefault) e.preventDefault();
         var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
-        console.log(drop);
         this.classList.remove('over');
         var success_message = document.createElement('p');
         success_message.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
@@ -86,13 +80,11 @@ window.onload = function() {
         multiple_tracks_playlist.add(library_track);
     }
 
-    console.log(multiple_tracks_playlist);
     var multiple_tracks_player = new views.List(multiple_tracks_playlist);
     multiple_tracks_player.track = null; // Don't play the track right away
     multiple_tracks_player.context = multiple_tracks_playlist;
-   
+
     /* Pass the player HTML code to #multiple-tracks-player */
     var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
     multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
-
-}
+};
