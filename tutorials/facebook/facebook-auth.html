@@ -1,44 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-        <style>
-            @import url('sp://import/css/eve.css');
-            @import url('sp://tutorial/css/main.css');
-            @import url('sp://tutorial/css/github.css');
-        </style>
-
-        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
-
-        <script>
-            window.onload = function() {
-                /* Instantiate the global sp object; include models */
-                var sp = getSpotifyApi(1);
-                var auth = sp.require('sp://import/scripts/api/auth');
-
-                /* Set the permissions you want from the user. For more
-                 * info, check out http://bit.ly/A4KCW3 */
-                var permissions = ['user_about_me'];
-                var app_id = '126891607432106';
-                var fbButtonHTML = document.getElementById('fb-login');
-
-                fbButtonHTML.addEventListener('click', authFB);
-
-                function authFB() {
-                    auth.authenticateWithFacebook(app_id, permissions, {
-                        onSuccess: function(accessToken, ttl) {
-                            fbButtonHTML.style.display = 'none';
-                            var statusHTML = document.getElementById('status');
-                            statusHTML.firstChild.innerHTML = 'Your access token: ' + accessToken;
-                        },
-                        onFailure: function(error) {
-                            console.log('Authentication failed with error: ' + error);
-                        },
-                        onComplete: function() { }
-                    });
-                }
-            }
-        </script>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
     </head>
     <body>
         <div id="wrapper">
@@ -89,6 +54,36 @@
             <h3>Live Example</h3>
             <img src="sp://tutorial/img/fb-login.png" id="fb-login" />
             <div id="status"><p></p></div>
-        </div><!-- /wrapper -->
+        </div>
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+        <script>
+            window.onload = function() {
+                /* Instantiate the global sp object; include models */
+                var sp = getSpotifyApi(1);
+                var auth = sp.require('sp://import/scripts/api/auth');
+
+                /* Set the permissions you want from the user. For more
+                 * info, check out http://bit.ly/A4KCW3 */
+                var permissions = ['user_about_me'];
+                var app_id = '126891607432106';
+                var fbButtonHTML = document.getElementById('fb-login');
+
+                fbButtonHTML.addEventListener('click', authFB);
+
+                function authFB() {
+                    auth.authenticateWithFacebook(app_id, permissions, {
+                        onSuccess: function(accessToken, ttl) {
+                            fbButtonHTML.style.display = 'none';
+                            var statusHTML = document.getElementById('status');
+                            statusHTML.firstChild.innerHTML = 'Your access token: ' + accessToken;
+                        },
+                        onFailure: function(error) {
+                            console.log('Authentication failed with error: ' + error);
+                        },
+                        onComplete: function() { }
+                    });
+                }
+            }
+        </script>
     </body>
 </html>
