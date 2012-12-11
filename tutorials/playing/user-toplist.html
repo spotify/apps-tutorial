@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Get a user's top tracks</h1>
+            <p class="description">Using the Toplist model, let's see what current user's most-listened tracks are.</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
+    var views = sp.require("sp://import/scripts/api/views");
+
+    var toplist = new models.Toplist();
+    /* Set attributes of the Toplist object */
+    toplist.toplistType = models.TOPLISTTYPE.REGION;
+    toplist.userName = models.TOPLISTUSER_CURRENT;
+    toplist.matchType = models.TOPLISTMATCHES.TRACKS;
+
+    var toplistHTML = document.getElementById('toplist');
+
+    toplist.observe(models.EVENT.CHANGE, function() {
+        var results = toplist.results;
+        var fragment = document.createDocumentFragment();
+        for (var i=0; i&lt;results.length; i++){
+            var link = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = results[i].uri;
+            link.appendChild(a);
+            a.innerHTML = results[i].name;
+            fragment.appendChild(link);
+        }
+        toplistHTML.appendChild(fragment);
+    });
+
+    toplist.run();
+}</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&lt;ul id="toplist"&gt;&lt;/ul&gt;</code></pre>
+            </div>
+
+            <h3>Live Example</h3>
+            <ul id="toplist"></ul>
+        </div>
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+        <script>
+            window.onload = function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+                var views = sp.require("sp://import/scripts/api/views");
+
+                var toplist = new models.Toplist();
+                /* Set attributes of the Toplist object */
+                toplist.toplistType = models.TOPLISTTYPE.REGION;
+                toplist.userName = models.TOPLISTUSER_CURRENT;
+                toplist.matchType = models.TOPLISTMATCHES.TRACKS;
+
+                var toplistHTML = document.getElementById('toplist');
+
+                toplist.observe(models.EVENT.CHANGE, function() {
+                    var results = toplist.results;
+                    var fragment = document.createDocumentFragment();
+                    for (var i=0; i<results.length; i++) {
+                        var link = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.href = results[i].uri;
+                        link.appendChild(a);
+                        a.innerHTML = results[i].name;
+                        fragment.appendChild(link);
+                    }
+                    toplistHTML.appendChild(fragment);
+                });
+
+                toplist.run();
+            }
+        </script>
+    </body>
+</html>
