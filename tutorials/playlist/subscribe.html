@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="sp://import/css/api.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Subscribe and unsubscribe to a playlist</h1>
+            <p class="description">You can subscribe and unsubscribe a user to a playlist by changing its <code>subscribed</code> property. Click on the button to toggle subscription.</p>
+
+            <h3>The Javascript</h3>
+            <div id="the-js">
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models & views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require('sp://import/scripts/api/models');
+
+    var subscribeButton = document.getElementById('subscribe');
+
+    var playlist = models.Playlist.fromURI("spotify:user:spotify:playlist:3Yrvm5lBgnhzTYTXx2l55x");
+
+    subscribeButton.addEventListener('click', toggleSubscription);
+
+    function toggleSubscription() {
+        playlist.subscribed = !playlist.subscribed;
+        renderText();
+    }
+
+    function renderText() {
+        subscribeButton.innerText = playlist.subscribed ? 'Unsubscribe from playlist' : 'Subscribe to playlist';
+    }
+
+    renderText();
+}</code></pre>
+            </div>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&lt;button id="subscribe" class="sp-button"&gt;&lt;/button&gt;</code></pre>
+
+            </div>
+
+            <h3>Live Example</h3>
+            <button id="subscribe" class="sp-button"></button>
+        </div>
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+        <script>
+            window.onload = function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require('sp://import/scripts/api/models');
+
+                var subscribeButton = document.getElementById('subscribe');
+
+                var playlist = models.Playlist.fromURI("spotify:user:spotify:playlist:3Yrvm5lBgnhzTYTXx2l55x");
+
+                subscribeButton.addEventListener('click', toggleSubscription);
+
+                function toggleSubscription() {
+                    playlist.subscribed = !playlist.subscribed;
+                    renderText();
+                }
+
+                function renderText() {
+                    subscribeButton.innerText = playlist.subscribed ? 'Unsubscribe from playlist' : 'Subscribe to playlist';
+                }
+
+                renderText();
+            }
+        </script>
+    </body>
+</html>
