@@ -28,25 +28,18 @@
     fbButtonHTML.addEventListener('click', authFB);
 
     function authFB() {
-        fbButtonHTML.style.display = 'none';
         auth.authenticateWithFacebook(app_id, permissions, {
             onSuccess: function(accessToken, ttl) {
-                var url = request_url + '?access_token=' + accessToken;
+                fbButtonHTML.style.display = 'none';
+                var url = 'https://graph.facebook.com/me/music.listens?access_token=' + accessToken;
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', url);
-
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState != 4) return;
-                    var data = JSON.parse(xhr.responseText);
-                    handle(data);
+                    var response = JSON.parse(xhr.responseText);
+                    handle(response);
                 }
-
                 xhr.send(null);
-                /*
-                $.getJSON(url, function(data) {
-                    var listens = data.data;
-                });
-                */
             },
             onFailure : function(error) {
                 console.log('Authentication failed with error: ' + error);
@@ -55,15 +48,8 @@
         });
     }
 
-    function handle(data) {
-        var listens = document.getElementById('listens');
+    function handle(response) {
         var fragment = document.createDocumentFragment();
-
-        for (var i=0; i&lt;listens.length; i++) {
-            var trackLink = listens[i].data.song.url;
-            var trackName = listens[i].data.song.title;
-            updateHTML(trackLink, trackName);
-        }
         response.data.forEach(function(d) {
             var li = document.createElement('li');
             var a = document.createElement('a');
@@ -72,7 +58,7 @@
             li.appendChild(a);
             fragment.appendChild(li);
         });
-
+        var listens = document.getElementById('listens');
         listens.appendChild(fragment);
     }
 }</code></pre>
@@ -95,27 +81,23 @@
 
                 var app_id = '126891607432106';
                 var permissions = ['user_actions.music'];
-                var request_url = 'https://graph.facebook.com/me/music.listens';
                 var fbButtonHTML = document.getElementById('fb-login');
 
                 fbButtonHTML.addEventListener('click', authFB);
 
                 function authFB() {
-                    fbButtonHTML.style.display = 'none';
                     auth.authenticateWithFacebook(app_id, permissions, {
                         onSuccess: function(accessToken, ttl) {
-                            var url = request_url + '?access_token=' + accessToken;
+                            fbButtonHTML.style.display = 'none';
+                            var url = 'https://graph.facebook.com/me/music.listens?access_token=' + accessToken;
                             var xhr = new XMLHttpRequest();
                             xhr.open('GET', url);
-
                             xhr.onreadystatechange = function () {
                                 if (xhr.readyState != 4) return;
                                 var response = JSON.parse(xhr.responseText);
                                 handle(response);
                             }
-
                             xhr.send(null);
-
                         },
                         onFailure : function(error) {
                             console.log('Authentication failed with error: ' + error);
@@ -125,14 +107,7 @@
                 }
 
                 function handle(response) {
-                    var listens = document.getElementById('listens');
                     var fragment = document.createDocumentFragment();
-
-                    for (var i=0; i<listens.length; i++) {
-                        var trackLink = listens[i].data.song.url;
-                        var trackName = listens[i].data.song.title;
-                        updateHTML(trackLink, trackName);
-                    }
                     response.data.forEach(function(d) {
                         var li = document.createElement('li');
                         var a = document.createElement('a');
@@ -141,7 +116,7 @@
                         li.appendChild(a);
                         fragment.appendChild(li);
                     });
-
+                    var listens = document.getElementById('listens');
                     listens.appendChild(fragment);
                 }
             }
