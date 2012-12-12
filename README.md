@@ -16,6 +16,8 @@ This is a Spotify App that explains shows useful code snippets that can help you
 
  * [API Reference](https://developer.spotify.com/technologies/apps/docs/)
  * [Integration Guidelines](http://developer.spotify.com/download/spotify-apps-api/guidelines/)
+ * [Spotify-tagged questions on StackOverflow](http://stackoverflow.com/questions/tagged/spotify)
+ * [@SpotifyPlatform](https://twitter.com/#!/SpotifyPlatform) on Twitter
 
 Your feedback is welcome! Please email mager@spotify.com.
 
