@@ -1,10 +1,24 @@
 # Spotify Apps API Tutorial
-
-This is a Spotify App that explains how to make a Spotify App.
-
-For API Guidelines, click [here](http://developer.spotify.com/download/spotify-apps-api/guidelines/).
-
 ![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/master/img/screenshot.png)
+
+This is a Spotify App that explains shows useful code snippets that can help you make a [Spotify Apps](https://developer.spotify.com/technologies/apps/). It uses version 0.x of the Spotify Apps API.
+
+## Installation
+
+ 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/)
+ 2. Open Terminal, `mkdir ~/Spotify`
+ 3. `cd ~/Spotify`
+ 4. `git clone git@github.com:spotify/apps-tutorial.git`
+ 6. Download the [latest version of Spotify](http://spotify.com/download)
+ 7. Open Spotify and type "spotify:app:tutorial" in the search bar
+
+## More information
+
+ * [API Reference](https://developer.spotify.com/technologies/apps/docs/)
+ * [Integration Guidelines](http://developer.spotify.com/download/spotify-apps-api/guidelines/)
+
+Your feedback is welcome! Please email mager@spotify.com.
+
 
 ## Topics covered
 
@@ -52,14 +66,3 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
  * Create an EchoNest radio station
  * Display a Polymaps object
  * Template
-
-## Installation
-
- 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/)
- 2. Open Terminal, `mkdir ~/Spotify`
- 3. `cd ~/Spotify`
- 4. `git clone git@github.com:spotify/apps-tutorial.git`
- 6. Download the [latest version of Spotify](http://spotify.com/download)
- 7. Open Spotify and type "spotify:app:tutorial" in the search bar
-
-Your feedback is welcome! Please email mager@spotify.com.
