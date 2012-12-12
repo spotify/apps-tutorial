@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
+        <style>
+            #tweets {
+                list-style: disc;
+            }
+            #tweets a {
+                margin-left: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="breadcrumb">
+                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+            </ul>
+
+            <h1>Talking to Twitter</h1>
+            <p class="description">This sample performs an XMLHttpRequest and returns tweets mentioning Spotify URIs for tracks.</p>
+
+            <h3>The Javascript</h3>
+            <div class="code-block">
+<pre><code data-language="javascript">window.onload = function() {
+    /* Instantiate the global sp object; include models &amp; views */
+    var sp = getSpotifyApi(1);
+    var models = sp.require("sp://import/scripts/api/models");
+    var views = sp.require("sp://import/scripts/api/views");
+
+    var xhr = new XMLHttpRequest();
+    var request = 'http://search.twitter.com/search.json' +
+    '?q=open.spotify.com%2Ftrack&amp;include_entities=true'
+
+    xhr.open('GET', request);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return;
+        var data = JSON.parse(xhr.responseText);
+        handle(data);
+    }
+
+    xhr.send(null);
+
+    function handle(data) {
+        var fragment = document.createDocumentFragment();
+        data.results.forEach(function(result) {
+            var tracks = [];
+            result.entities.urls.forEach(function(url) {
+                if (url.expanded_url.match(/^http:\/\/open.spotify.com/)) {
+                    var track = models.Track.fromURI(url.expanded_url);
+                    if (track.name) {
+                        tracks.push({
+                            name: track.name,
+                            uri: track.uri
+                        });
+                    }
+                }
+            });
+            if (tracks.length) {
+                var li = document.createElement('li');
+                li.innerText = result.text;
+                tracks.forEach(function(track) {
+                    var a = document.createElement('a');
+                    a.innerHTML = track.name.decodeForHTML();
+                    a.href = track.uri;
+                    li.appendChild(a);
+                });
+                fragment.appendChild(li);
+            }
+        });
+        var tweetsContainer = document.getElementById('tweets');
+        tweetsContainer.appendChild(fragment);
+    }
+};</code></pre></div>
+
+            <h3>The HTML</h3>
+            <div id="the-html">
+<pre><code data-language="html">&lt;ul id="tweets"&gt;&lt;/ul&gt;</code></pre></div>
+
+            <h3>Live Example</h3>
+            <ul id="tweets"></ul>
+            <!-- Cool stuff goes here -->
+        </div>
+        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
+        <script>
+            window.onload = function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require("sp://import/scripts/api/models");
+                var views = sp.require("sp://import/scripts/api/views");
+
+                var xhr = new XMLHttpRequest();
+                var request = 'http://search.twitter.com/search.json' +
+                '?q=open.spotify.com%2Ftrack&include_entities=true'
+
+                xhr.open('GET', request);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState != 4) return;
+                    var data = JSON.parse(xhr.responseText);
+                    handle(data);
+                }
+
+                xhr.send(null);
+
+                function handle(data) {
+                    var fragment = document.createDocumentFragment();
+                    data.results.forEach(function(result) {
+                        var tracks = [];
+                        result.entities.urls.forEach(function(url) {
+                            if (url.expanded_url.match(/^http:\/\/open.spotify.com/)) {
+                                var track = models.Track.fromURI(url.expanded_url);
+                                if (track.name) {
+                                    tracks.push({
+                                        name: track.name,
+                                        uri: track.uri
+                                    });
+                                }
+                            }
+                        });
+                        if (tracks.length) {
+                            var li = document.createElement('li');
+                            li.innerText = result.text;
+                            tracks.forEach(function(track) {
+                                var a = document.createElement('a');
+                                a.innerHTML = track.name.decodeForHTML();
+                                a.href = track.uri;
+                                li.appendChild(a);
+                            });
+                            fragment.appendChild(li);
+                        }
+                    });
+                    var tweetsContainer = document.getElementById('tweets');
+                    tweetsContainer.appendChild(fragment);
+                }
+            };
+        </script>
+    </body>
+</html>
