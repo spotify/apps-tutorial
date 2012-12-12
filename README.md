@@ -40,7 +40,7 @@ Your feedback is welcome! Please email mager@spotify.com.
 
  * Play a single song
  * Play a list of songs
- * Get the currently-playing track
+ * Get the currently playing track
  * Create a play/pause button with an HTML element
  * Skip to the next or previous track
  * Get a user's top tracks
