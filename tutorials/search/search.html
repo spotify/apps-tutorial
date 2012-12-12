@@ -1,49 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-        <style>
-            @import url('sp://import/css/eve.css');
-            @import url('sp://tutorial/css/main.css');
-            @import url('sp://tutorial/css/github.css');
-        </style>
-
-        <script src="sp://tutorial/js/rainbow-custom.min.js"></script>
-
-        <script>
-            window.onload = function() {
-                /* Instantiate the global sp object; include models & views */
-                var sp = getSpotifyApi(1);
-                var models = sp.require('sp://import/scripts/api/models');
-
-                var search = new models.Search('Rihanna');
-                search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-
-                var searchHTML = document.getElementById('results');
-
-                search.observe(models.EVENT.CHANGE, function() {
-                    var results = search.tracks;
-                    var fragment = document.createDocumentFragment();
-                    for (var i=0; i<results.length; i++){
-                        var link = document.createElement('li');
-                        var a = document.createElement('a');
-                        a.href = results[i].uri;
-                        link.appendChild(a);
-                        a.innerHTML = results[i].name;
-                        fragment.appendChild(link);
-                    }
-
-                    searchHTML.appendChild(fragment);
-                });
-
-                search.appendNext();
-            }
-        </script>
+        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/github.css">
     </head>
     <body>
         <div id="wrapper">
             <ul class="breadcrumb">
-                <li><a href="sp://tutorial/index.html">&laquo; Back to main page</a></li>
+                <li><a href="/index.html">&laquo; Back to main page</a></li>
             </ul>
 
             <h1>Return all tracks with a given search query</h1>
@@ -87,6 +52,36 @@
 
             <h3>Live Example</h3>
             <ul id="results"></ul>
-        </div><!-- /wrapper -->
+        </div>
+        <script src="/js/rainbow-custom.min.js"></script>
+        <script>
+            window.onload = function() {
+                /* Instantiate the global sp object; include models & views */
+                var sp = getSpotifyApi(1);
+                var models = sp.require('sp://import/scripts/api/models');
+
+                var search = new models.Search('Rihanna');
+                search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+
+                var searchHTML = document.getElementById('results');
+
+                search.observe(models.EVENT.CHANGE, function() {
+                    var results = search.tracks;
+                    var fragment = document.createDocumentFragment();
+                    for (var i=0; i<results.length; i++){
+                        var link = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.href = results[i].uri;
+                        link.appendChild(a);
+                        a.innerHTML = results[i].name;
+                        fragment.appendChild(link);
+                    }
+
+                    searchHTML.appendChild(fragment);
+                });
+
+                search.appendNext();
+            }
+        </script>
     </body>
 </html>
