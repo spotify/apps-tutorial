@@ -1,7 +1,7 @@
 /* Main Elements */
 html {-webkit-user-select: auto;}
 body {min-height: 100%;padding: 10px 0 20px;box-sizing: border-box;}
-#wrapper {position: relative;z-index: 2;max-width: 800px;min-height: 100%;margin: 0 auto;padding: 20px;}
+#wrapper {position: relative;z-index: 2;max-width: 1000px;min-height: 100%;margin: 0 auto;padding: 20px;}
 section {position: relative;overflow: hidden;margin: 0 0 40px;}
 .breadcrumb, .gist {margin: 0 0 20px;}
 .right {float:right;}
