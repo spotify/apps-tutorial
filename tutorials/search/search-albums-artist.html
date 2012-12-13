@@ -1,87 +1,41 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/github.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <ul class="breadcrumb">
-                <li><a href="/index.html">&laquo; Back to main page</a></li>
-            </ul>
+<div class="section">
+    <h1>Return all albums with a given search query</h1>
+    <p class="description">Given the search term "Rihanna", return all albums that match.</p>
 
-            <h1>Return all albums with a given search query</h1>
-            <p class="description">Given the search term "Rihanna", return all albums that match.</p>
+    <h3>The Javascript</h3>
+    <div id="js"></div>
 
-            <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include models & views */
-    var sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
+    <h3>The HTML</h3>
+    <div id="html"></div>
 
-    var search = new models.Search('Rihanna');
-    search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <ul id="results"></ul>
+    </div>
+    <script type="script/snippet" data-container="js">
+        var sp = getSpotifyApi(1);
+        var models = sp.require('sp://import/scripts/api/models');
 
-    var searchHTML = document.getElementById('results');
+        var search = new models.Search('Rihanna');
+        search.localResults = models.LOCALSEARCHRESULTS.APPEND;
 
-    search.observe(models.EVENT.CHANGE, function() {
-        var results = search.albums;
-        var fragment = document.createDocumentFragment();
-        for (var i=0; i&lt;results.length; i++){
-            var link = document.createElement('li');
-            var a = document.createElement('a');
-            a.href = results[i].uri;
-            link.appendChild(a);
-            a.innerHTML = results[i].name;
-            fragment.appendChild(link);
-        }
+        var searchHTML = document.getElementById('results');
 
-        searchHTML.appendChild(fragment);
-    });
+        search.observe(models.EVENT.CHANGE, function() {
+            var results = search.albums;
+            var fragment = document.createDocumentFragment();
+            for (var i=0; i<results.length; i++){
+                var link = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = results[i].uri;
+                link.appendChild(a);
+                a.innerHTML = results[i].name;
+                fragment.appendChild(link);
+            }
 
-    search.appendNext();
-};</code></pre>
-            </div>
+            searchHTML.appendChild(fragment);
+        });
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&lt;ul id="results"&gt;&lt;/ul&gt;</code></pre>
-            </div>
-
-            <h3>Live Example</h3>
-            <ul id="results"></ul>
-        </div>
-        <script src="/js/rainbow-custom.min.js"></script>
-        <script>
-            window.onload = function() {
-                /* Instantiate the global sp object; include models & views */
-                var sp = getSpotifyApi(1);
-                var models = sp.require('sp://import/scripts/api/models');
-
-                var search = new models.Search('Rihanna');
-                search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-
-                var searchHTML = document.getElementById('results');
-
-                search.observe(models.EVENT.CHANGE, function() {
-                    var results = search.albums;
-                    var fragment = document.createDocumentFragment();
-                    for (var i=0; i<results.length; i++){
-                        var link = document.createElement('li');
-                        var a = document.createElement('a');
-                        a.href = results[i].uri;
-                        link.appendChild(a);
-                        a.innerHTML = results[i].name;
-                        fragment.appendChild(link);
-                    }
-
-                    searchHTML.appendChild(fragment);
-                });
-
-                search.appendNext();
-            };
-        </script>
-    </body>
-</html>
+        search.appendNext();
+    </script>
+</div>

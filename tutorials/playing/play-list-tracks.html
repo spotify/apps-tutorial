@@ -1,96 +1,43 @@
-<!DOCTYPE html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
-        <link rel="stylesheet" type="text/css" href="sp://resources/css/api.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/github.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <ul class="breadcrumb">
-                <li><a href="/index.html">&laquo; Back to main page</a></li>
-            </ul>
+<div class="section">
+    <h1>Play a list of tracks</h1>
+    <p class="description">This snippet of code retrieves the user's 20 latest songs
+    added to their Library and creates a Player & List view of the songs.</p>
 
-            <h1>Play a list of tracks</h1>
-            <p class="description">This snippet of code retrieves the user's 20 latest songs
-            added to their Library and creates a Player & List view of the songs.</p>
+    <h3>The Javascript</h3>
+    <div id="js"></div>
 
-            <h3>The Javascript</h3>
-            <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include models &amp; views */
-    var sp = getSpotifyApi(1);
-    var models = sp.require("sp://import/scripts/api/models");
-    var views = sp.require("sp://import/scripts/api/views");
+    <h3>The HTML</h3>
+    <div id="html"></div>
 
-    var library_tracks = models.library.tracks;
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="multiple-tracks-player"></div><div id="multiple-tracks-list"></div>
+    </div>
+    <script type="script/snippet" data-container="js">
+        var sp = getSpotifyApi(1);
+        var models = sp.require("sp://import/scripts/api/models");
+        var views = sp.require("sp://import/scripts/api/views");
 
-    var multiple_tracks_playlist = new models.Playlist();
-    for (var i=0; i&lt;20; i++) {
-        var library_track = models.Track.fromURI(library_tracks[i].data.uri);
-        multiple_tracks_playlist.add(library_track);
-    }
+        var library_tracks = models.library.tracks;
 
-    var multiple_tracks_list = new views.List(multiple_tracks_playlist);
-    multiple_tracks_list.track = null; // Don't play the track right away
-    multiple_tracks_list.context = multiple_tracks_playlist;
+        var multiple_tracks_playlist = new models.Playlist();
+        for (var i=0; i<20; i++) {
+            var library_track = models.Track.fromURI(library_tracks[i].data.uri);
+            multiple_tracks_playlist.add(library_track);
+        }
 
-    /* Pass the list HTML code to #multiple-tracks-list */
-    var multiple_tracks_list_HTML = document.getElementById('multiple-tracks-list');
-    multiple_tracks_list_HTML.appendChild(multiple_tracks_list.node);
+        var multiple_tracks_list = new views.List(multiple_tracks_playlist);
+        multiple_tracks_list.track = null; // Don't play the track right away
+        multiple_tracks_list.context = multiple_tracks_playlist;
 
-    /* Append a player */
-    var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
-    var multiple_tracks_player = new views.Player();
-    multiple_tracks_player.context = multiple_tracks_playlist;
-    multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
-};</code></pre>
-            </div>
+        /* Pass the list HTML code to #multiple-tracks-list */
+        var multiple_tracks_list_HTML = document.getElementById('multiple-tracks-list');
+        multiple_tracks_list_HTML.appendChild(multiple_tracks_list.node);
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&ltdiv id="multiple-tracks-player"&gt;&lt;/div&gt; &ltdiv id="multiple-tracks-list"&gt;&lt;/div&gt;</code></pre>
-            </div>
-
-            <h3>The CSS</h3>
-            <div id="the-css">
-<pre><code data-language="css">&lt;style&gt;
-    @import url("sp://import/css/api.css");
-    @import url('sp://import/css/eve.css');
-    @import url('sp://import/css/player.css');
-&lt;/style&gt;</code></pre>
-            </div>
-
-            <h3>Live Example</h3>
-            <div id="multiple-tracks-player"></div><div id="multiple-tracks-list"></div>
-        </div>
-        <script src="/js/rainbow-custom.min.js"></script>
-        <script>
-            var sp = getSpotifyApi(1);
-            var models = sp.require("sp://import/scripts/api/models");
-            var views = sp.require("sp://import/scripts/api/views");
-
-            var library_tracks = models.library.tracks;
-
-            var multiple_tracks_playlist = new models.Playlist();
-            for (var i=0; i<20; i++) {
-                var library_track = models.Track.fromURI(library_tracks[i].data.uri);
-                multiple_tracks_playlist.add(library_track);
-            }
-
-            var multiple_tracks_list = new views.List(multiple_tracks_playlist);
-            multiple_tracks_list.track = null; // Don't play the track right away
-            multiple_tracks_list.context = multiple_tracks_playlist;
-
-            /* Pass the list HTML code to #multiple-tracks-list */
-            var multiple_tracks_list_HTML = document.getElementById('multiple-tracks-list');
-            multiple_tracks_list_HTML.appendChild(multiple_tracks_list.node);
-
-            /* Append a player */
-            var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
-            var multiple_tracks_player = new views.Player();
-            multiple_tracks_player.context = multiple_tracks_playlist;
-            multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
-        </script>
-    </body>
-</html>
+        /* Append a player */
+        var multiple_tracks_player_HTML = document.getElementById('multiple-tracks-player');
+        var multiple_tracks_player = new views.Player();
+        multiple_tracks_player.context = multiple_tracks_playlist;
+        multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
+    </script>
+</div>

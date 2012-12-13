@@ -1,125 +1,63 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/github.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <ul class="breadcrumb">
-                <li><a href="/index.html">&laquo; Back to main page</a></li>
-            </ul>
+<div class="section">
+    <h1>Get a user's listening history from Facebook</h1>
+    <p class="description">Here, we'll attempt to authenticate a user from Facebook using the <code>user_actions.music</code> permission.</p>
 
-            <h1>Get a user's listening history from Facebook</h1>
-            <p class="description">Here, we'll attempt to authenticate a user from Facebook using the <code>user_actions.music</code> permission.</p>
+    <h3>The Javascript</h3>
+    <div id="js"></div>
 
-            <h3>The Javascript</h3>
-<pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include auth */
-    var sp = getSpotifyApi(1);
-    var auth = sp.require('sp://import/scripts/api/auth');
+    <h3>The HTML</h3>
+    <div id="html"></div>
 
-    var app_id = '126891607432106';
-    var permissions = ['user_actions.music'];
-    var request_url = 'https://graph.facebook.com/me/music.listens';
-    var fbButtonHTML = document.getElementById('fb-login');
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <img src="/img/fb-login.png" id="fb-login" />
+        <ul id="listens"></ul>
+    </div>
+    <script type="script/snippet" data-container="js">
+        /* Instantiate the global sp object; include auth */
+        var sp = getSpotifyApi(1);
+        var auth = sp.require('sp://import/scripts/api/auth');
 
-    fbButtonHTML.addEventListener('click', authFB);
+        var app_id = '126891607432106';
+        var permissions = ['user_actions.music'];
+        var request_url = 'https://graph.facebook.com/me/music.listens';
+        var fbButtonHTML = document.getElementById('fb-login');
 
-    function authFB() {
-        auth.authenticateWithFacebook(app_id, permissions, {
-            onSuccess: function(accessToken, ttl) {
-                fbButtonHTML.style.display = 'none';
-                var url = 'https://graph.facebook.com/me/music.listens?access_token=' + accessToken;
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', url);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState != 4) return;
-                    var response = JSON.parse(xhr.responseText);
-                    handle(response);
-                }
-                xhr.send(null);
-            },
-            onFailure : function(error) {
-                console.log('Authentication failed with error: ' + error);
-            },
-            onComplete : function() { }
-        });
-    }
+        fbButtonHTML.addEventListener('click', authFB);
 
-    function handle(response) {
-        var fragment = document.createDocumentFragment();
-        response.data.forEach(function(d) {
-            var li = document.createElement('li');
-            var a = document.createElement('a');
-            a.href = d.data.song.url;
-            a.innerHTML = d.data.song.title;
-            li.appendChild(a);
-            fragment.appendChild(li);
-        });
-        var listens = document.getElementById('listens');
-        listens.appendChild(fragment);
-    }
-}</code></pre>
+        function authFB() {
+            auth.authenticateWithFacebook(app_id, permissions, {
+                onSuccess: function(accessToken, ttl) {
+                    fbButtonHTML.style.display = 'none';
+                    var url = 'https://graph.facebook.com/me/music.listens?access_token=' + accessToken;
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', url);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState != 4) return;
+                        var response = JSON.parse(xhr.responseText);
+                        handle(response);
+                    }
+                    xhr.send(null);
+                },
+                onFailure : function(error) {
+                    console.log('Authentication failed with error: ' + error);
+                },
+                onComplete : function() { }
+            });
+        }
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&lt;ul id="listens"&gt;&lt;/ul&gt;</code></pre>
-            </div>
-
-            <h3>Live Example</h3>
-            <img src="/img/fb-login.png" id="fb-login" />
-            <ul id="listens"></ul>
-        </div>
-        <script src="/js/rainbow-custom.min.js"></script>
-        <script>
-            window.onload = function() {
-                /* Instantiate the global sp object; include auth */
-                var sp = getSpotifyApi(1);
-                var auth = sp.require('sp://import/scripts/api/auth');
-
-                var app_id = '126891607432106';
-                var permissions = ['user_actions.music'];
-                var fbButtonHTML = document.getElementById('fb-login');
-
-                fbButtonHTML.addEventListener('click', authFB);
-
-                function authFB() {
-                    auth.authenticateWithFacebook(app_id, permissions, {
-                        onSuccess: function(accessToken, ttl) {
-                            fbButtonHTML.style.display = 'none';
-                            var url = 'https://graph.facebook.com/me/music.listens?access_token=' + accessToken;
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('GET', url);
-                            xhr.onreadystatechange = function () {
-                                if (xhr.readyState != 4) return;
-                                var response = JSON.parse(xhr.responseText);
-                                handle(response);
-                            }
-                            xhr.send(null);
-                        },
-                        onFailure : function(error) {
-                            console.log('Authentication failed with error: ' + error);
-                        },
-                        onComplete : function() { }
-                    });
-                }
-
-                function handle(response) {
-                    var fragment = document.createDocumentFragment();
-                    response.data.forEach(function(d) {
-                        var li = document.createElement('li');
-                        var a = document.createElement('a');
-                        a.href = d.data.song.url;
-                        a.innerHTML = d.data.song.title;
-                        li.appendChild(a);
-                        fragment.appendChild(li);
-                    });
-                    var listens = document.getElementById('listens');
-                    listens.appendChild(fragment);
-                }
-            }
-        </script>
-    </body>
-</html>
+        function handle(response) {
+            var fragment = document.createDocumentFragment();
+            response.data.forEach(function(d) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = d.data.song.url;
+                a.innerHTML = d.data.song.title;
+                li.appendChild(a);
+                fragment.appendChild(li);
+            });
+            var listens = document.getElementById('listens');
+            listens.appendChild(fragment);
+        }
+    </script>
+</div>

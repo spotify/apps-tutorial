@@ -1,76 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/github.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <ul class="breadcrumb">
-                <li><a href="/index.html">&laquo; Back to main page</a></li>
-            </ul>
+<div class="section">
+    <h1>Get tracks from a playlist URL</h1>
+    <p class="description">Given a playlist's URL, we will create a Playlist object and display the songs in that playlist. Even though we're using the <a href="http://developer.spotify.com/download/spotify-apps-api/reference/4f52ebf870.html"><code>fromURI</code> method</a>, we can use URLs here too (Facebook's API returns URLs, not URIs).</p>
 
-            <h1>Get tracks from a playlist URL</h1>
-            <p class="description">Given a playlist's URL, we will create a Playlist object and display the songs in that playlist. Even though we're using the <a href="http://developer.spotify.com/download/spotify-apps-api/reference/4f52ebf870.html"><code>fromURI</code> method</a>, we can use URLs here too (Facebook's API returns URLs, not URIs).</p>
+    <h3>The Javascript</h3>
+    <div id="js"></div>
 
-            <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include models & views */
-    var sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
+    <h3>The HTML</h3>
+    <div id="html"></div>
 
-    var playlist_url = 'http://open.spotify.com/user/jkeck99/playlist/21iMSq0jzTie7m7v4UcMlV';
-    var playlistHTML = document.getElementById('playlist');
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <ul id="playlist"></ul>
+    </div>
+    <script type="script/snippet" data-container="js">
+        var sp = getSpotifyApi(1);
+        var models = sp.require('sp://import/scripts/api/models');
 
-    var pl = models.Playlist.fromURI(playlist_url, function(playlist) {
-        var fragment = document.createDocumentFragment();
-        for (var i = 0, l = playlist.tracks.length; i < l; i++){
-            var link = document.createElement('li');
-            var a = document.createElement('a');
-            a.href = playlist.tracks[i].uri;
-            a.innerHTML = playlist.tracks[i].name;
-            link.appendChild(a);
-            fragment.appendChild(link);
-        }
-        playlistHTML.appendChild(fragment);
-    });
-};</code></pre>
-            </div>
+        var playlist_url = 'http://open.spotify.com/user/jkeck99/playlist/21iMSq0jzTie7m7v4UcMlV';
+        var playlistHTML = document.getElementById('playlist');
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&lt;ul id="playlist"&gt;&lt;/ul&gt;</code></pre>
-            </div>
-
-            <h3>Live Example</h3>
-            <ul id="playlist"></ul>
-        </div>
-        <script src="/js/rainbow-custom.min.js"></script>
-        <script>
-            window.onload = function() {
-                /* Instantiate the global sp object; include models & views */
-                var sp = getSpotifyApi(1);
-                var models = sp.require('sp://import/scripts/api/models');
-
-                var playlist_url = 'http://open.spotify.com/user/jkeck99/playlist/21iMSq0jzTie7m7v4UcMlV';
-                var playlistHTML = document.getElementById('playlist');
-
-                var pl = models.Playlist.fromURI(playlist_url, function(playlist) {
-                    var fragment = document.createDocumentFragment();
-                    for (var i = 0, l = playlist.tracks.length; i < l; i++){
-                        var link = document.createElement('li');
-                        var a = document.createElement('a');
-                        a.href = playlist.tracks[i].uri;
-                        a.innerHTML = playlist.tracks[i].name;
-                        link.appendChild(a);
-                        fragment.appendChild(link);
-                    }
-                    playlistHTML.appendChild(fragment);
-                });
-            };
-        </script>
-    </head>
-    </body>
-</html>
+        var pl = models.Playlist.fromURI(playlist_url, function(playlist) {
+            var fragment = document.createDocumentFragment();
+            for (var i = 0, l = playlist.tracks.length; i < l; i++){
+                var link = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = playlist.tracks[i].uri;
+                a.innerHTML = playlist.tracks[i].name;
+                link.appendChild(a);
+                fragment.appendChild(link);
+            }
+            playlistHTML.appendChild(fragment);
+        });
+    </script>
+</div>

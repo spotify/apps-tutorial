@@ -1,87 +1,34 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/github.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <ul class="breadcrumb">
-                <li><a href="/index.html">&laquo; Back to main page</a></li>
-            </ul>
+<div class="section">
+    <h1>Create a play/pause button with an HTML element</h1>
+    <p class="description">This code snippet will let you control the Player object with a click event.</p>
 
-            <h1>Create a play/pause button with an HTML element</h1>
-            <p class="description">This code snippet will let you control the Player object with a click event.</p>
+    <h3>The Javascript</h3>
+    <div id="js"></div>
 
-            <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include models */
-    var sp = getSpotifyApi(1);
-    var models = sp.require("sp://import/scripts/api/models");
+    <h3>The HTML</h3>
+    <div id="html"></div>
 
-    var player = models.player;
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <input type="button" id="play-me" value="Click me to pause" />
+    </div>
+    <script type="script/snippet" data-container="js">
+        var sp = getSpotifyApi(1);
+        var models = sp.require("sp://import/scripts/api/models");
 
-    var playerButton = document.getElementById('play-me');
+        var player = models.player;
 
-    playerButton.addEventListener('click', playOrPause);
+        var playerButton = document.getElementById('play-me');
 
-    function playOrPause() {
-        player.playing = !(player.playing);
-        if (player.playing) {
-            playerButton.value = 'Pause';
-        } else {
-            playerButton.value = 'Play';
+        playerButton.addEventListener('click', playOrPause);
+
+        function playOrPause() {
+            player.playing = !(player.playing);
+            if (player.playing) {
+                playerButton.value = 'Pause';
+            } else {
+                playerButton.value = 'Play';
+            }
         }
-    }
-};</code></pre>
-            </div>
-
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&lt;div id="play-me"&gt;&lt;/div&gt;</code></pre>
-            </div>
-
-            <h3>The CSS</h3>
-            <div id="the-css">
-<pre><code data-language="css">&lt;style&gt;
-    #play-me {
-        width:600px;
-        height:40px;
-        border:1px solid #333;
-        font:italic 2.5em Georgia, serif;
-        text-align:center;
-        color:#000;
-    }
-&lt;/style&gt;</code></pre>
-                </div>
-
-            <h3>Live Example</h3>
-            <input type="button" id="play-me" value="Click me to pause" />
-        </div>
-        <script src="/js/rainbow-custom.min.js"></script>
-        <script>
-            window.onload = function() {
-                /* Instantiate the global sp object; include models */
-                var sp = getSpotifyApi(1);
-                var models = sp.require("sp://import/scripts/api/models");
-
-                var player = models.player;
-
-                var playerButton = document.getElementById('play-me');
-
-                playerButton.addEventListener('click', playOrPause);
-
-                function playOrPause() {
-                    player.playing = !(player.playing);
-                    if (player.playing == true) {
-                        playerButton.value = 'Pause';
-                    } else {
-                        playerButton.value = 'Play';
-                    }
-                }
-            };
-        </script>
-    </body>
-</html>
+    </script>
+</div>

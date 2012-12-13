@@ -1,68 +1,32 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/github.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <ul class="breadcrumb">
-                <li><a href="/index.html">&laquo; Back to main page</a></li>
-            </ul>
+<div class="section">
+    <h1>Get the currently playing track</h1>
+    <p class="description">Retrieves what track is being played.</p>
+    <!-- TODO: Add an observer to see when the track changes. -->
 
-            <h1>Get the currently playing track</h1>
-            <p class="description">Retrieves what track is being played.</p>
-            <!-- TODO: Add an observer to see when the track changes. -->
+    <h3>The Javascript</h3>
+    <div id="js"></div>
 
-            <h3>The Javascript</h3>
-            <div id="the-js">
-<pre><code data-language="javascript">window.onload = function() {
-    /* Instantiate the global sp object; include models & views */
-    var sp = getSpotifyApi(1);
-    var models = sp.require("sp://import/scripts/api/models");
-    var player = models.player;
+    <h3>The HTML</h3>
+    <div id="html"></div>
 
-    // Get the track that is currently playing
-    var currentTrack = player.track;
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="np"></div>
+    </div>
+    <script type="script/snippet" data-container="js">
+        var sp = getSpotifyApi(1);
+        var models = sp.require("sp://import/scripts/api/models");
+        var player = models.player;
 
-    var currentHTML = document.getElementById('np');
-    // if nothing currently playing
-    if (currentTrack == null) {
-        currentHTML.innerHTML = 'No track currently playing';
-    } else {
-        currentHTML.innerHTML = 'Now playing: ' + currentTrack;
-    }
-};</code></pre>
-            </div>
+        // Get the track that is currently playing
+        var currentTrack = player.track;
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&lt;div id="np"&gt;&lt;/div&gt;</code></pre>
-            </div>
-
-            <h3>Live Example</h3>
-            <div id="np"></div>
-        </div>
-        <script src="/js/rainbow-custom.min.js"></script>
-        <script>
-            window.onload = function() {
-                /* Instantiate the global sp object; include models & views */
-                var sp = getSpotifyApi(1);
-                var models = sp.require("sp://import/scripts/api/models");
-                var player = models.player;
-
-                // Get the track that is currently playing
-                var currentTrack = player.track;
-
-                var currentHTML = document.getElementById('np');
-                // if nothing currently playing
-                if (currentTrack == null) {
-                    currentHTML.innerHTML = 'No track currently playing';
-                } else {
-                    currentHTML.innerHTML = 'Now playing: ' + currentTrack;
-                }
-            };
-        </script>
-    </body>
-</html>
+        var currentHTML = document.getElementById('np');
+        // if nothing currently playing
+        if (currentTrack == null) {
+            currentHTML.innerHTML = 'No track currently playing';
+        } else {
+            currentHTML.innerHTML = 'Now playing: ' + currentTrack;
+        }
+    </script>
+</div>

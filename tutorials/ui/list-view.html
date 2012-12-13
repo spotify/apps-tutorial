@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="sp://import/css/eve.css">
-        <link rel="stylesheet" type="text/css" href="sp://resources/css/api.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/github.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <ul class="breadcrumb">
-                <li><a href="/index.html">&laquo; Back to main page</a></li>
-            </ul>
-            <h1>Showing a list of tracks</h1>
-            <p class="description">You can use the List view to show a set of tracks, passing a playlist or an album. A List view allows starring, sharing and playing its tracks. You can customize which columns and in which order they are rendered.</p>
+<div class="section">
+    <h1>Showing a list of tracks</h1>
+    <p class="description">You can use the List view to show a set of tracks, passing a playlist or an album. A List view allows starring, sharing and playing its tracks. You can customize which columns and in which order they are rendered.</p>
 
-            <h3>The Javascript</h3>
-            <div class="code-block">
-<pre><code data-language="javascript">window.onload = function() {
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="playlist"></div>
+    </div>
+    <script type="script/snippet" data-container="js">
     var sp = getSpotifyApi(1);
     var models = sp.require('sp://import/scripts/api/models');
     var views = sp.require('sp://import/scripts/api/views');
@@ -32,40 +29,20 @@
     // });
 
     document.getElementById('playlist').appendChild(list.node);
-};</code></pre>
-            </div><!-- ./code-block -->
+    </script>
 
-            <h3>The HTML</h3>
-            <div id="the-html">
-<pre><code data-language="html">&lt;div id="list"&gt;&lt;/div&gt;</code></pre>
-            </div>
+    <h2>More examples</h2>
+    <p class="description">You can also use light theme instead of the default dark one.</p>
+    <div id="js-light"></div>
+    <script type="script/snippet" data-container="js-light">
+    var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
+    var list = new views.List(album);
+    list.node.classList.add('sp-light');
+    document.getElementById('light-list').appendChild(list.node);
+    </script>
 
-            <h3>Live Example</h3>
-            <div id="list"></div>
-
-            <h1>More examples</h1>
-            <p class="description">You can also use light theme instead of the default dark one.</p>
-            <div class="code-block">
-            <pre><code data-language="javascript">var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
-var list = new views.List(album);
-list.node.classList.add('sp-light');
-document.getElementById('light-list').appendChild(list.node);</code></pre>
-            </div>
-            <div id="light-list"></div>
-        </div>
-        <script src="/js/rainbow-custom.min.js"></script>
-        <script>
-            var sp = getSpotifyApi(1);
-            var models = sp.require('sp://import/scripts/api/models');
-            var views = sp.require('sp://import/scripts/api/views');
-            var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
-            var list = new views.List(album);
-            document.getElementById('list').appendChild(list.node);
-
-            var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
-            list = new views.List(album);
-            list.node.classList.add('sp-light');
-            document.getElementById('light-list').appendChild(list.node);
-        </script>
-    </body>
-</html>
+    <h3>Live Example</h3>
+    <div class="html-snippet">
+        <div id="light-list"></div>
+    </div>
+</div>
