@@ -43,7 +43,6 @@
     <script type="script/snippet" data-container="js" data-execute="no">
         var sp = getSpotifyApi(1);
         var models = sp.require('sp://import/scripts/api/models');
-        var views = sp.require('sp://import/scripts/api/views');
 
         tabs();
         models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);
