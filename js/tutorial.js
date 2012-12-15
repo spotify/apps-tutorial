@@ -184,6 +184,7 @@ require([
             track_metadata_HTML.innerHTML += '<p>Explicit: ' + t.explicit + '</p>';
             track_metadata_HTML.innerHTML += '<p>Popularity: ' + t.popularity + '</p>';
             track_metadata_HTML.innerHTML += '<p>Starred: ' + t.starred + '</p>';
+            console.log(t);
     });
     
 
@@ -236,7 +237,7 @@ require([
     my_search.tracks.snapshot().done(function(t){
         search_tracks.innerHTML = '<h4>Tracks (' + t.length + ')</h4>';
         t.loadAll('name').each(function(name){
-            console.log(name.name);
+            // console.log(name.name);
         });
     });
 
