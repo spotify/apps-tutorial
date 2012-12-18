@@ -18,9 +18,9 @@
         <script>
             $(document).ready(function() {
                 /* Instantiate the global sp object; include models & views */
-                var sp = getSpotifyApi(1);
-                var models = sp.require('sp://import/scripts/api/models');
-                var views = sp.require('sp://import/scripts/api/views');
+                var sp = getSpotifyApi();
+                var models = sp.require('$api/models');
+                var views = sp.require('$api/views');
 
                 /* Set traditional mode in JS */
                 $.ajaxSetup({traditional: true, cache: true});
@@ -129,9 +129,9 @@
             <!--
             <h3>The Javascript</h3>
             <div id="the-js">
-<pre><code data-language="javascript">var sp = getSpotifyApi(1);
-var models = sp.require('sp://import/scripts/api/models');
-var views = sp.require('sp://import/scripts/api/views');</code></pre>
+<pre><code data-language="javascript">var sp = getSpotifyApi();
+var models = sp.require('$api/models');
+var views = sp.require('$api/views');</code></pre>
             </div>
 
             <h3>The HTML</h3>

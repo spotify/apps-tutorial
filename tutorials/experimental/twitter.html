@@ -26,9 +26,9 @@
             <div class="code-block">
 <pre><code data-language="javascript">window.onload = function() {
     /* Instantiate the global sp object; include models &amp; views */
-    var sp = getSpotifyApi(1);
-    var models = sp.require("sp://import/scripts/api/models");
-    var views = sp.require("sp://import/scripts/api/views");
+    var sp = getSpotifyApi();
+    var models = sp.require("$api/models");
+    var views = sp.require("$api/views");
 
     var xhr = new XMLHttpRequest();
     var request = 'http://search.twitter.com/search.json' +
@@ -88,9 +88,9 @@
         <script>
             window.onload = function() {
                 /* Instantiate the global sp object; include models & views */
-                var sp = getSpotifyApi(1);
-                var models = sp.require("sp://import/scripts/api/models");
-                var views = sp.require("sp://import/scripts/api/views");
+                var sp = getSpotifyApi();
+                var models = sp.require("$api/models");
+                var views = sp.require("$api/views");
 
                 var xhr = new XMLHttpRequest();
                 var request = 'http://search.twitter.com/search.json' +

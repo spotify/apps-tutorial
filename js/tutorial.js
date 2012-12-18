@@ -1,8 +1,8 @@
 "use strict";
 window.onload = function() {
-    var sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
-    var views = sp.require('sp://import/scripts/api/views');
+    var sp = getSpotifyApi();
+    var models = sp.require('$api/models');
+    var views = sp.require('$api/views');
 
     function htmlEscape(str) {
         return String(str)

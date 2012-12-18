@@ -13,9 +13,9 @@
         <div id="playlist"></div>
     </div>
     <script type="script/snippet" data-container="js">
-    var sp = getSpotifyApi(1);
-    var models = sp.require('sp://import/scripts/api/models');
-    var views = sp.require('sp://import/scripts/api/views');
+    var sp = getSpotifyApi();
+    var models = sp.require('$api/models');
+    var views = sp.require('$api/views');
     var playlist = models.Playlist.fromURI("spotify:user:mattias:playlist:1PDwG4hvy5n2pBf93A8R3r");
     var list = new views.List(playlist);
     // note: you can also customize columns by using

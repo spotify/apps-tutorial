@@ -14,8 +14,8 @@
         <div id="np"></div>
     </div>
     <script type="script/snippet" data-container="js">
-        var sp = getSpotifyApi(1);
-        var models = sp.require("sp://import/scripts/api/models");
+        var sp = getSpotifyApi();
+        var models = sp.require("$api/models");
         var player = models.player;
 
         // Get the track that is currently playing

@@ -15,8 +15,8 @@
     </div>
     <script type="script/snippet" data-container="js">
         /* Instantiate the global sp object; include auth */
-        var sp = getSpotifyApi(1);
-        var auth = sp.require('sp://import/scripts/api/auth');
+        var sp = getSpotifyApi();
+        var auth = sp.require('$api/auth');
 
         var app_id = '126891607432106';
         var permissions = ['user_actions.music'];

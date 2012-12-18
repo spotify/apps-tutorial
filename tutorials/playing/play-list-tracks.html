@@ -14,9 +14,9 @@
         <div id="multiple-tracks-player"></div><div id="multiple-tracks-list"></div>
     </div>
     <script type="script/snippet" data-container="js">
-        var sp = getSpotifyApi(1);
-        var models = sp.require("sp://import/scripts/api/models");
-        var views = sp.require("sp://import/scripts/api/views");
+        var sp = getSpotifyApi();
+        var models = sp.require("$api/models");
+        var views = sp.require("$api/views");
 
         var library_tracks = models.library.tracks;
 

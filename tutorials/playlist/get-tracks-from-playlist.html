@@ -13,8 +13,8 @@
         <ul id="playlist"></ul>
     </div>
     <script type="script/snippet" data-container="js">
-        var sp = getSpotifyApi(1);
-        var models = sp.require('sp://import/scripts/api/models');
+        var sp = getSpotifyApi();
+        var models = sp.require('$api/models');
 
         var playlist_url = 'http://open.spotify.com/user/jkeck99/playlist/21iMSq0jzTie7m7v4UcMlV';
         var playlistHTML = document.getElementById('playlist');

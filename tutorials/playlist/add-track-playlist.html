@@ -9,9 +9,9 @@
     <p>Check the console to see that the song was added (&#8984; + Option + J).</p>
 
     <script type="script/snippet" data-container="js">
-        var sp = getSpotifyApi(1);
+        var sp = getSpotifyApi();
 
-        var models = sp.require('sp://import/scripts/api/models');
+        var models = sp.require('$api/models');
 
         // Create a track object from a URI
         var track = models.Track.fromURI('spotify:track:7i105IWmto7KSH6jB27DO3');

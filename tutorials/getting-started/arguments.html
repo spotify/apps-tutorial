@@ -41,8 +41,8 @@
         </div>
     </div>
     <script type="script/snippet" data-container="js" data-execute="no">
-        var sp = getSpotifyApi(1);
-        var models = sp.require('sp://import/scripts/api/models');
+        var sp = getSpotifyApi();
+        var models = sp.require('$api/models');
 
         tabs();
         models.application.observe(models.EVENT.ARGUMENTSCHANGED, tabs);

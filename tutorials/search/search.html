@@ -13,8 +13,8 @@
         <ul id="results"></ul>
     </div>
     <script type="script/snippet" data-container="js">
-        var sp = getSpotifyApi(1);
-        var models = sp.require('sp://import/scripts/api/models');
+        var sp = getSpotifyApi();
+        var models = sp.require('$api/models');
 
         var search = new models.Search('Rihanna');
         search.localResults = models.LOCALSEARCHRESULTS.APPEND;

@@ -15,8 +15,8 @@
         </div>
     </div>
     <script type="script/snippet" data-container="js">
-        var sp = getSpotifyApi(1);
-        var models = sp.require('sp://import/scripts/api/models');
+        var sp = getSpotifyApi();
+        var models = sp.require('$api/models');
 
         var share_element = document.getElementById('share-popup');
         share_element.addEventListener('click', function() {
