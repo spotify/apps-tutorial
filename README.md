@@ -67,4 +67,3 @@ Your feedback is welcome! Please email mager@spotify.com.
  * Talking to Twitter
  * Create an EchoNest radio station
  * Display a Polymaps object
- * Template
