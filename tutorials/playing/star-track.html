@@ -1,0 +1,36 @@
+<div class="section">
+    <h1>Starring and unstarring tracks</h1>
+    <p class="description">You can star or unstar a track by changing its <code>starred</code> property. Click on the button to toggle starring.</p>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <button id="star" class="sp-button"></button>
+    </div>
+    <script type="script/snippet" data-container="js">
+        var sp = getSpotifyApi();
+        var models = sp.require('$api/models');
+
+        var starButton = document.getElementById('star');
+
+        var track = models.Track.fromURI('spotify:track:6ir397N8MSaMqKr1ZZ7FlU');
+
+        starButton.addEventListener('click', toggleStarring);
+
+        function toggleStarring() {
+            track.starred = !track.starred;
+            renderText();
+        }
+
+        function renderText() {
+            starButton.innerText = track.starred ? 'Unstar this track' : 'Star this track';
+        }
+
+        renderText();
+    </script>
+</div>
