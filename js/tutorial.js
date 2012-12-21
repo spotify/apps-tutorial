@@ -2,7 +2,6 @@
 window.onload = function() {
     var sp = getSpotifyApi();
     var models = sp.require('$api/models');
-    var views = sp.require('$api/views');
 
     function htmlEscape(str) {
         return String(str)
@@ -14,20 +13,24 @@ window.onload = function() {
     }
 
     function tabs() {
-
         var args = models.application.arguments;
-        if (args.indexOf('index') === -1) {
-            return;
-        }
+        if (args) {
+            var lastArg = args[args.length - 1];
+            if (lastArg !== 'index' && lastArg !== 'tabs') {
+                return;
+           }
+       }
 
         // compose file
-        var file = args.length == 1 ? 'index.html' : '/tutorials/' + args.slice(0, args.length-1).join('/') + '.html';
+        var file = args.length == 1 ? (args[0] + '.html') : '/tutorials/' + args.slice(0, args.length-1).join('/') + '.html';
         var xhr = new XMLHttpRequest();
         xhr.open('GET', file);
         xhr.onreadystatechange = function () {
             if (xhr.readyState != 4 || xhr.status != 200) return;
+
             var wrapper = document.getElementById('wrapper');
-            wrapper.innerHTML = '<ul class="breadcrumb"><li><a href="/index.html">&laquo; Back to main page</a></li></ul>' + xhr.responseText;
+            wrapper.innerHTML = args[0] === 'index' ? '' : '<ul class="breadcrumb"><li><a href="spotify:app:tutorial:index">&laquo; Back to main page</a></li></ul>';
+            wrapper.innerHTML += xhr.responseText;
 
             window.scrollTo(0, 0);
             var htmlSnippets = wrapper.querySelectorAll(".html-snippet");

@@ -11,7 +11,7 @@
     <h3>Live Example</h3>
     <div class="html-snippet" data-container="html">
         <img src="/img/fb-login.png" id="fb-login" />
-        <div id="status"><p></p></div>
+        <div id="status"></div>
     </div>
     <script type="script/snippet" data-container="js">
         /* Instantiate the global sp object; include models */
@@ -31,7 +31,7 @@
                 onSuccess: function(accessToken, ttl) {
                     fbButtonHTML.style.display = 'none';
                     var statusHTML = document.getElementById('status');
-                    statusHTML.firstChild.innerHTML = 'Your access token: ' + accessToken;
+                    statusHTML.innerText = 'Your access token: ' + accessToken;
                 },
                 onFailure: function(error) {
                     console.log('Authentication failed with error: ' + error);
