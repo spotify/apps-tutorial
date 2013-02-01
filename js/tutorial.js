@@ -29,7 +29,7 @@ window.onload = function() {
             if (xhr.readyState != 4 || xhr.status != 200) return;
 
             var wrapper = document.getElementById('wrapper');
-            wrapper.innerHTML = args[0] === 'index' ? '' : '<ul class="breadcrumb"><li><a href="spotify:app:tutorial:index">&laquo; Back to main page</a></li></ul>';
+            wrapper.innerHTML = args[0] === 'index' ? '' : '<ul class="breadcrumb"><li><a href="spotify:app:api-tutorial:index">&laquo; Back to main page</a></li></ul>';
             wrapper.innerHTML += xhr.responseText;
 
             window.scrollTo(0, 0);
