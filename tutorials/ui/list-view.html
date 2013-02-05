@@ -35,6 +35,9 @@
     <p class="description">You can also use light theme instead of the default dark one.</p>
     <div id="js-light"></div>
     <script type="script/snippet" data-container="js-light">
+    var sp = getSpotifyApi();
+    var models = sp.require('$api/models');
+    var views = sp.require('$api/views');
     var album = models.Album.fromURI("spotify:album:41bTjcSaiEe4G40RVVHbux");
     var list = new views.List(album);
     list.node.classList.add('sp-light');
