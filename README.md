@@ -10,7 +10,7 @@ This is a Spotify App that explains shows useful code snippets that can help you
  3. `cd ~/Spotify`
  4. `git clone git://github.com/spotify/apps-tutorial.git`
  6. Download the [latest version of Spotify](http://spotify.com/download)
- 7. Open Spotify and type "spotify:app:tutorial" in the search bar (restart Spotify completely in case it doesn't find the App at first)
+ 7. Open Spotify and type "spotify:app:api-tutorial" in the search bar (restart Spotify completely in case it doesn't find the App at first)
 
 ## More information
 
