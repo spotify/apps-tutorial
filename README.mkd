@@ -65,6 +65,6 @@ For API Guidelines, click [here](http://developer.spotify.com/download/spotify-a
  3. `cd ~/Spotify`
  4. `git clone git@github.com:spotify/apps-tutorial.git`
  6. Download the [latest version of Spotify](http://spotify.com/download)
- 7. Open Spotify and type "spotify:app:tutorial" in the search bar
+ 7. Open Spotify and type "spotify:app:api-tutorial" in the search bar
 
 Your feedback is welcome! Please email mager@spotify.com.
