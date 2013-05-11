@@ -12,6 +12,10 @@ This is a Spotify App that explains shows useful code snippets that can help you
  6. Download the [latest version of Spotify](http://spotify.com/download)
  7. Open Spotify and type "spotify:app:api-tutorial" in the search bar (restart Spotify completely in case it doesn't find the App at first)
 
+## Windows 7
+ 1. Clone to ~/Documents/Spotify (new folder)
+ 2. Rename app-tutorial to api-tutorial
+
 ## More information
 
  * [API Reference](https://developer.spotify.com/technologies/apps/docs/)
