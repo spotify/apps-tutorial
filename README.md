@@ -5,7 +5,7 @@ This is a Spotify App that explains shows useful code snippets that can help you
 
 ## Installation
 
- 1. Sign up for a [developer account on Spotify](http://developer.spotify.com/en/spotify-apps-api/developer-signup/)
+ 1. Sign up for a [developer account on Spotify](https://developer.spotify.com/technologies/apps/#developer-account) by logging in and agreeing to the [terms of use](https://developer.spotify.com/technologies/apps/terms-of-use/).
  2. Open Terminal, `mkdir ~/Spotify`
  3. `cd ~/Spotify`
  4. `git clone git://github.com/spotify/apps-tutorial.git`
