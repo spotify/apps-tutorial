@@ -16,7 +16,7 @@ If you want to have a look at the tutorial that uses version 1.x of the Spotify 
  1. Sign up for a [developer account on Spotify](https://developer.spotify.com/technologies/apps/#developer-account) by logging in and agreeing to the [terms of use](https://developer.spotify.com/technologies/apps/terms-of-use/).
  2. Open Terminal, `mkdir ~/Spotify`
  3. `cd ~/Spotify`
- 4. `git clone git://github.com/spotify/apps-tutorial.git`
+ 4. `git clone git://github.com/spotify/apps-tutorial.git api-tutorial`
  6. Download the [latest version of Spotify](http://spotify.com/download)
  7. Open Spotify and type "spotify:app:api-tutorial" in the search bar (restart Spotify completely in case it doesn't find the App at first)
 
