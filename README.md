@@ -1,7 +1,15 @@
 # Spotify Apps API Tutorial
-![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/master/img/screenshot.png)
 
-This is a Spotify App that explains shows useful code snippets that can help you make a [Spotify Apps](https://developer.spotify.com/technologies/apps/). It uses version 0.x of the Spotify Apps API. If you want to have a look at the tutorial that uses a preliminary version 1.x of the Spotify Apps API, [check the 1.0 branch](https://github.com/spotify/apps-tutorial/tree/1.0).
+**This tutorial app uses an old version of the Spotify Apps API. You can find an updated tutorial app [checking out the 1.0 branch](https://github.com/spotify/apps-tutorial/tree/1.0), and an [upgrade guide](https://developer.spotify.com/technologies/apps/upgrade-guide/1.0.0) to move to the most recent API. Master branch will contain version 1.0 in the nearly future.**
+
+This is a Spotify App that explains shows useful code snippets that can help you make a 
+[Spotify Apps](https://developer.spotify.com/technologies/apps/). It uses version 0.x of 
+the Spotify Apps API.
+
+If you want to have a look at the tutorial that uses version 1.x of the Spotify Apps API, 
+[check the 1.0 branch](https://github.com/spotify/apps-tutorial/tree/1.0).
+
+![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/master/img/screenshot.png)
 
 ## Installation
 
