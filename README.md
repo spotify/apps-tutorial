@@ -27,8 +27,7 @@ If you want to have a look at the tutorial that uses version 1.x of the Spotify 
  * [Spotify-tagged questions on StackOverflow](http://stackoverflow.com/questions/tagged/spotify)
  * [@SpotifyPlatform](https://twitter.com/#!/SpotifyPlatform) on Twitter
 
-Your feedback is welcome! Please email mager@spotify.com.
-
+Your feedback is welcome! Feel free to create issues and send pull requests.
 
 ## Topics covered
 
