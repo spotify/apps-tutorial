@@ -1,0 +1,71 @@
+<div class="section">
+    <h1>Return metadata with a given search query</h1>
+    <p class="description">Using <code>Search</code>, we can get albums, artists, tracks, and playlist data. Use <code>fuzzyMatch</code> for an alternate search query.</p>
+
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-search-search.html">Search</a>.
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="search-artists"></div>
+        <div id="search-albums"></div>
+        <div id="search-tracks"></div>
+        <div id="search-playlists"></div>
+    </div>
+
+    <script type="script/snippet" data-container="js">
+    require(['$api/search#Search'], function(Search) {
+        // Search
+        var mySearch = Search.search('Kendrick Lamar');
+
+        var maxResults = 5;
+
+        var searchArtists = document.getElementById('search-artists');
+        mySearch.artists.snapshot(0, maxResults).done(function(a){
+            searchArtists.innerHTML = '<h4>Artists (' + a.length + ')</h4>';
+            var artistResults = [];
+            for (var i = 0, l = Math.min(a.range.length, maxResults); i < l; i++) {
+                artistResults.push('<a href="' + a.get(i).uri + '">' + a.get(i).name + '</a>');
+            }
+            searchArtists.innerHTML += '<p>' + artistResults.join(', ') + '...</p>';
+        });
+
+        var searchAlbums = document.getElementById('search-albums');
+        mySearch.albums.snapshot(0, maxResults).done(function(a){
+            searchAlbums.innerHTML = '<h4>Albums (' + a.length + ')</h4>';
+            var albumsResults = [];
+            for (var i = 0, l = Math.min(a.range.length, maxResults); i < l; i++) {
+                albumsResults.push('<a href="' + a.get(i).uri + '">' + a.get(i).name + '</a>');
+            }
+            searchAlbums.innerHTML += '<p>' + albumsResults.join(', ') + '...</p>';
+        });
+
+        var searchTracks = document.getElementById('search-tracks');
+        mySearch.tracks.snapshot().done(function(t){
+            searchTracks.innerHTML = '<h4>Tracks (' + t.length + ')</h4>';
+            var tracksResults = [];
+            for (var i = 0, l = Math.min(t.range.length, maxResults); i < l; i++) {
+                tracksResults.push('<a href="' + t.get(i).uri + '">' + t.get(i).name + '</a>');
+            }
+            searchTracks.innerHTML += '<p>' + tracksResults.join(', ') + '...</p>';
+        });
+
+        var searchPlaylists = document.getElementById('search-playlists');
+        mySearch.playlists.snapshot().done(function(p){
+            searchPlaylists.innerHTML = '<h4>Playlists (' + p.length + ')</h4>';
+            var playlistsResults = [];
+            for (var i = 0, l = Math.min(p.range.length, maxResults); i < l; i++) {
+                playlistsResults.push('<a href="' + p.get(i).uri + '">' + p.get(i).name + '</a>');
+            }
+            searchPlaylists.innerHTML += '<p>' + playlistsResults.join(', ') + '...</p>';
+        });
+    });
+    </script>
+</div>

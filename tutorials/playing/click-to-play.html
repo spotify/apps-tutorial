@@ -1,0 +1,53 @@
+<div class="section">
+    <h1>Create a play/pause button with an HTML element</h1>
+    <p class="description">This code snippet will let you control the Player object with a click event.</p>
+
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-player.html">Player Model</a>
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <button id="play-me"></button>
+    </div>
+    <script type="script/snippet" data-container="js">
+    require(['$api/models'], function(models) {
+
+        var player = models.player,
+            playMeButton = document.getElementById('play-me');
+
+        function updateButton() {
+            if (player.playing) {
+                playMeButton.innerHTML = 'Pause';
+            } else {
+                playMeButton.innerHTML = 'Play';
+            }
+        }
+
+        // update on click
+        playMeButton.addEventListener('click', function() {
+            if (player.playing) {
+                player.pause();
+            } else {
+                player.play();
+            }
+            updateButton();
+        }, false);
+
+        // update on load
+        models.player.load('playing').done(function(p) {
+            updateButton();
+        });
+
+        // update on change
+        models.player.addEventListener('change', function() {updateButton();
+        });
+    });
+    </script>
+</div>

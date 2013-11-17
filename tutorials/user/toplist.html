@@ -1,0 +1,37 @@
+<div class="section">
+    <h1>Get a user's top tracks</h1>
+    <p class="description">Using the Toplist model, let's see what current user's most-listened tracks are.</p>
+
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-track.html">Track Model</a> and <a href="https://developer.spotify.com/docs/apps/api/1.0/api-toplists-toplist.html">Toplist Model</a>.
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <ul id="toplist"></ul>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/toplists#Toplist'], function(Toplist) {
+            var toplist = Toplist.forCurrentUser(),
+                toplist_HTML = document.getElementById('toplist');
+
+            toplist.tracks.snapshot().done(function(tracks) {
+                for (var i = 0; i < tracks.length; i++) {
+                    var t = tracks.get(i);
+                    var link = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.href = t.uri;
+                    link.appendChild(a);
+                    a.innerHTML = t.name;
+                    toplist_HTML.appendChild(link);
+                }
+            });
+        });
+    </script>
+</div>

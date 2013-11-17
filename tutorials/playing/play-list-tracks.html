@@ -1,0 +1,28 @@
+<div class="section">
+    <h1>Play a list of tracks</h1>
+    <p class="description">This snippet of code renders a playlist using a List view.</p>
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-playlist.html">Playlist Model</a> and <a href="https://developer.spotify.com/docs/apps/views/1.0/list-list.html">List View</a>.
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="playlist-player"></div>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/models', '$views/list#List'], function(models, List) {
+
+            var playlist = models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ'),
+                list = List.forPlaylist(playlist);
+
+            document.getElementById('playlist-player').appendChild(list.node);
+            list.init();
+        });
+    </script>
+</div>
