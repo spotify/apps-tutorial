@@ -1,6 +1,6 @@
 # Spotify Apps API Tutorial
 
-This is a Spotify App that explains shows useful code snippets that can help you make
+This is a Spotify App that shows useful code snippets that can help you build
 [Spotify Apps](https://developer.spotify.com/technologies/apps/). It uses the most recent version of the Spotify Apps API.
 
 ## Installation
