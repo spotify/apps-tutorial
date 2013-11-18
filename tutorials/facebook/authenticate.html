@@ -1,0 +1,52 @@
+<div class="section">
+    <h1>Authenticate a user with Facebook</h1>
+    <p class="description">Using the Auth module we can authenticate a user to an app we create on Facebook.</p>
+
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-auth-auth.html">Auth</a>.
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <button id="fb-login">Log in with Facebook</button>
+        <div id="status"></div>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/auth#Auth'], function(Auth) {
+
+            /* Set the permissions you want from the user. For more
+             * info, check out http://bit.ly/A4KCW3 */
+            var permissions = ['user_about_me'];
+            var appId = '126891607432106';
+            var fbButtonHTML = document.getElementById('fb-login');
+            var statusHTML = document.getElementById('status');
+
+            fbButtonHTML.addEventListener('click', authFB);
+
+            function authFB() {
+                fbButtonHTML.style.display = 'none';
+                var auth = new Auth();
+                auth.authenticateWithFacebook(appId, permissions)
+                    .done(function(params) {
+                        if (params.accessToken) {
+                            setStatus('Your access token: ' + params.accessToken);
+                        } else {
+                            setStatus('No access token returned');
+                        }
+                    }).fail(function(req, error) {
+                        setStatus('The Auth request ' + req + ' failed with error: ' + error);
+                    }).always(function() {});
+            }
+
+            function setStatus(status) {
+                statusHTML.innerHTML = status;
+            }
+        });
+    </script>
+</div>
