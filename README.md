@@ -42,6 +42,10 @@ This is a Spotify App that shows useful code snippets that can help you build
  * Get a user's top tracks
  * Star and unstar a track
 
+#### Facebook
+
+ * Authenticate a user with Facebook
+
 ## More information
 
  * [API Reference](https://developer.spotify.com/technologies/apps/docs/)
