@@ -1,6 +1,6 @@
 # Spotify Apps API Tutorial
 
-This is a Spotify App that explains shows useful code snippets that can help you make 
+This is a Spotify App that explains shows useful code snippets that can help you make
 [Spotify Apps](https://developer.spotify.com/technologies/apps/). It uses the most recent version of the Spotify Apps API.
 
 ## Installation
@@ -40,7 +40,6 @@ This is a Spotify App that explains shows useful code snippets that can help you
 #### Interacting with user data
 
  * Get a user's top tracks
- * Get a user's location
  * Star and unstar a track
 
 ## More information
