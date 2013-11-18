@@ -9,7 +9,7 @@ the Spotify Apps API.
 If you want to have a look at the tutorial that uses version 1.x of the Spotify Apps API, 
 [check the 1.0 branch](https://github.com/spotify/apps-tutorial/tree/1.0).
 
-![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/master/img/screenshot.png)
+![Spotify Apps Tutorial home screen](https://github.com/spotify/apps-tutorial/raw/0.X/img/screenshot.png)
 
 ## Installation
 
