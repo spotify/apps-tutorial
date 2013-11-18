@@ -1,0 +1,35 @@
+<div class="section">
+    <h1>Show "Share" popup</h1>
+    <p class="description">One of the greatest features of Spotify is the ability to share music with your social graph. With a few lines of code, we can interact with the "Share" popup dialog.</p>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <button id="share-popup" class="button icon">
+            <span class="share"></span>
+            Share
+        </button>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/models'], function(models) {
+            var element = document.getElementById('share-popup');
+
+            var item = models.Track.fromURI('spotify:track:2P2S1wxZYQYHRYDip79JiY');
+
+            element.addEventListener('click', function() {
+                var rect = element.getBoundingClientRect();
+
+                models.client.showShareUI(item, 'Check out this track!', {
+                        x: rect.left,
+                        y: rect.top
+                    }
+                );
+            }, false);
+        });
+    </script>
+</div>

@@ -1,0 +1,55 @@
+<div class="section">
+    <h1>Starring and unstarring tracks</h1>
+    <p class="description">You can star or unstar a track through the <code>star</code> and <code>unstar</code> functions from the Library model.</p>
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-track.html">Track Model</a> and <a href="https://developer.spotify.com/docs/apps/api/1.0/api-library-library.html">Library Model</a>.
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <button id="star" class="sp-button"></button>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/library#Library'], function(Library) {
+
+            var currentLibrary = Library.forCurrentUser();
+
+            // track to star
+            var track = models.Track.fromURI('spotify:track:6ir397N8MSaMqKr1ZZ7FlU');
+
+            var button = document.getElementById('star');
+
+            function updateStarButton(starred) {
+                if (starred) {
+                    button.innerHTML = 'Unstar';
+                } else {
+                    button.innerHTML = 'Star';
+                }
+            }
+
+            button.addEventListener('click', function() {
+                track.load('starred').done(function(t) {
+                    if (t.starred) {
+                        currentLibrary.unstar(track).done(function() {
+                            updateStarButton(false);
+                        });
+                    } else {
+                        currentLibrary.star(track).done(function() {
+                            updateStarButton(true);
+                        });
+                    }
+                });
+            });
+
+            track.load('starred').done(function(t) {
+                updateStarButton(t.starred);
+            });
+        });
+    </script>
+</div>

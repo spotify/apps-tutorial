@@ -1,0 +1,38 @@
+<div class="section">
+    <h1>Skip to the next or previous track</h1>
+    <p class="description">This code snippet will let you control the move along the queue of songs.</p>
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-player.html">Player Model</a>
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <button id="previous">&lt; Previous</button>
+        <button id="next">Next &gt;</button>
+    </div>
+    <script type="script/snippet" data-container="js">
+    require(['$api/models'], function(models) {
+        var player = models.player;
+
+        var previous = document.getElementById('previous');
+        var next = document.getElementById('next');
+
+        previous.addEventListener('click', skipPrevious);
+        next.addEventListener('click', skipNext);
+
+        function skipPrevious(){
+            player.skipToPrevTrack();
+        }
+
+        function skipNext(){
+            player.skipToNextTrack();
+        }
+    });
+    </script>
+</div>

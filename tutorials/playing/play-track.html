@@ -1,0 +1,31 @@
+<div class="section">
+    <h1>Play a single track</h1>
+    <p class="description">This snippet of code plays a hardcoded Spotify URI.</p>
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-track.html">Track Model</a> and <a href="https://developer.spotify.com/docs/apps/views/1.0/image-image.html">Image View</a>.
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="single-track-player"></div>
+    </div>
+
+    <script type="script/snippet" data-container="js">
+        require(['$api/models', '$views/image#Image'], function(models, Image) {
+
+            // Play a single track
+            var track = models.Track.fromURI('spotify:track:7B1Dl3tXqySkB8OPEwVvSu');
+            var image = Image.forTrack(track, {player: true});
+
+            // Pass the player HTML code to the #single-track-player div
+            document.getElementById('single-track-player')
+                .appendChild(image.node);
+        });
+    </script>
+</div>

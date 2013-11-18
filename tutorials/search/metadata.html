@@ -1,0 +1,173 @@
+<div class="section">
+    <h1>Get metadata from an artist, album, track, or playlist</h1>
+    <p class="description">You can get back more metadata than ever in this version of the API. Check out the examples below. Be sure to properly create snapshots when <code>Collection</code> types are returned.</p>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="artist-metadata"></div>
+        <div id="album-metadata"></div>
+        <div id="track-metadata"></div>
+        <div id="playlist-metadata"></div>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/models'], function(models) {
+
+            var artist_metadata_HTML = document.getElementById('artist-metadata');
+
+            var artist_metadata_properties = [
+                'biography',
+                'genres',
+                'name',
+                'popularity',
+                'portraits',
+                'related',
+                'uri',
+                'years'
+            ];
+
+            models.Artist.fromURI('spotify:artist:7hJcb9fa4alzcOq3EaNPoG') 
+                .load(artist_metadata_properties)
+                .done(function(a) {
+                    var html = '';
+                    html = '<h4>Artist metadata</h4>'
+                    html += '<p>Name: ' + a.name.decodeForHtml() + '</p>';
+                    html += '<p>Bio: ' + a.biography.substring(0, 400) + '...</p>';
+                    html += '<p>Genres: ' + a.genres.join(', ') + '</p>';
+                    html += '<p>Popularity: ' + a.popularity + '</p>';
+                    for (var i=0; i<3; i++) { // Just show 3 portraits
+                        var image = document.createElement('img');
+                        image.setAttribute('src', a.portraits[i]);
+                        artist_metadata_HTML.appendChild(image);
+                    }
+
+                    a.related.snapshot().done(function(r){
+                        var related_artists = r.toArray();
+                        var related_artist_names = [];
+                        for (var i=0; i<related_artists.length; i++){
+                            related_artist_names.push(related_artists[i].name);
+                        }
+                        related_artist_names = related_artist_names.join(', ');
+                        html += '<p>Related artists: ' + related_artist_names + '</p>';
+                        artist_metadata_HTML.innerHTML = html;
+                    })
+
+                });
+
+            var album_metadata_HTML = document.getElementById('album-metadata');
+            var album_metadata_properties = [
+                'artists',
+                'availability',
+                'copyrights',
+                'discs',
+                'label',
+                'name',
+                'playable',
+                'popularity',
+                'tracks',
+                'type',
+                'uri'
+            ];
+
+            models.Album.fromURI('spotify:album:6Yfaff9em7z9TmO9QQscpw')
+                .load(album_metadata_properties)
+                .done(function(a) {
+                    var html = '';
+                    html += '<h4>Album metadata</h4>';
+                    html += '<p>Name: ' + a.name.decodeForHtml() + '</p>';
+                    html += '<p>Date: ' + a.date + '</p>';
+                    html += '<p>Availability: ' + a.availability + ' (playable = '+ a.playable +')</p>';
+                    html += '<p>Copyrights: ' + a.copyrights.join(', ') + '</p>';
+                    var image = document.createElement('img');
+                    image.setAttribute('src', a.image);
+                    album_metadata_HTML.appendChild(image);
+                    a.tracks.snapshot().done(function(t){
+                        var tracks = t.toArray();
+                        var track_names = '';
+                        for(i=0;i<tracks.length;i++){
+                            track_names += '<li>' + tracks[i].name + '</li>';
+                        }
+                        html += '<ol>' + track_names.toString() + '</ol>';
+                    });
+                    album_metadata_HTML.innerHTML = html;
+            });
+
+            var track_metadata_HTML = document.getElementById('track-metadata');
+            var track_metadata_properties = [
+                'album',
+                'artists',
+                'availability',
+                'duration',
+                'explicit',
+                'name',
+                'number',
+                'playable',
+                'popularity',
+                'starred',
+                'uri'
+            ];
+
+            models.Track.fromURI('spotify:track:4675yUu8AUbE72T94BkLCD')
+                .load('name')
+                .done(function(t) {
+                    var html = '';
+                    html += '<h4>Track metadata</h4>';
+                    html += '<p>Name: ' + t.name + '</p>';
+                    html += '<p>Album: ' + t.album + '</p>';
+                    html += '<p>Artists: ' + t.artists.join(', '); + '</p>';
+                    html += '<p>Availability: ' + t.availability + '</p>';
+                    html += '<p>Duration: ' + t.duration + ' (in milliseconds)</p>';
+                    html += '<p>Explicit: ' + t.explicit + '</p>';
+                    html += '<p>Popularity: ' + t.popularity + '</p>';
+                    html += '<p>Starred: ' + t.starred + '</p>';
+                    track_metadata_HTML.innerHTML = html;
+            });
+            
+
+            var playlist_metadata_HTML = document.getElementById('playlist-metadata');
+            var playlist_metadata_properties = [
+                'collaborative',
+                'description',
+                'name',
+                'owner',
+                'published',
+                'subscribed',
+                'subscribers',
+                'tracks'
+            ];
+
+            models.Playlist.fromURI('spotify:user:billboard.com:playlist:6UeSakyzhiEt4NB3UAd6NQ')
+                .load(playlist_metadata_properties)
+                .done(function(p) {
+                    var html = '';
+                    html += '<h4>playlist metadata</h4>';
+                    html += '<p>Name: ' + p.name.decodeForHtml() + '</p>';
+                    html += '<p>Collaborative: ' + p.collaborative + '</p>';
+                    html += '<p>Description: ' + p.description.decodeForHtml() + '</p>';
+                    html += '<p>Owner: ' + p.owner + '</p>';
+                    html += '<p>Published: ' + p.published + '</p>';
+                    html += '<p>Subscribed: ' + p.subscribed + '</p>';
+
+                    models.Promise.join([
+                        p.subscribers.snapshot(),
+                        p.tracks.snapshot()
+                    ]).done(function (result) {
+                        html += '<p>Subscribers: ' + result[0].length + '</p>';
+
+                        var tracks = result[1].toArray();
+                        var track_names = '';
+                        for(var i=0; i<tracks.length; i++){
+                            track_names += '<li>' + tracks[i].name + '</li>';
+                        }
+                        html += '<ol>' + track_names.toString() + '</ol>';
+                    });
+                    playlist_metadata_HTML.innerHTML = html;
+                });
+        });
+    </script>
+</div>

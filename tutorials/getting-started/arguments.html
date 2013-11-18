@@ -1,0 +1,78 @@
+<div class="section">
+    <h1>Handling arguments and creating navigational tabs</h1>
+    <p class="description">In the manifest.json file, you can update the <code>DefaultTabs</code> property with arguments that correspond to nagivational tab names. In the <code>Application</code> class, when tabs are clicked, the arguments property is updated. In this example, we are simply showing and hiding a &lt;div /&gt; element each time the arguments are updated.</p>
+
+    <h3>The manifest.json snippet</h3>
+    <div class="code-block">
+        <pre><code data-language="javascript">{
+    ...
+    "DefaultTabs": [
+        {
+            "arguments": "index",
+            "title": {
+                "en": "Home"
+            }
+        },
+        {
+            "arguments": "tabs",
+            "title": {
+                "en": "How to use tabs"
+            }
+        }
+    ],
+    ...
+}</code></pre>
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="index">
+        <!-- This content will show up in the "Home" tab -->
+        </div>
+
+        <div id="tabs">
+        <!-- This content will show up in the "How to use tabs" tab -->
+        </div>
+    </div>
+    <script type="script/snippet" data-container="js" data-execute="no">
+require(['$api/models'], function(models) {
+
+    // When application has loaded, run tabs function
+    models.application.load('arguments').done(tabs);
+
+    // When arguments change, run tabs function
+    models.application.addEventListener('arguments', tabs);
+
+    function tabs() {
+        var args = models.application.arguments;
+        var current = document.getElementById(args[0]);
+        var sections = document.getElementsByClassName('section');
+        for (var i = 0, l = sections.length; i &lt; l; i++){
+            sections[i].style.display = 'none';
+        }
+        current.style.display = 'block';
+    }
+});
+    </script>
+
+    <p class="description">For a small app, showing and hiding certain elements on a page can be enough. However, a different approach would be to split the content in several HTML pages.</p>
+    <p class="description">Links should look like this:</p>
+    <div class="code-block">
+    <pre><code data-language="html">&lt;a href="spotify:app:api-tutorial:mypage"&gt;A link to a page&lt;/a&gt;</code></pre>
+    </div>
+    <p class="description">You can still navigate to an internal page using a link such as this:</p>
+    <div class="code-block">
+    <pre><code data-language="html">&lt;a href="/tutorial/mypage.html"&gt;An internal link to a page&lt;/a&gt;</code></pre>
+    </div>
+    <p class="description">However, Spotify URIs are cleaner, don't expose implementation and work across Spotify, not only inside a given app. In addition, they manage tab highlighting. For instance, a link like this:
+    <div class="code-block">
+    <pre><code data-language="html">&lt;a href="spotify:app:api-tutorial:tabs:section"&gt;A link to a section in the 'Tabs' tab&lt;/a&gt;</code></pre>
+    </div>
+    <p class="description">Will highlight our second tab (the one with label 'How to use tabs') because the 'tabs' part in the URI matches the arguments set for that tab in the manifest.json file.</p>
+</div>

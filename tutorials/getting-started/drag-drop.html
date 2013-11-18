@@ -1,0 +1,70 @@
+<div class="section">
+    <h1>Dragging and dropping content into an app</h1>
+    <p class="description">Using the built-in HTML "Drag &amp; Drop", we are able to detect and use content dragged into a Spotify App. You can read more about this in the <a href="https://developer.spotify.com/technologies/apps/guidelines/developer/#draganddropofcontent">Developer Guidelines</a>.</p>
+    <h3>The manifest.json file</h3>
+    <p>You need to add the ApplicationLinkTypes property to the manifest.json file, setting what type of content you want to support:</p>
+    <ul>
+        <li>album</li>
+        <li>artist</li>
+        <li>playlist</li>
+        <li>track</li>
+        <li>user</li>
+        <li>image</li>
+    </ul>
+
+    <p>For example:</p>
+    <code>
+    "ApplicationLinkTypes": [
+        "playlist"
+    ]
+    </code>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <div id="drop-box">Drop a playlist here</div>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/models'], function(models) {
+
+            // Handle drops
+            var dropBox = document.querySelector('#drop-box');
+
+            dropBox.addEventListener('dragstart', function(e){
+                e.dataTransfer.setData('text/html', this.innerHTML);
+                e.dataTransfer.effectAllowed = 'copy';
+            }, false);
+
+            dropBox.addEventListener('dragenter', function(e){
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+                this.classList.add('over');
+            }, false);
+
+            dropBox.addEventListener('dragover', function(e){
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+                return false;
+            }, false);
+
+            dropBox.addEventListener('dragleave', function(e){
+                e.preventDefault();
+                this.classList.remove('over');
+            }, false);
+
+            dropBox.addEventListener('drop', function(e){
+                e.preventDefault();
+                var drop = models.Playlist.fromURI(e.dataTransfer.getData('text'));
+                this.classList.remove('over');
+                var successMessage = document.createElement('p');
+                successMessage.innerHTML = 'Playlist successfully dropped: ' + drop.uri;
+                this.appendChild(successMessage);
+            }, false);
+        });
+    </script>
+</div>
