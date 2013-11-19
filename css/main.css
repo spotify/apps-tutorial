@@ -1,5 +1,4 @@
 /* Main Elements */
-
 body {
 	font-family: 'Lucida Grande',Tahoma,Calibri,Arial,sans-serif;
 	font-size: 12px;
@@ -75,3 +74,5 @@ ul {margin:0 0 20px;}
 .buttons button {margin: 0 20px 0 0;} 
 
 body, html {overflow:visible !important;}
+
+code {-webkit-user-select: auto;}
