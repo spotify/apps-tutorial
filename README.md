@@ -9,8 +9,9 @@ This is a Spotify App that shows useful code snippets that can help you build
  2. Create the Spotify folder if it doesn't exist already: `~/Spotify` (Mac OS X and Linux) or `My Documents\Spotify` (Windows).
  3. Open the Spotify folder.
  4. Run `git clone git://github.com/spotify/apps-tutorial.git api-tutorial`.
- 5. Download the [latest version of Spotify](http://spotify.com/download).
- 6. Open Spotify and type "spotify:app:api-tutorial" in the search bar (restart Spotify completely in case it doesn't find the App at first).
+ 5. Download [the desktop client of Spotify](http://spotify.com/download).
+ 6. Open the desktop client and type `spotify:app:api-tutorial` in the Search box.
+ 7. If the app doesn't load, restart Spotify completely and type again `spotify:app:api-tutorial` in the Search box.
 
 ## Topics covered
 
