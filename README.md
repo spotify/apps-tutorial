@@ -48,7 +48,7 @@ This is a Spotify App that shows useful code snippets that can help you build
  * Authenticate a user with Facebook
 
 ## More information
-
+ * [Spotify Developer Site](https://developer.spotify.com/) where you can find all the information about the Sporify Developer Tools and subscribe to the newsletter.
  * [API Reference](https://developer.spotify.com/technologies/apps/docs/)
  * [Integration Guidelines](http://developer.spotify.com/download/spotify-apps-api/guidelines/)
  * [Spotify-tagged questions on StackOverflow](http://stackoverflow.com/questions/tagged/spotify)
