@@ -1,0 +1,30 @@
+<div class="section">
+    <h1>Get information about the current user</h1>
+    <p class="description">Using the Session model, let's see information about the current user.</p>
+
+    <div class="reference">
+        Reference: <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-session.html">Session Model</a> and <a href="https://developer.spotify.com/docs/apps/api/1.0/api-models-user.html">User Model</a>.
+    </div>
+
+    <h3>The Javascript</h3>
+    <div id="js"></div>
+
+    <h3>The HTML</h3>
+    <div id="html"></div>
+
+    <h3>Live Example</h3>
+    <div class="html-snippet" data-container="html">
+        <h4>User's name and user's username</h4>
+        <div id="user-info"></div>
+    </div>
+    <script type="script/snippet" data-container="js">
+        require(['$api/models'], function(models) {
+            models.session.load('user').done(function(s) {
+                s.user.load('name', 'username').done(function(u) {
+                    document.getElementById('user-info').innerHTML =
+                        'Name: ' + u.name.decodeForHtml() + ' - Username: ' + u.username.decodeForHtml();
+                });
+            });
+        });
+    </script>
+</div>
