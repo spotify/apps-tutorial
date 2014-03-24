@@ -1,3 +1,7 @@
+| Closure of Spotify Apps Submissions   |
+| ------------------------------------- |
+| Spotify closed the submission process for new apps on the 24th of March 2014. You can still develop apps using this tutorial, but your app will not be released through the App Finder and will thus not be accessible to other users. Please read the [announcement](http://devnews.spotify.com/2014/03/24/closure-of-spotify-apps-submissions/) on our Developer News site for more information. |
+
 # Spotify Apps API Tutorial
 
 This is a Spotify App that shows useful code snippets that can help you build
